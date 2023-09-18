@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-link active" :href="homePath">Accueil</a>
-                <a class="nav-link active" :href="materialPath">Map</a>
+                <a class="nav-link active" :href="mapPath">Map</a>
                 <a class="nav-link active" :href="scenarioPath">Institution</a>
                 <a class="nav-link active" :href="eventPath">Profil</a>
                 <a class="nav-link active" :href="adminPath">Admin</a>
@@ -77,6 +77,7 @@ export default {
     return {
       logoPath: './src/assets/images/FR-DE_HEdS.png',  // Remplacez 'path_to_your_logo' par le chemin réel vers votre logo
       homePath: '/', // Remplacez par le chemin réel vers la page d'accueil si différent
+      mapPath: '/map', // Remplacez par le chemin réel vers la page Map si différent
       adminPath: '/admin' // Remplacez par le chemin réel vers la page Admin si différent
     };
   },
