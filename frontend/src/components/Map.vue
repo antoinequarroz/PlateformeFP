@@ -43,7 +43,7 @@ export default {
           "long": 7.5668,
           "title": "CMS",
           "url": "https://www.booking.com/"
-        }
+        },
       ]
     };
   },
