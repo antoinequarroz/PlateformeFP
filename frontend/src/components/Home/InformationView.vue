@@ -195,6 +195,17 @@ Main Banner START -->
               </svg>
             </figure>
 
+            <div class="p-3 bg-blur border border-light shadow rounded-4 position-absolute bottom-0 start-0 z-index-9 d-none d-xl-block mb-5 ms-5">
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Icon -->
+                <span class="icon-lg bg-warning rounded-circle"><i class="fas fa-hospital text-white"></i></span>
+                <!-- Info -->
+                <div class="text-start ms-3">
+                  <h6 class="mb-0 text-white">Trouver votre place de stage <span class="ms-4"><i class="fas fa-check-circle text-success"></i></span></h6>
+                </div>
+              </div>
+            </div>
+
             <!-- Image -->
             <div class="position-relative">
               <img class="img-physio" src="/src/assets/images/heds/image/physioHomePage.png" alt="">
