@@ -292,8 +292,8 @@ export default {
 
 <style scoped>
 .img-physio {
-  width: 85%;
-  height: 85%;
+  width: 70%;
+  height: 80%;
   object-fit: cover;
 }
 

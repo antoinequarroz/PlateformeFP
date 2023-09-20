@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/heds-admin-js.iml" filepath="$PROJECT_DIR$/.idea/heds-admin-js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PlateformeFP.iml" filepath="$PROJECT_DIR$/.idea/PlateformeFP.iml" />
     </modules>
   </component>
 </project>
