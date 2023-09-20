@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-import FooterSection from './components/Footer.vue'
-import Footer from "./components/Footer.vue";
+import Navbar from './components/Utils/Navbar.vue'
+import FooterSection from './components/Utils/Footer.vue'
+import Footer from "./components/Utils/Footer.vue";
 
 export default {
   components: {
