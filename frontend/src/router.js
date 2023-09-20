@@ -7,6 +7,7 @@ import Profile from "./components/Home/Profile.vue";
 import Error404 from "./components/Utils/Error404.vue";
 import AdminDashboard from "./components/Dashboard/AdminDashboard.vue";
 import InstitutionList from "./components/Dashboard/DashboardList/InstitutionList.vue";
+import EtudiantList from "./components/Dashboard/DashboardList/EtudiantList.vue";
 
 const routes = [
     { path: '/', component: HomePage },
@@ -17,6 +18,7 @@ const routes = [
     { path: '/admin', component: AdminDashboard },
     { path: '/:pathMatch(.*)*', component: Error404 },
     { path: '/institution_list', component: InstitutionList },
+    { path: '/etudiant_list', component: EtudiantList },
 
     // ... autres routes si nécessaires
 ]

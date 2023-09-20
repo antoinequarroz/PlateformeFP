@@ -5,10 +5,10 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-              <h1 class="h3 mb-2">Liste des institutions</h1>
-              <p class="mb-2">Il y a 12 institutions d'enregistrés dans la base de données</p>
+              <h1 class="h3 mb-2">Liste des étudiants</h1>
+              <p class="mb-2">Il y a 12 étudiants d'enregistrés dans la base de données</p>
               <div>
-                <button class="btn btn-sm btn-primary m-1">Ajouter une institution</button>
+                <button class="btn btn-sm btn-primary m-1">Ajouter un.e étudiants</button>
                 <button class="btn btn-sm btn-secondary m-1">Retour</button>
               </div>
             </div>
@@ -68,7 +68,7 @@
 <script>
 
 export default {
-  name: "InstitutionList",
+  name: "EtudiantList",
   data() {
     return {
 

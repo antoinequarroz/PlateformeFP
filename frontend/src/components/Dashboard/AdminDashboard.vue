@@ -21,7 +21,7 @@
 
 
             <!-- menu item 2 -->
-            <li class="nav-item"> <a class="nav-link"><i class="fas fa-regular fa-school fa-fw me-2" ></i>Étudiant</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="etudiantListPath"><i class="fas fa-regular fa-school fa-fw me-2" ></i>Étudiant</a></li>
 
             <!-- Menu item 3 -->
             <li class="nav-item"> <a class="nav-link" :href="institutionListPath"><i class="fas fa-regular fa-hospital fa-fw me-2" ></i>Institution</a></li>
@@ -113,6 +113,7 @@ export default {
         // plus de données de graphique ici si nécessaire
       ],
       institutionListPath: '/institution_list',
+      etudiantListPath: '/etudiant_list',
 
     }
   },
