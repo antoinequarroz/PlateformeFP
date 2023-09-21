@@ -8,8 +8,9 @@
               <h1 class="h3 mb-2">Liste des étudiants</h1>
               <p class="mb-2">Il y a 12 étudiants d'enregistrés dans la base de données</p>
               <div>
-                <button class="btn btn-sm btn-primary m-1">Ajouter un.e étudiants</button>
-                <button class="btn btn-sm btn-secondary m-1">Retour</button>
+                <button class="btn btn-sm btn-primary m-1" @click="goToEtudiantForm">Ajouter un étudiant</button>
+                <button class="btn btn-sm btn-secondary m-1" @click="goToAdminDashboard">Retour</button>
+
               </div>
             </div>
             <div class="table-responsive mt-3">
@@ -76,7 +77,12 @@ export default {
   },
 
   methods: {
-
+    goToEtudiantForm() {
+      this.$router.push({ name: 'EtudiantForm' });
+    },
+    goToAdminDashboard() {
+      this.$router.push({ name: 'AdminDashboard' });
+    },
   }
 };
 </script>
