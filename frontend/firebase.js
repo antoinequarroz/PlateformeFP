@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
@@ -13,5 +12,12 @@ const firebaseConfig = {
     appId: "1:695199918094:web:4504dc1940316e17f0f45f"
 };
 
-// Initialize Firebase
+// Initialisez Firebase en utilisant initializeApp directement, sans faire référence à firebase.
 const app = initializeApp(firebaseConfig);
+
+// Obtenez une instance de la base de données en utilisant getDatabase.
+const db = getDatabase(app);
+
+console.log(db);
+
+export { db };
