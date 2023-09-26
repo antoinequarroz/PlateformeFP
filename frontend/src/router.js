@@ -26,7 +26,7 @@ const routes = [
     { path: '/etudiant_list', component: EtudiantList },
     { path: '/institution_form', component: InstitutionForm, name: 'InstitutionForm'  },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
-    { path: '/institution/:instSlug', component: InstitutionDetails, name: 'institution-details', props: true },
+    { path: '/institution_details/:instSlug', component: InstitutionDetails, name: 'institution-details', props: true },
     { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },
     { path: '/new_user', component: NewUser, name: 'NewUser'  }
 
