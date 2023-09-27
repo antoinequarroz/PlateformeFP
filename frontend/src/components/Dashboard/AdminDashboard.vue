@@ -40,6 +40,10 @@
 
             <!-- Menu item 9 -->
             <li class="nav-item"> <a class="nav-link"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
+            <!-- Menu item 10 -->
+            <li class="nav-item"> <a class="nav-link" :href="placeDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Tableau des Places</a></li>
+            
+            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Crearte PFP</a></li>
 
           </ul>
           <!-- Sidebar menu end -->
@@ -114,6 +118,8 @@ export default {
       ],
       institutionListPath: '/institution_list',
       etudiantListPath: '/etudiant_list',
+      placeDetailsPath: '/place_details',
+      PFPDetailsPath: '/PFP_details',
 
     }
   },

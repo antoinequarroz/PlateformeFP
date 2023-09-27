@@ -12,6 +12,8 @@ import InstitutionForm from "./components/Dashboard/DashboardForms/InstitutionFo
 import EtudiantForm from "./components/Dashboard/DashboardForms/EtudiantForm.vue";
 import InstitutionDetails from "./components/Dashboard/DashboardDetails/InstitutionDetails.vue";
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
+import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
+import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
 import NewUser from "./components/Dashboard/DashboardForms/NewUser.vue";
 
 const routes = [
@@ -27,6 +29,8 @@ const routes = [
     { path: '/institution_form', component: InstitutionForm, name: 'InstitutionForm'  },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
     { path: '/institution_details/:instSlug', component: InstitutionDetails, name: 'institution-details', props: true },
+    { path: '/place_details', component: PlaceDetails, name: 'place-details'},
+    { path: '/pfp_details', component: PFPDetails, name: 'pfp-details'},
     { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },
     { path: '/new_user', component: NewUser, name: 'NewUser'  }
 
