@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'NewUser',
+  name: 'NewUserForm',
   // Toutes les données, méthodes et autres propriétés liées à la logique et au matériel ont été supprimées
 };
 </script>

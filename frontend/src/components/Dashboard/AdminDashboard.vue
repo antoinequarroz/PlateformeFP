@@ -26,20 +26,23 @@
             <!-- Menu item 3 -->
             <li class="nav-item"> <a class="nav-link" :href="institutionListPath"><i class="fas fa-regular fa-hospital fa-fw me-2" ></i>Institution</a></li>
 
-            <!-- Menu item 4 -->
-            <li class="nav-item"> <a class="nav-link"><i class="fas fa-football-ball fa-fw me-2"></i>SAE</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="placeDeStageListPath"> <i class="fas fa-user fa-fw me-2"></i>Place de stage</a></li>
 
             <!-- Menu item 6 -->
-            <li class="nav-item"> <a class="nav-link"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="valdidationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
 
             <!-- Menu item 7 -->
-            <li class="nav-item"> <a class="nav-link"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="userListPath"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
+
+            <li class="nav-item"> <a class="nav-link" :href="enseignantListPath"> <i class="fas fa-user fa-fw me-2"></i>Enseignant</a></li>
+
+            <li class="nav-item"> <a class="nav-link" :href="praticienFormateurListPath"> <i class="fas fa-user fa-fw me-2"></i>Praticien formateur</a></li>
 
             <!-- Menu item 8 -->
-            <li class="nav-item"> <a class="nav-link"> <i class="fas fa-stamp fa-fw me-2"></i>Statistiques</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="statistiquesPath"> <i class="fas fa-stamp fa-fw me-2"></i>Statistiques</a></li>
 
             <!-- Menu item 9 -->
-            <li class="nav-item"> <a class="nav-link"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="faqAdminPath"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
 
           </ul>
           <!-- Sidebar menu end -->
@@ -114,6 +117,14 @@ export default {
       ],
       institutionListPath: '/institution_list',
       etudiantListPath: '/etudiant_list',
+      userListPath: '/user_list',
+      placeDeStageListPath: '/place_de_stage_list',
+      praticienFormateurListPath: '/praticien_formateur_list',
+      enseignantListPath: '/enseignant_list',
+      valdidationPath: '/validation',
+      statistiquesPath: '/statistiques',
+      faqAdminPath: '/faq_admin',
+
 
     }
   },

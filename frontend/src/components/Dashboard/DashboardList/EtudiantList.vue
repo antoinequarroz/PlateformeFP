@@ -2,9 +2,9 @@
   <div>
     <div class="search-elements">
       <div class="classes-checkboxes text-center">
-        <label><input type="checkbox" value="B23" v-model="classes"> B23</label>
-        <label><input type="checkbox" value="B22" v-model="classes"> B22</label>
-        <label><input type="checkbox" value="B21" v-model="classes"> B21</label>
+        <label><input type="checkbox" value="B23" v-model="classes"> BA23</label>
+        <label><input type="checkbox" value="B22" v-model="classes"> BA22</label>
+        <label><input type="checkbox" value="B21" v-model="classes"> BA21</label>
         <label><input type="checkbox" value="PRO" v-model="classes"> PRO</label>
       </div>
       <div class="search-bar text-center">
@@ -31,7 +31,7 @@
                   <thead>
                     <tr>
                       <th scope="col" class="border-0 rounded-start">Nom</th>
-                      <th scope="col" class="border-0">Prenom</th>
+                      <th scope="col" class="border-0">Prénom</th>
                       <th scope="col" class="border-0">Classe</th>
                       <th scope="col" class="border-0">Responsable stage</th>
                       

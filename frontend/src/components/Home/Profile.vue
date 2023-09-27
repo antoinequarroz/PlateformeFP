@@ -15,8 +15,7 @@ export default {
     }
   },
   mounted() {
-    this.initMap();
-    this.addLocationsToMap();
+
   },
   methods: {
   },
