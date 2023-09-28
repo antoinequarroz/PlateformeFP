@@ -96,7 +96,7 @@
           <!-- Responsive offcanvas body START -->
           <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
             <div class="offcanvas-header bg-light">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Advance Filter</h5>
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Filtre avancé</h5>
               <button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body p-3 p-lg-0">
@@ -107,28 +107,12 @@
                   <!-- Category group -->
                   <div class="col-12">
                     <!-- Checkbox -->
-                    <div class="d-flex justify-content-between align-items-center" v-for="cat in category.categories" :key="cat.id">
+                    <div class="d-flex justify-content-between align-items-center" v-for="(value, key) in category.categories" :key="key">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" :value="cat.label" :id="cat.id">
-                        <label class="form-check-label" :for="cat.id">{{ cat.label }}</label>
-                      </div>
-                      <span class="small">({{ cat.count }})</span>
-                    </div>
-
-                    <!-- Collapse body -->
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                      <div class="card card-body p-0">
-                        <!-- Checkbox -->
-                        <div class="d-flex justify-content-between align-items-center" v-for="collapsedCat in category.collapsedCategories" :key="collapsedCat.id">
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" :value="collapsedCat.label" :id="collapsedCat.id">
-                            <label class="form-check-label" :for="collapsedCat.id">{{ collapsedCat.label }}</label>
-                          </div>
-                          <span class="small">(.lenght)</span>
-                        </div>
+                        <input class="form-check-input" type="checkbox" v-model="category.categories[key]" :id="key">
+                        <label class="form-check-label" :for="key">{{ key }}</label>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
@@ -207,38 +191,15 @@ export default {
       currentPage: 1,
       itemsPerPage: 21,
       category: {
-      "title": "Category",
-          "categories": [
-        {
-          "id": "flexCheckDefault9",
-          "label": "Toutes les catégories",
-        },
-        {
-          "id": "flexCheckDefault10",
-          "label": "AIGU",
-        },
-        {
-          "id": "flexCheckDefault11",
-          "label": "REA",
-        },
-        {
-          "id": "flexCheckDefault12",
-          "label": "AMBU",
-        },
-        {
-          "id": "flexCheckDefault17",
-          "label": "MSQ",
-        },
-        {
-          "id": "flexCheckDefault13",
-          "label": "NEUROGER",
-        },
-        {
-          "id": "flexCheckDefault14",
-          "label": "SYSINT",
-        }
-      ],
-    }
+        title: "Catégories",
+        categories: {
+          AIGU: false,
+          AMBU: false,
+          MSQ: false,
+          REA: false,
+          SYSINT: false,
+        }  // Nous allons remplir cela avec les données de Firebase
+      }
     };
   },
   computed: {

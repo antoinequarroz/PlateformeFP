@@ -208,7 +208,7 @@ Main Banner START -->
 
             <!-- Image -->
             <div class="position-relative">
-              <img class="img-physio" src="/src/assets/images/heds/image/physioHomePage.png" alt="">
+              <img class="img-physio" src="/src/assets/images/heds/image/christophebaur.png" alt="">
             </div>
           </div>
           <!-- Right content END -->

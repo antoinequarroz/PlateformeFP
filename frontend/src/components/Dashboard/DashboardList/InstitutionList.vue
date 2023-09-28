@@ -45,8 +45,8 @@
                     <!-- ... Autres cellules ... -->
                     <td>
 
-                      <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0"
-                        @click="goToDetails(institution.id)">Détails</button>
+                      <button class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0" @click="goToDetails(institution.id)">Détails</button>
+                      <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0" @click="goToInstitutionForm(institution.id)">Modifier</button>
                       <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Supprimer</button>
                     </td>
                   </tr>
