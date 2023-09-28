@@ -135,7 +135,7 @@
             <div v-for="(stage, index) in stages" :key="index">
               <!-- Afficher les données de stage ici -->
             </div>
-            <button @click="supprimerTousLesStages" class="btn btn-danger">Supprimer tous les stages</button>
+            <button @click="supprimerTousLesStages" class="btn btn-danger">Supprimer tous les places</button>
 
 
             <div class="mb-3">

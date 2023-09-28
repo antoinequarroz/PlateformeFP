@@ -8,48 +8,21 @@
 </template>
 
 <script>
+import { db } from '../../../firebase.js';
+import { ref, onValue } from "firebase/database";
+
 export default {
   name: 'Map',
   data() {
     return {
       map: null,
       tileLayer: null,
-      locations: [
-        {
-          "id": 1,
-          "lat": 46.4802,
-          "long": 7.0841,
-          "src": 'images/1.jpg',
-          "title": "Actifisio",
-          "url": "https://www.booking.com/"
-        },
-        {
-          "id": 2,
-          "lat": 46.12292,
-          "long": 7.3668,
-          "title": "Labo XYZ",
-          "url": "https://www.google.com/"
-        },
-        {
-          "id": 3,
-          "lat": 46.22292,
-          "long": 7.5668,
-          "title": "Suva",
-          "url": "https://www.booking.com/"
-        },
-        {
-          "id": 4,
-          "lat": 46.252292,
-          "long": 7.5668,
-          "title": "CMS",
-          "url": "https://www.booking.com/"
-        },
-      ]
+      institutions: []
     };
   },
   mounted() {
     this.initMap();
-    this.addLocationsToMap();
+    this.fetchInstitutionsFromFirebase();
   },
   methods: {
     initMap() {
@@ -61,27 +34,39 @@ export default {
       this.tileLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
       this.tileLayer.addTo(this.map);
     },
+    fetchInstitutionsFromFirebase() {
+      const institutionsRef = ref(db, 'institutions/');
+      onValue(institutionsRef, (snapshot) => {
+        const data = snapshot.val();
+        this.institutions = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        this.addLocationsToMap();
+      });
+    },
     addLocationsToMap() {
       let popupOption = {
-        "closeButton": false
+        "closeButton": true,
+        "maxWidth": 300
       };
-      this.locations.forEach(element => {
-        new L.Marker([element.lat, element.long]).addTo(this.map)
-            .on("mouseover", event => {
-              event.target.bindPopup('<div class="card"><h3>' + element.title + '</h3><br><br> Lien :  www.' + element.title + '.com </div>', popupOption).openPopup();
-            })
-            .on("mouseout", event => {
-              event.target.closePopup();
-            })
-            .on("click", () => {
-              window.open(element.url);
-            });
+      this.institutions.forEach(element => {
+        new L.Marker([element.Latitude, element.Longitude]).addTo(this.map)
+            .bindPopup(`
+              <div class="card">
+                <h3>${element.Name}</h3>
+                <p>Lieu: ${element.Lieu}</p>
+                <p>Canton: ${element.Canton}</p>
+                <a href="${element.URL}" target="_blank">Site Web</a>
+                <br>
+                <button @click="goToDetails(${element.id})">Détails</button>
+              </div>
+            `, popupOption);
       });
+    },
+    goToDetails(instId) {
+      this.$router.push({ name: 'institution-details', params: { instId } });
     }
   }
 }
 </script>
 
 <style scoped>
-/* Si vous avez des styles dans "style.css", vous pouvez les intégrer ici. */
 </style>
