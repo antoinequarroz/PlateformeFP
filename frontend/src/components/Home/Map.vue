@@ -2,7 +2,8 @@
   <section class="position-relative overflow-hidden pt-5 pt-lg-3">
     <div class="container">
       <h1>Map</h1>
-      <div id="map" style="height: 400px;"></div>
+      <h3>Liste des différentes places de stages en Suisse</h3>
+      <div id="map" style="height: 600px;"></div>
     </div>
   </section>
 </template>

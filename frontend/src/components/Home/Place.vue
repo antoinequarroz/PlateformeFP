@@ -24,3 +24,5 @@ export default {
 <style scoped>
 /* Si vous avez des styles dans "style.css", vous pouvez les intégrer ici. */
 </style>
+
+
