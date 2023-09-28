@@ -111,21 +111,26 @@
               <label for="sysint" class="form-check-label">SYSINT</label>
             </div>
 
-
-            <div v-for="(place, index) in placesDeStage" :key="index">
-              <div class="mb-3">
-                <label for="sector">Secteur:</label>
-                <span>{{ place.Sector }}</span>
-              </div>
-
-              <div class="mb-3">
-                <label for="npmPractitionerTrainer">NPM Praticien Formateur:</label>
-                <span>{{ place.NpmPractitionerTrainer }}</span>
-              </div>
-
-              <!-- Et ainsi de suite pour les autres propriétés de place de stage -->
-
+            <div>
+              <ul v-if="placedestages && placedestages.length">
+                <li v-for="placedestage in placedestages" :key="placedestage.id">
+                  <h2>{{ placedestage.Sector }}</h2>
+                  <ul>
+                    <li>{{ placedestage.AIGU }}</li>
+                    <li>{{ placedestage.AMBU }}</li>
+                    <li>{{ placedestage.MSQ }}</li>
+                    <li>{{ placedestage.NEUROGER }}</li>
+                    <li>{{ placedestage.NpmPractitionerTrainer }}</li>
+                    <li>{{ placedestage.REA }}</li>
+                    <li>{{ placedestage.SYSINT }}</li>
+                    <li>{{ placedestage.Sector }}</li>
+                    <li>{{ placedestage.idInstitution }}</li>
+                  </ul>
+                </li>
+              </ul>
+              <p v-else>Pas de places de stage disponibles</p>
             </div>
+
 
             <div v-for="(stage, index) in stages" :key="index">
               <!-- Afficher les données de stage ici -->
@@ -174,7 +179,7 @@
 <script>
 
 import { db } from '../../../../firebase.js';
-import { ref, onValue, set, get } from "firebase/database";
+import { ref, onValue, set, off, update } from "firebase/database";
 import { watch } from 'vue'; // Importer le hook 'watch'
 
 export default {
@@ -182,7 +187,22 @@ export default {
   data() {
     return {
       isStageAdded: false,
-
+      placedestages: [
+        // ici, vous allez initialiser vos données de place de stage
+        {
+          AIGU: false,
+          AMBU: false,
+          MSQ: false,
+          NEUROGER: false,
+          NpmPractitionerTrainer: "fasd",
+          REA: false,
+          SYSINT: false,
+          Sector: "fdsa",
+          id: "stage-1695746026635",
+          idInstitution: "-Neh_TtoZ491E9bvxjZQ"
+        },
+        // Ajoutez d'autres objets de stage si nécessaire
+      ],
       institution: {
         Cyberlearn: '',
         Name: '',
@@ -203,7 +223,6 @@ export default {
 
         // ... autres propriétés ...
         checkBoxItems: ['AIGU', 'REA', 'AMBU', 'MSQ', 'NEUROGER', 'SYSINT'],
-        placesDeStage: [],
 
         stages: [], // Assurez-vous que c'est bien un tableau vide
       },
@@ -211,31 +230,39 @@ export default {
 
     };
   },
-
   methods: {
+
+
+
+
     supprimerTousLesStages() {
       this.institution.stages = [];
     },
 
+
     async envoyerDonnees() {
       try {
         const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
-        await set(stageRef, this.institution.stages); // Envoyer les données de stages à la table 'placedestage'
+        const newStageData = {};
+        for (const stage of this.institution.stages) {
+          newStageData[stage.id] = stage; // Structurer les données pour Firebase avec des ID uniques
+        }
+        await update(stageRef, newStageData); // Envoyer les données de stages à la table 'placedestage'
         this.institution.stages = [];
-
-      //  this.$router.push({ name: 'InstitutionProfile', params: { instSlug: this.$route.params.instSlug } }); // Naviguer vers le profil de l'institution
       } catch (error) {
         console.error('Erreur lors de l’envoi des données de stage:', error);
       }
     },
 
- 
+
     ajouterPlaceDeStage() {
-      this.isStageAdded = true; // Désactiver le bouton après avoir ajouté une place de stage
+      this.isStageAdded = false; // Désactiver le bouton après avoir ajouté une place de stage
 
       const newStage = {
+        id: `stage-${Date.now()}`, // Ajouter un ID unique basé sur le timestamp actuel
         Sector: '',
         NpmPractitionerTrainer: '',
+        idInstitution: this.$route.params.instSlug,
       };
 
       for (const item of this.institution.checkBoxItems) {
@@ -245,12 +272,16 @@ export default {
       this.institution.stages.push(newStage);
     },
     // ... autres méthodes ...
+
+
+
   },
 
 
 
 
   async mounted() {
+
     // Configuration Firebase
     const instId = this.$route.params.instSlug; // Supposant que l'ID est passé en tant que paramètre de route
     console.log(instId);
@@ -268,39 +299,46 @@ export default {
       onlyOnce: true,
     });
 
-    const placedestageRef = ref(db, 'placedestage'); // Ajustement ici
-  
-  onValue(placedestageRef, (snapshot) => {
-    if (snapshot.exists()) {
-      const allPlaces = snapshot.val();
-      this.placesDeStage = Object.values(allPlaces)
-        .filter(place => place.institutionId === instId);
-    } else {
-      console.error('Pas de places de stage disponibles');
-    }
-  });
+    const placedestageRef = ref(db, 'placedestage/-Neh_TtoZ491E9bvxjZQ/');
+    console.log("11d");
 
-    const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug);
-    onValue(stageRef, (snapshot) => {
+    onValue(placedestageRef, (snapshot) => {
+      console.log("11a");
+
       if (snapshot.exists()) {
-        this.stages = snapshot.val();
+        console.log("11");
+        const allPlacedestage = snapshot.val();
+        const matchedPlacedestage = Object.values(allPlacedestage).filter(
+          placedestage => placedestage.idInstitution === this.$route.params.instSlug
+
+        );
+
+        // Mettre à jour les données en temps réel
+        this.placedestages = matchedPlacedestage;
+        console.log("ffd");
       } else {
-        console.error('Pas de données de stage disponibles');
+        console.error('Pas de placedestagess ddidsponibles');
+        this.placedestages = [];
       }
-    }, {
-      onlyOnce: true,
     });
+
 
     // Mettre en place un watcher sur l'objet institution
     watch(() => this.institution, async (newVal) => {
       try {
         await set(instRef, newVal); // Mettre à jour la base de données à chaque changement
       } catch (error) {
-        console.error('Error updating institution:', error);
+        console.error('Error updatsing institution:', error);
       }
     }, { deep: true }); // L'option deep: true permet d'observer les propriétés imbriquées de l'objet institution
   },
+  beforeUnmount() {
+    if (this.placedestageRef) off(this.placedestageRef); // Detach the listener when the component is unmounted
+
+  }
+
 };
+
 </script>
 
 <style scoped>

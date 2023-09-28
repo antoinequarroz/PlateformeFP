@@ -12,14 +12,17 @@ import InstitutionForm from "./components/Dashboard/DashboardForms/InstitutionFo
 import EtudiantForm from "./components/Dashboard/DashboardForms/EtudiantForm.vue";
 import InstitutionDetails from "./components/Dashboard/DashboardDetails/InstitutionDetails.vue";
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
+
+import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
+import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
+import NewUser from "./components/Dashboard/DashboardForms/NewUser.vue";
+
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
-import PlaceDeStageForm from "./components/Dashboard/DashboardForms/PlaceDeStageForm.vue";
-import PlaceDeStageList from "./components/Dashboard/DashboardList/PlaceDeStageList.vue";
-import PlaceDeStageDetails from "./components/Dashboard/DashboardDetails/PlaceDeStageDetails.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
 import PraticienFormateurList from "./components/Dashboard/DashboardList/PraticienFormateurList.vue";
 import PraticienFormateurDetails from "./components/Dashboard/DashboardDetails/PraticienFormateurDetails.vue";
+
 
 
 const routes = [
@@ -35,12 +38,11 @@ const routes = [
     { path: '/institution_form', component: InstitutionForm, name: 'InstitutionForm'  },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
     { path: '/institution_details/:instSlug', component: InstitutionDetails, name: 'institution-details', props: true },
+    { path: '/place_details', component: PlaceDetails, name: 'place-details'},
+    { path: '/pfp_details', component: PFPDetails, name: 'pfp-details'},
     { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },
     { path: '/new_user_form', component: NewUserForm, name: 'NewUserForm'  },
     { path: '/user_list', component: UserList, name: 'UserList' },
-    { path: '/place_de_stage_form', component: PlaceDeStageForm, name: 'PlaceDeStageForm'  },
-    { path: '/place_de_stage_list', component: PlaceDeStageList, name: 'PlaceDeStageList' },
-    { path: '/place_de_stage_details/:placeDeStageSlug', component: PlaceDeStageDetails, name: 'place-de-stage-details', props: true },
     { path: '/praticien_formateur_form', component: PraticienFormateurForm, name: 'PraticienFormateurForm'  },
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
     { path: '/praticien_formateur_details/:praticienFormateurSlug', component: PraticienFormateurDetails, name: 'praticien-formateur-details', props: true },

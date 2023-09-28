@@ -42,7 +42,13 @@
             <li class="nav-item"> <a class="nav-link" :href="statistiquesPath"> <i class="fas fa-stamp fa-fw me-2"></i>Statistiques</a></li>
 
             <!-- Menu item 9 -->
+
+            <li class="nav-item"> <a class="nav-link" :href="placeDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Tableau des Places</a></li>
+            
+            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Crearte PFP</a></li>
+            
             <li class="nav-item"> <a class="nav-link" :href="faqAdminPath"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
+
 
           </ul>
           <!-- Sidebar menu end -->
@@ -117,14 +123,15 @@ export default {
       ],
       institutionListPath: '/institution_list',
       etudiantListPath: '/etudiant_list',
+
+      placeDetailsPath: '/place_details',
+      PFPDetailsPath: '/PFP_details',
       userListPath: '/user_list',
-      placeDeStageListPath: '/place_de_stage_list',
       praticienFormateurListPath: '/praticien_formateur_list',
       enseignantListPath: '/enseignant_list',
       valdidationPath: '/validation',
       statistiquesPath: '/statistiques',
       faqAdminPath: '/faq_admin',
-
 
     }
   },
