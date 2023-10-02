@@ -54,7 +54,7 @@
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ institution.Canton }}</a>
                   </div>
                   <!-- Title -->
-                  <h5 class="card-title fw-normal"><a :href="institution.URL">{{ institution.Name }}</a></h5>
+                  <h5 class="card-title fw-normal"><a :href="institutionDetailsPath + institution.id">{{ institution.Name }}</a></h5>
                   <p class="mb-2 text-truncate-2">{{ institution.Description }}</p>
                   <span class="h6 fw-light mb-0">{{ institution.Street }}</span>
                 </div>
@@ -116,6 +116,23 @@
                   </div>
                 </div>
 
+                <div class="card card-body shadow p-4 mb-4">
+                  <!-- Title -->
+                  <h4 class="mb-3">{{ canton.title }}</h4>
+                  <!-- Category group -->
+                  <div class="row">
+                    <div class="col-6" v-for="(value, key) in canton.cantons" :key="key">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" v-model="canton.cantons[key]" :id="key">
+                          <label class="form-check-label" :for="key">{{ key }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <!-- Skill level START -->
                 <div class="card card-body shadow p-4 mb-4">
                   <!-- Title -->
@@ -152,13 +169,18 @@
                   <ul class="list-inline mb-0 g-3">
                     <!-- Item -->
                     <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-2">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-2">Français</label>
+                      <input type="checkbox" class="btn-check" id="btn-check-1">
+                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-1">Français</label>
                     </li>
                     <!-- Item -->
                     <li class="list-inline-item mb-2">
+                      <input type="checkbox" class="btn-check" id="btn-check-2">
+                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-2">Allemand</label>
+                    </li>
+
+                    <li class="list-inline-item mb-2">
                       <input type="checkbox" class="btn-check" id="btn-check-3">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-3">Allemand</label>
+                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-3">Bilingue</label>
                     </li>
                   </ul>
                 </div>
@@ -187,6 +209,7 @@ export default {
   name: 'Institution',
   data() {
     return {
+      institutionDetailsPath: '/institution_details/',
       institutions: [],
       currentPage: 1,
       itemsPerPage: 21,
@@ -194,12 +217,46 @@ export default {
         title: "Catégories",
         categories: {
           AIGU: false,
-          AMBU: false,
-          MSQ: false,
           REA: false,
+          MSQ: false,
           SYSINT: false,
-        }  // Nous allons remplir cela avec les données de Firebase
-      }
+          NEURO_GER: false,
+          AMBU: false,
+        }
+      },
+    canton: {
+        title: "Cantons",
+        cantons: {
+          VD: false,
+          VS: false,
+          GE: false,
+          FR: false,
+          NE: false,
+          JU: false,
+          BE: false,
+          SO: false,
+          BS: false,
+          BL: false,
+          AG: false,
+          ZH: false,
+          SH: false,
+          TG: false,
+          TI: false,
+          GR: false,
+          LU: false,
+          OW: false,
+          NW: false,
+          UR: false,
+          SZ: false,
+          ZG: false,
+          GL: false,
+          SG: false,
+          AR: false,
+          AI: false,
+          FL: false,
+          Étranger: false,
+        }
+    }
     };
   },
   computed: {
