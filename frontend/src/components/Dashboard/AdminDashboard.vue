@@ -26,8 +26,6 @@
             <!-- Menu item 3 -->
             <li class="nav-item"> <a class="nav-link" :href="institutionListPath"><i class="fas fa-regular fa-hospital fa-fw me-2" ></i>Institution</a></li>
 
-            <li class="nav-item"> <a class="nav-link" :href="placeDeStageListPath"> <i class="fas fa-user fa-fw me-2"></i>Place de stage</a></li>
-
             <!-- Menu item 6 -->
             <li class="nav-item"> <a class="nav-link" :href="valdidationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
 
@@ -43,9 +41,10 @@
 
             <!-- Menu item 9 -->
 
+            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Création PFP</a></li>
+
             <li class="nav-item"> <a class="nav-link" :href="placeDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Tableau des Places</a></li>
-            
-            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Crearte PFP</a></li>
+
             
             <li class="nav-item"> <a class="nav-link" :href="faqAdminPath"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
 

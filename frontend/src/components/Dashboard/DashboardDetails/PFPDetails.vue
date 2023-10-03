@@ -5,6 +5,7 @@
 
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
+          <h1>Créer une PFP</h1>
           <label for="pfpSelection" class="form-label">Sélectionnez un PFP</label>
           <select class="form-select" id="pfpSelection" v-model="selectedPFP" @change="filterPlacedestage">
             <option value="">Tous les PFPs</option>
@@ -43,7 +44,7 @@
                 <th>SYSINT </th>
                 <th>NEUROGER </th>
                 <th>AMBU </th>
-                <th>SAE</th>
+                <th>Cas particulier</th>
                 <th>Étudiant SAE</th>
 
               </tr>

@@ -12,7 +12,6 @@ import InstitutionForm from "./components/Dashboard/DashboardForms/InstitutionFo
 import EtudiantForm from "./components/Dashboard/DashboardForms/EtudiantForm.vue";
 import InstitutionDetails from "./components/Dashboard/DashboardDetails/InstitutionDetails.vue";
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
-
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
 
@@ -21,6 +20,7 @@ import UserList from "./components/Dashboard/DashboardList/UserList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
 import PraticienFormateurList from "./components/Dashboard/DashboardList/PraticienFormateurList.vue";
 import PraticienFormateurDetails from "./components/Dashboard/DashboardDetails/PraticienFormateurDetails.vue";
+import Faq from "./components/Home/Faq.vue";
 
 
 
@@ -45,6 +45,7 @@ const routes = [
     { path: '/praticien_formateur_form', component: PraticienFormateurForm, name: 'PraticienFormateurForm'  },
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
     { path: '/praticien_formateur_details/:praticienFormateurSlug', component: PraticienFormateurDetails, name: 'praticien-formateur-details', props: true },
+    { path: '/faq', component: Faq, name: 'Faq' },
 
     // ... autres routes si nécessaires
 ]
