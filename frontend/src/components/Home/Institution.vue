@@ -35,7 +35,7 @@
                 <i class="fas fa-sliders-h me-1"></i> Voirt le filtre
               </button>
               <!-- Advanced filter responsive toggler END -->
-              <p class="mb-0 text-end">voir les 1-20 sur 300 résultats</p>
+              <p class="mb-0 text-end">voir les {{ displayedRangeStart }}-{{ displayedRangeEnd }} sur {{ totalInstitutions }} résultats</p>
             </div>
           </div>
           <!-- Search option END -->
@@ -92,7 +92,7 @@
           </div>
         </div>
         <!-- Right sidebar START -->
-        <div class="col-lg-4 col-xl-3 pt-9 mt-2">
+        <div class="col-lg-4 col-xl-3 pt-7">
           <!-- Responsive offcanvas body START -->
           <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
             <div class="offcanvas-header bg-light">
@@ -213,6 +213,11 @@ export default {
       institutions: [],
       currentPage: 1,
       itemsPerPage: 21,
+      totalInstitutions: 0,
+      displayedRange: {
+        start: 1,
+        end: 21
+      },
       category: {
         title: "Catégories",
         categories: {
@@ -224,7 +229,7 @@ export default {
           AMBU: false,
         }
       },
-    canton: {
+      canton: {
         title: "Cantons",
         cantons: {
           VD: false,
@@ -256,7 +261,7 @@ export default {
           FL: false,
           Étranger: false,
         }
-    }
+      }
     };
   },
   computed: {
@@ -264,6 +269,15 @@ export default {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
       return this.institutions.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.institutions.length / this.itemsPerPage);
+    },
+    displayedRangeStart() {
+      return (this.currentPage - 1) * this.itemsPerPage + 1;
+    },
+    displayedRangeEnd() {
+      return Math.min(this.currentPage * this.itemsPerPage, this.totalInstitutions);
     },
     totalPages() {
       return Math.ceil(this.institutions.length / this.itemsPerPage);
@@ -278,6 +292,7 @@ export default {
       onValue(institutionsRef, (snapshot) => {
         const data = snapshot.val();
         this.institutions = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        this.totalInstitutions = this.institutions.length; // Mettre à jour le total ici
       });
     },
     nextPage() {
