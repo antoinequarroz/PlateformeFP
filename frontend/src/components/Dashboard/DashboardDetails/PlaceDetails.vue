@@ -1,5 +1,17 @@
 <template>
   <div class="container">
+    <div class="container">
+      <div class="container">
+        <label for="annee_civil">Année Académique :</label>
+        <select v-model="annee_civil" id="annee_civil">
+          <option v-for="annee in anneescivils" :key="annee" :value="annee">{{ annee }}</option>
+        </select>
+      </div>
+      <!-- ... autres éléments ... -->
+      <div class="container">
+        <button @click="ajouterAnneecivil">Ajouter Année Académique</button>
+      </div>
+    </div>
     <section class="pt-5">
       <div class="container">
         <div v-if="Object.keys(placedestages).length">
@@ -26,7 +38,7 @@
             </thead>
             <tbody>
               <template v-for="(places, id) in placedestages">
-                <tr v-for="place in places"  :key="place.id">
+                <tr v-for="place in places" :key="place.id">
                   <td>{{ place.idInstitution }}</td>
                   <td>{{ place.Sector }}</td>
                   <td>{{ place.NpmPractitionerTrainer }}</td>
@@ -39,11 +51,28 @@
                   <td><input type="checkbox" :checked="place.NEUROGER" @change="updateFirebase('NEUROGER', place)" /></td>
                   <td><input type="checkbox" :checked="place.AMBU" @change="updateFirebase('AMBU', place)" /></td>
 
-                  <td><input type="checkbox" :checked="place.PFP2" @change="updateFirebase('PFP2', place)" /></td>
-                  <td><input type="checkbox" :checked="place.PFP1A" @change="updateFirebase('PFP1A', place)" /></td>
-                  <td><input type="checkbox" :checked="place.PFP1B" @change="updateFirebase('PFP1B', place)" /></td>
-                  <td><input type="checkbox" :checked="place.PFP4" @change="updateFirebase('PFP4', place)" /></td>
-                  <td><input type="checkbox" :checked="place.PFP3" @change="updateFirebase('PFP3', place)" /></td>
+                  <td>
+                    <input type="checkbox" :checked="isStageChecked('PFP2', place.id)"
+                      @change="toggleStage('PFP2', place.id, place, $event.target.checked)" />
+
+                  </td>
+
+                  <td>
+                    <input type="checkbox" :checked="isStageChecked('PFP1A', place.id)"
+                      @change="toggleStage('PFP1A', place.id, place, $event.target.checked)" />
+                  </td>
+                  <td>
+                    <input type="checkbox" :checked="isStageChecked('PFP1B', place.id)"
+                      @change="toggleStage('PFP1B', place.id, place, $event.target.checked)" />
+                  </td>
+                  <td>
+                    <input type="checkbox" :checked="isStageChecked('PFP3', place.id)"
+                      @change="toggleStage('PFP3', place.id, place, $event.target.checked)" />
+                  </td>
+                  <td>
+                    <input type="checkbox" :checked="isStageChecked('PFP4', place.id)"
+                      @change="toggleStage('PFP4', place.id, place, $event.target.checked)" />
+                  </td>
                 </tr>
               </template>
             </tbody>
@@ -59,20 +88,130 @@
 
 <script>
 import { db } from '../../../../firebase.js';
-import { ref, onValue, set, off, update } from "firebase/database";
+import { ref, onValue, set, off, get, update } from "firebase/database";
 import { watch } from 'vue'; // Importer le hook 'watch'
+import { reactive } from 'vue';
+
 export default {
   name: 'PlaceDetails',
   data() {
     return {
-      placedestages: [],
+      annee_civil: '',  // ajoutez cette ligne
       institutions: {},
-
+      anneescivils: [],
+      placedestages: [],
+      stages: reactive({}),
     };
   },
+  computed: {
+
+  },
+  watch: {
+    async annee_civil(newValue) {
+      console.log('Année académique sélectionnée:', newValue);
+      await this.fetchStages(newValue);
+    },
+  },
+
+
+
 
   methods:
+
   {
+    async toggleStage(pfp, stageId, place, isChecked) {
+      try {
+        console.log('toggleStage called', { pfp, stageId, place, isChecked });
+
+        const annee = this.annee_civil;
+        const stageRef = ref(db, `annees_civils/${annee}/${pfp}/${stageId}/active`);
+
+        // Mettre à jour la valeur de 'active' dans la base de données avec l'état actuel de la case à cocher
+        await set(stageRef, isChecked);
+
+        // Vérifiez que this.stages[pfp] et this.stages[pfp][stageId] sont bien définis
+        if (!this.stages[pfp]) {
+            this.stages[pfp] = {};
+        }
+        if (!this.stages[pfp][stageId]) {
+            this.stages[pfp][stageId] = { active: isChecked };
+        } else {
+            this.stages[pfp][stageId].active = isChecked;
+        }
+        await this.fetchStages(this.annee_civil);  // re-fetch data after a change
+
+
+
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour de l’état du stage dans la base de données:', error);
+      }
+    },
+
+
+
+
+    async fetchStages(annee) {
+      const stagesRef = ref(db, `annees_civils/${annee}`);
+      onValue(stagesRef, (snapshot) => {
+        if (snapshot.exists()) {
+          this.stages = snapshot.val();
+        } else {
+          console.error('Pas de données de stage disponibles pour cette année académique');
+          this.stages = {};
+        }
+      });
+    },
+
+    isStageChecked(pfp, stageId) {
+      return this.stages[pfp]?.[stageId]?.active || false;
+    },
+
+
+
+    async ajouterAnneecivil() {
+      const annee = prompt('Veuillez entrer la nouvelle année académique:');
+      const nouvelleAnneeRef = ref(db, `annees_civils/${annee}`);
+
+
+
+      if (annee) {
+        try {
+          // Récupérez tous les ID de stages de la table placedestage
+          const placedestageRef = ref(db, 'placedestage/');
+          let stagesIds = {};
+
+          await onValue(placedestageRef, (snapshot) => {
+            if (snapshot.exists()) {
+              const allPlacedestage = snapshot.val();
+              for (const id in allPlacedestage) {
+                const places = allPlacedestage[id];
+                for (const placeId in places) {
+                  if (!stagesIds[placeId]) stagesIds[placeId] = {}; // Initialisez stagesIds[placeId] comme un objet si ce n'est pas déjà le cas
+                  stagesIds[placeId].active = false; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
+                }
+              }
+            }
+          });
+
+
+          // Créer une référence pour la nouvelle année académique dans Firebase
+          await set(nouvelleAnneeRef, {
+            PFP1A: stagesIds, // Ajoutez les ID de stages en tant qu'enfants de chaque PFP
+            PFP2: stagesIds,
+            PFP1B: stagesIds,
+            PFP3: stagesIds,
+            PFP4: stagesIds,
+          });
+
+          alert(`Année académique ${annee} ajoutée avec succès!`);
+        } catch (error) {
+          console.error('Erreur lors de l’ajout de l’année académique:', error);
+          alert('Erreur lors de l’ajout de l’année académique. Veuillez réessayer.');
+        }
+      }
+    },
+
+
 
     async updateFirebase(field, place) {
       const placeRef = ref(db, `placedestage/${place.idInstitution}/${place.id}`); // Mettez à jour avec le chemin réel à votre place dans Firebase
@@ -85,28 +224,65 @@ export default {
 
 
     getInstitutionName(idInstitution) {
-      return this.institutions[idInstitution]?.Name || 'Nom incondnu';
+      return this.institutions[idInstitution]?.Name || 'Nom inconnu';
     },
   },
-  mounted() {
+
+
+
+
+  async mounted() {
     // Configurer Firebase
+    await this.fetchStages(this.annee_civil);
+
+    const annee = this.annee_civil;
+    const stagesRef = ref(db, `annees_civils/${annee}`);
+
+    const pfp2Ref = ref(db, `annees_civils/${this.annee_civil}/PFP2`);
+    onValue(pfp2Ref, (snapshot) => {
+      if (snapshot.exists()) {
+        this.stages.PFP2 = snapshot.val();
+      }
+    });
+
+    // Écouter les changements en temps réel et mettre à jour la propriété 'stages'
+    // Écouter les changements en temps réel et mettre à jour la propriété 'stages'
+    onValue(stagesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.stages = snapshot.val();
+      }
+    });
+
+
+    // Récupérer les années académiques de Firebase
+    const anneescivilsRef = ref(db, 'annees_civils');
+    onValue(anneescivilsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.anneescivils = Object.keys(snapshot.val()); // Mettre à jour la propriété anneescivils avec les clés de l'objet récupéré
+      } else {
+        console.error('Pas d’années académiques disponibles');
+        this.anneescivils = [];
+      }
+    });
+
     const placedestageRef = ref(db, 'placedestage/');
     console.log("ffd");
+
 
     onValue(placedestageRef, (snapshot) => {
       if (snapshot.exists()) {
         const allPlacedestage = snapshot.val();
-      const validPlacedestage = {};
-      
-      // Filtrer les objets sans idInstitution valide
-      for (const id in allPlacedestage) {
-        const places = allPlacedestage[id];
-        validPlacedestage[id] = Object.values(places).filter(place => place.idInstitution);
-      }
-      
-      // Mettre à jour les données en temps réel
-      this.placedestages = validPlacedestage;
-      
+        const validPlacedestage = {};
+
+        // Filtrer les objets sans idInstitution valide
+        for (const id in allPlacedestage) {
+          const places = allPlacedestage[id];
+          validPlacedestage[id] = Object.values(places).filter(place => place.idInstitution);
+        }
+
+        // Mettre à jour les données en temps réel
+        this.placedestages = validPlacedestage;
+
 
       } else {
         console.error('Pas de placedestages disponibles');

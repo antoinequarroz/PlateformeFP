@@ -15,7 +15,6 @@ import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDet
 
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
-import NewUser from "./components/Dashboard/DashboardForms/NewUser.vue";
 
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
