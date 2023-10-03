@@ -50,7 +50,7 @@
         <div class="col-lg-5 position-relative mt-4 mt-lg-0">
           <div ref="player" class="plyr__video-embed" id="player">
             <iframe
-                src="https://vimeo.com/780429698?share=copy"
+                src="https://player.vimeo.com/video/780429698"
                 allowfullscreen
                 allowtransparency
                 allow="autoplay"
