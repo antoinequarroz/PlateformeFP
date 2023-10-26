@@ -14,6 +14,7 @@ import InstitutionDetails from "./components/Dashboard/DashboardDetails/Institut
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
+
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";

@@ -103,7 +103,7 @@ export default {
 },
 mounted() {
     // Vous pouvez déclencher la mise à jour ici, mais cela se produira chaque fois que le composant est monté
-     this.updateStudents();
+     //this.updateStudents();
   }
 };
 </script>
