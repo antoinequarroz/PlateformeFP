@@ -21,11 +21,15 @@ import PraticienFormateurForm from "./components/Dashboard/DashboardForms/Pratic
 import PraticienFormateurList from "./components/Dashboard/DashboardList/PraticienFormateurList.vue";
 import PraticienFormateurDetails from "./components/Dashboard/DashboardDetails/PraticienFormateurDetails.vue";
 import Faq from "./components/Home/Faq.vue";
+import SignIn from "./components/Utils/SignIn.vue";
+import SignUp from "./components/Utils/SignUp.vue";
 
 
 
 const routes = [
     { path: '/', component: HomePage },
+    { path: '/sign_in', component: SignIn },
+    { path: '/sign_up', component: SignUp },
     { path: '/map', component: Map },
     { path: '/institution', component: Institution },
     { path: '/place', component: Place },
