@@ -48,19 +48,20 @@
         </div>
 
         <div class="col-lg-5 position-relative mt-4 mt-lg-0">
-          <div ref="player" class="plyr__video-embed" id="player">
-            <iframe
-                src="https://player.vimeo.com/video/780429698"
-                allowfullscreen
-                allowtransparency
-                allow="autoplay"
-            ></iframe>
+          <!-- Image -->
+          <img src="../../assets/images/about/03.jpg" class="border border-5 border-white rounded-2" alt="">
+          <div class="position-absolute top-50 start-50 translate-middle">
+            <!-- Video link -->
+            <a href="https://vimeo.com/780429698" class="btn text-danger btn-round btn-white-shadow btn-lg mb-0" data-glightbox data-gallery="video-tour">
+              <i class="fas fa-play"></i>
+            </a>
           </div>
         </div>
+
       </div>
     </div>
-  </div>
-      </div>
+    </div>
+   </div>
   </section>
 </template>
 

@@ -60,7 +60,7 @@
                 </li>
                 <li> <hr class="dropdown-divider"></li>
                 <!-- Links -->
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+                <li><a class="dropdown-item" :href="profilePath"><i class="bi bi-person fa-fw me-2"></i>Éditer le profil</a></li>
                 <li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
               </ul>
             </div>
@@ -84,7 +84,8 @@ export default {
       placePath: '/place',
       profilePath: '/profile',
       faqPath: '/faq',
-      adminPath: '/admin'
+      adminPath: '/admin',
+      profilePath: '/profile',
     };
   },
 }

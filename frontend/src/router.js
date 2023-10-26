@@ -23,6 +23,8 @@ import PraticienFormateurDetails from "./components/Dashboard/DashboardDetails/P
 import Faq from "./components/Home/Faq.vue";
 import SignIn from "./components/Utils/SignIn.vue";
 import SignUp from "./components/Utils/SignUp.vue";
+import TermsOfUse from "./components/Utils/TermsOfUse.vue";
+import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 
 
 
@@ -30,6 +32,8 @@ const routes = [
     { path: '/', component: HomePage },
     { path: '/sign_in', component: SignIn },
     { path: '/sign_up', component: SignUp },
+    { path: '/terms_of_use', component: TermsOfUse },
+    { path: '/edit_user_profile', component: EditUserProfile },
     { path: '/map', component: Map },
     { path: '/institution', component: Institution },
     { path: '/place', component: Place },
