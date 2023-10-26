@@ -2,7 +2,7 @@
   <section class="position-relative overflow-hidden pt-5 pt-lg-3">
     <div class="container">
       <h1>Map</h1>
-      <h3>Liste des différentes places de stages en Suisse</h3>
+      <h3>Liste des différentes PFP de la filière physiothérapie</h3>
       <div class="row">
         <div class="col-lg-8 col-xl-9">
           <div class="row mb-4 align-items-center">
@@ -19,16 +19,23 @@
           <div v-if="selectedInstitution" class="mt-4">
             <div class="card">
               <div class="card-body">
-                <h3>{{ selectedInstitution.Name }}</h3>
-                <p>Lieu: {{ selectedInstitution.Lieu }}</p>
-                <p>Canton: {{ selectedInstitution.Canton }}</p>
-                <button class="btn btn-primary">
-                  <a :href="selectedInstitution.URL.startsWith('https://') ? selectedInstitution.URL : 'https://' + selectedInstitution.URL" style="color: white" target="_blank">Site Web</a>
-                </button>
-
+                <h3 class="card-title">{{ selectedInstitution.Name }}</h3>
+                <p class="mb-2">
+                  <i class="fas fa-map-marker-alt text-primary"></i> <!-- Icône de localisation -->
+                  Lieu: {{ selectedInstitution.Lieu }}
+                </p>
+                <p class="mb-2">
+                  <i class="fas fa-flag text-primary"></i> <!-- Icône de canton -->
+                  Canton: {{ selectedInstitution.Canton }}
+                </p>
+                <a :href="selectedInstitution.URL.startsWith('https://') ? selectedInstitution.URL : 'https://' + selectedInstitution.URL" class="btn btn-primary" target="_blank">
+                  <i class="fas fa-globe"></i> <!-- Icône de site web -->
+                  Site Web
+                </a>
               </div>
             </div>
           </div>
+
         </div>
         <div class="col-lg-4 col-xl-3">
           <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">

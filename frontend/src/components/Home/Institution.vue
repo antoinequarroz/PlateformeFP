@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-xl-9">
-          <h1>Place de stage</h1>
+          <h1>Place de formation pratique (PFP)</h1>
           <br>
 
           <!-- Search option START -->

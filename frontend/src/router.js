@@ -33,7 +33,7 @@ const routes = [
     { path: '/:pathMatch(.*)*', component: Error404 },
     { path: '/institution_list', component: InstitutionList },
     { path: '/etudiant_list', component: EtudiantList },
-    { path: '/institution_form', component: InstitutionForm, name: 'InstitutionForm'  },
+    { path: '/institution_form/:id', component: InstitutionForm, name: 'InstitutionForm', props: true },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
     { path: '/institution_details/:id', component: InstitutionDetails, name: 'institution-details', props: true },
     { path: '/place_details', component: PlaceDetails, name: 'place-details'},

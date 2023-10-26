@@ -22,8 +22,8 @@ export default {
   data() {
     return {
       counterBoxes: [
-        { start: 0, end: 175, title: 'Place de stage', bgClass: 'bg-warning bg-opacity-15', iconClass: 'fas fa-tv fa-fw', iconBgClass: 'bg-warning' },
-        { start: 0, end: 115, title: 'Institutions', bgClass: 'bg-danger bg-opacity-10', iconClass: 'fas fa-user-nurse fa-fw', iconBgClass: 'bg-danger' },
+        { start: 0, end: 115, title: 'Place de stage', bgClass: 'bg-warning bg-opacity-15', iconClass: 'fas fa-tv fa-fw', iconBgClass: 'bg-warning' },
+        { start: 0, end: 81, title: 'Institutions', bgClass: 'bg-danger bg-opacity-10', iconClass: 'fas fa-user-nurse fa-fw', iconBgClass: 'bg-danger' },
         { start: 0, end: 270, title: 'Élèves', bgClass: 'bg-primary bg-opacity-10', iconClass: 'fas fa-robot fa-fw', iconBgClass: 'bg-primary' },
         { start: 0, end: 323, title: 'Formateurs', bgClass: 'bg-success bg-opacity-10', iconClass: 'bi bi-stopwatch-fill fa-fw', iconBgClass: 'bg-success' },
       ],
