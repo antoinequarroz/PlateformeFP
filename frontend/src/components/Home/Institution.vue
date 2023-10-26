@@ -32,7 +32,7 @@
             <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center mt-3 mt-xl-0">
               <!-- Advanced filter responsive toggler START -->
               <button class="btn btn-primary mb-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-                <i class="fas fa-sliders-h me-1"></i> Voirt le filtre
+                <i class="fas fa-sliders-h me-1"></i> Voir le filtre
               </button>
               <!-- Advanced filter responsive toggler END -->
               <p class="mb-0 text-end">voir les {{ displayedRangeStart }}-{{ displayedRangeEnd }} sur {{ totalInstitutions }} résultats</p>
