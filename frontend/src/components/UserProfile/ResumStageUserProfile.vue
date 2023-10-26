@@ -5,7 +5,7 @@
         <div class="col-xl-12">
           <div class="card border bg-transparent rounded-3">
             <div class="card-header bg-transparent border-bottom">
-              <h3 class="mb-0">Résumé des stages</h3>
+              <h3 class="mb-0">Mes stages</h3>
             </div>
             <div class="card-body">
               <div class="row g-3 align-items-center justify-content-between mb-4">

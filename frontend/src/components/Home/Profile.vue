@@ -39,8 +39,7 @@
               <div class="bg-dark border rounded-3 p-3 w-100">
                 <div class="list-group list-group-dark list-group-borderless collapse-list">
                   <a @click="setActiveTab('homeUserProfile')" class="list-group-item" :class="{ active: activeTab === 'homeUserProfile' }"><i class="bi bi-grid-fill fa-fw me-1"></i>Dashboard</a>
-                  <a @click="setActiveTab('stageUserProfile')" class="list-group-item" :class="{ active: activeTab === 'stageUserProfile' }"><i class="bi bi-basket-fill fa-fw me-1"></i>Mes Stages</a>
-                  <a @click="setActiveTab('resumStageUserProfile')" class="list-group-item" :class="{ active: activeTab === 'resumStageUserProfile' }"><i class="far fa-fw fa-file-alt me-2"></i>Résumé des stages</a>
+                  <a @click="setActiveTab('resumStageUserProfile')" class="list-group-item" :class="{ active: activeTab === 'resumStageUserProfile' }"><i class="far fa-fw fa-file-alt me-2"></i>Stages</a>
                   <a @click="setActiveTab('documentsUserProfile')" class="list-group-item" :class="{ active: activeTab === 'documentsUserProfile' }"><i class="bi bi-question-diamond fa-fw me-2"></i>Documents</a>
                   <a @click="setActiveTab('editUserProfile')" class="list-group-item" :class="{ active: activeTab === 'editUserProfile' }"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                   <a @click="setActiveTab('deleteUserProfile')" class="list-group-item" :class="{ active: activeTab === 'deleteUserProfile' }"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
@@ -65,7 +64,6 @@
 
 <script>
 import HomeUserProfile from '../UserProfile/HomeUserProfile.vue';
-import StageUserProfile from '../UserProfile/StageUserProfile.vue';
 import ResumStageUserProfile from '../UserProfile/ResumStageUserProfile.vue';
 import DocumentsUserProfile from '../UserProfile/DocumentsUserProfile.vue';
 import EditUserProfile from '../UserProfile/EditUserProfile.vue';
@@ -75,7 +73,6 @@ export default {
   name: 'Profile',
   components: {
     HomeUserProfile,
-    StageUserProfile,
     ResumStageUserProfile,
     DocumentsUserProfile,
     EditUserProfile,
