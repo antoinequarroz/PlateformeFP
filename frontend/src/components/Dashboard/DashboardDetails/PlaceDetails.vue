@@ -1,17 +1,15 @@
 <template>
   <div class="container">
-    <div class="container">
-      <div class="container">
-        <label for="annee_civil">Année Académique :</label>
-        <select v-model="annee_civil" id="annee_civil">
-          <option v-for="annee in anneescivils" :key="annee" :value="annee">{{ annee }}</option>
-        </select>
-      </div>
-      <!-- ... autres éléments ... -->
-      <div class="container">
-        <button @click="ajouterAnneecivil">Ajouter Année Académique</button>
-      </div>
-    </div>
+        <div class="row">
+          <div class="col-8">
+            <label for="annee_civil">Année Académique :</label>
+            <select v-model="annee_civil" id="annee_civil">
+              <option v-for="annee in anneescivils" :key="annee" :value="annee">{{ annee }}</option>
+            </select>
+            <div class="mt-3">
+              <button @click="ajouterAnneecivil" class="btn btn-primary-soft">Ajouter Année Académique</button>
+            </div>
+          </div>
     <section class="pt-5">
       <div class="container">
         <div v-if="Object.keys(placedestages).length">
@@ -81,6 +79,7 @@
         <p v-else>Pas de places de stage disponibles</p>
       </div>
     </section>
+        </div>
   </div>
 </template>
 

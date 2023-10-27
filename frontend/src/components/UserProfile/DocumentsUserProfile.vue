@@ -4,7 +4,7 @@
     <div class="card bg-transparent border rounded-3">
       <!-- Card header -->
       <div class="card-header bg-transparent border-bottom">
-        <h3 class="card-header-title mb-0">Ajouter un document</h3>
+        <h3 class="card-header-title mb-0">Ajouter des documents</h3>
       </div>
       <!-- Card body START -->
       <div class="card-body">
