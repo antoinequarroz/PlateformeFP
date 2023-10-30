@@ -32,7 +32,7 @@
           <div class="row g-4">
             <div class="col-sm-6 col-xl-4" v-for="institution in paginatedInstitutions" :key="institution.id">
               <div class="card shadow h-100" @click.stop="goToDetails(institution.id)">
-                <img :src="institution.src" class="card-img-top" alt="institution image">
+                <img src="https://eduport.webestica.com/assets/images/courses/4by3/11.jpg" class="card-img-top" alt="institution image">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ institution.Canton }}</a>
