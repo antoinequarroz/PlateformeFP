@@ -56,7 +56,7 @@
                       <button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger4" aria-controls="step-4">
                         <span class="bs-stepper-circle">4</span>
                       </button>
-                      <h6 class="bs-stepper-label d-none d-md-block">Place de stage</h6>
+                      <h6 class="bs-stepper-label d-none d-md-block">Description</h6>
                     </div>
                   </div>
                 </div>

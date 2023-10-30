@@ -21,8 +21,8 @@ export default {
     };
   },
   computed: {
-    slug() {
-      return this.$route.params.slug;
+    institutionId() {
+      return this.$route.params.id; // Utilisez l'ID au lieu du slug
     }
   },
   mounted() {
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     fetchInstitutionDetailsFromFirebase() {
-      const institutionRef = ref(db, `institutions/${this.slug}`);
+      const institutionRef = ref(db, `institutions/${this.institutionId}`);
       this.unsubscribe = onValue(institutionRef, (snapshot) => {
         if (snapshot.exists()) {
           this.institutionDetails = snapshot.val();

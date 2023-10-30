@@ -30,15 +30,15 @@
             </div>
           </div>
           <div class="row g-4">
-            <div class="col-sm-6 col-xl-4" v-for="institution in paginatedInstitutions" :key="institution.slug">
-              <div class="card shadow h-100" @click="goToDetails(institution.slug)">
+            <div class="col-sm-6 col-xl-4" v-for="institution in paginatedInstitutions" :key="institution.id">
+              <div class="card shadow h-100" @click.stop="goToDetails(institution.id)">
                 <img :src="institution.src" class="card-img-top" alt="institution image">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ institution.Canton }}</a>
                   </div>
                   <h5 class="card-title fw-normal">
-                    <a :href="'/institution/' + institution.slug">{{ institution.Name }}</a>
+                    {{ institution.Name }}
                   </h5>
                   <p class="mb-2 text-truncate-2">{{ institution.Description }}</p>
                   <span class="h6 fw-light mb-0">{{ institution.Street }}</span>
@@ -121,9 +121,6 @@
                       <label class="btn btn-light btn-primary-soft-check" :for="'btn-check-' + key">{{ key }}</label>
                     </li>
                   </ul>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary mb-0" type="button" @click="applyFilters">Appliquer</button>
                 </div>
               </form>
             </div>
@@ -288,11 +285,11 @@ export default {
         this.currentPage--;
       }
     },
-    goToDetails(slug) {
-      if (slug) {
-        this.$router.push({ name: 'InstitutionDetail', params: { slug: slug } });
+    goToDetails(id) {
+      if (id) {
+        this.$router.push({ name: 'InstitutionDetail', params: { id: id } });
       } else {
-        console.error("Slug is undefined for this institution.");
+        console.error("ID is undefined for this institution.");
       }
     }
   }
@@ -300,5 +297,7 @@ export default {
 </script>
 
 <style scoped>
-/* Si vous avez des styles dans "style.css", vous pouvez les intégrer ici. */
+.card {
+  cursor: pointer;
+}
 </style>

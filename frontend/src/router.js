@@ -44,7 +44,7 @@ const routes = [
     { path: '/etudiant_list', component: EtudiantList },
     { path: '/institution_form/:id', component: InstitutionForm, name: 'InstitutionForm', props: true },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
-    { path: '/institution/:slug', component: InstitutionDetails, name: 'InstitutionDetail', props: true },
+    { path: '/institution/:id', component: InstitutionDetails, name: 'InstitutionDetail', props: true },
     { path: '/place_details', component: PlaceDetails, name: 'place-details'},
     { path: '/pfp_details', component: PFPDetails, name: 'pfp-details'},
     { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },

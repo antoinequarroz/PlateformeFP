@@ -5,10 +5,7 @@
         <div class="col-lg-8 col-xl-9">
           <h1>Place de formation pratique (PFP)</h1>
           <br>
-
-          <!-- Search option START -->
           <div class="row mb-4 align-items-center">
-            <!-- Search bar -->
             <div class="col-xl-6">
               <form class="border rounded p-2">
                 <div class="input-group input-borderless">
@@ -17,8 +14,6 @@
                 </div>
               </form>
             </div>
-
-            <!-- Select option -->
             <div class="col-xl-3 mt-3 mt-xl-0">
               <form class="border rounded p-2 input-borderless">
                 <select class="form-select form-select-sm js-choice border-0" aria-label=".form-select-sm">
@@ -27,50 +22,36 @@
                 </select>
               </form>
             </div>
-
-            <!-- Content -->
             <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center mt-3 mt-xl-0">
-              <!-- Advanced filter responsive toggler START -->
               <button class="btn btn-primary mb-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
                 <i class="fas fa-sliders-h me-1"></i> Voir le filtre
               </button>
-              <!-- Advanced filter responsive toggler END -->
               <p class="mb-0 text-end">voir les {{ displayedRangeStart }}-{{ displayedRangeEnd }} sur {{ totalPlaces }} résultats</p>
             </div>
           </div>
-          <!-- Search option END -->
-
-          <!-- Content START -->
           <div class="row g-4">
-            <!-- Card item START -->
             <div class="col-sm-6 col-xl-4" v-for="place in paginatedPlaces" :key="place.id">
-              <div class="card shadow h-100">
-                <!-- Image -->
+              <div class="card shadow h-100" @click="goToDetails(place.id)">
                 <img :src="place.src" class="card-img-top" alt="place image">
-                <!-- Card body -->
                 <div class="card-body pb-0">
-                  <!-- Badge and favorite -->
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ place.Canton }}</a>
                   </div>
-                  <!-- Title -->
-                  <h5 class="card-title fw-normal"><a :href="placeDetailsPath + place.id">{{ place.Nom }}</a></h5>
+                  <h5 class="card-title fw-normal">
+                    <a :href="'/place/' + place.id">{{ place.Nom }}</a>
+                  </h5>
                   <p class="mb-2 text-truncate-2">{{ place.Description }}</p>
                   <span class="h6 fw-light mb-0">{{ place.Street }}</span>
                 </div>
-                <!-- Card footer -->
                 <div class="card-footer pt-0 pb-3">
                   <hr>
                   <div class="d-flex justify-content-between">
-                    <span class="h6 fw-light mb-0">{{ place.idInstitution }}</span>
+                    <span class="h6 fw-light mb-0">{{ place.Lieu }}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- Card item END -->
           </div>
-
-          <!-- Pagination -->
           <div class="col-12">
             <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
               <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
@@ -91,22 +72,17 @@
             </nav>
           </div>
         </div>
-        <!-- Right sidebar START -->
         <div class="col-lg-4 col-xl-3 pt-7">
-          <!-- Responsive offcanvas body START -->
           <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
             <div class="offcanvas-header bg-light">
               <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Filtre avancé</h5>
-              <button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body p-3 p-lg-0">
               <form>
                 <div class="card card-body shadow p-4 mb-4">
-                  <!-- Title -->
                   <h4 class="mb-3">{{ category.title }}</h4>
-                  <!-- Category group -->
                   <div class="col-12">
-                    <!-- Checkbox -->
                     <div class="d-flex justify-content-between align-items-center" v-for="(value, key) in category.categories" :key="key">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" v-model="category.categories[key]" :id="key">
@@ -115,11 +91,8 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="card card-body shadow p-4 mb-4">
-                  <!-- Title -->
                   <h4 class="mb-3">{{ canton.title }}</h4>
-                  <!-- Category group -->
                   <div class="row">
                     <div class="col-6" v-for="(value, key) in canton.cantons" :key="key">
                       <div class="d-flex justify-content-between align-items-center">
@@ -131,70 +104,28 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Skill level START -->
                 <div class="card card-body shadow p-4 mb-4">
-                  <!-- Title -->
                   <h4 class="mb-3">PFP</h4>
                   <ul class="list-inline mb-0">
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-12">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">PFP1</label>
-                    </li>
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-9">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-9">PFP2</label>
-                    </li>
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-10">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">PFP3</label>
-                    </li>
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-11">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">PFP4</label>
+                    <li class="list-inline-item mb-2" v-for="(value, key) in level" :key="key">
+                      <input type="checkbox" class="btn-check" :id="'btn-check-' + key">
+                      <label class="btn btn-light btn-primary-soft-check" :for="'btn-check-' + key">{{ key }}</label>
                     </li>
                   </ul>
                 </div>
-                <!-- Skill level END -->
-
-                <!-- Language START -->
                 <div class="card card-body shadow p-4 mb-4">
-                  <!-- Title -->
                   <h4 class="mb-3">Langues</h4>
                   <ul class="list-inline mb-0 g-3">
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-1">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-1">Français</label>
-                    </li>
-                    <!-- Item -->
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-2">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-2">Allemand</label>
-                    </li>
-
-                    <li class="list-inline-item mb-2">
-                      <input type="checkbox" class="btn-check" id="btn-check-3">
-                      <label class="btn btn-light btn-primary-soft-check" for="btn-check-3">Bilingue</label>
+                    <li class="list-inline-item mb-2" v-for="(value, key) in language" :key="key">
+                      <input type="checkbox" class="btn-check" :id="'btn-check-' + key">
+                      <label class="btn btn-light btn-primary-soft-check" :for="'btn-check-' + key">{{ key }}</label>
                     </li>
                   </ul>
-                </div>
-                <!-- Language END -->
-
-                <!-- Apply button -->
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary mb-0" type="button">Appliquer</button>
                 </div>
               </form>
             </div>
           </div>
-          <!-- Responsive offcanvas body END -->
         </div>
-        <!-- Right sidebar END -->
       </div>
     </div>
   </section>
@@ -208,15 +139,11 @@ export default {
   name: 'Place',
   data() {
     return {
-      placeDetailsPath: '/place_details/',
+      allPlaces: [],
       places: [],
       currentPage: 1,
       itemsPerPage: 21,
       totalPlaces: 0,
-      displayedRange: {
-        start: 1,
-        end: 21
-      },
       category: {
         title: "Catégories",
         categories: {
@@ -227,6 +154,18 @@ export default {
           NEURO_GER: false,
           AMBU: false,
         }
+      },
+      language: {
+        Français: false,
+        Allemand: false,
+        Anglais: false,
+      },
+      level: {
+        PFP1A: false,
+        PFP1B: false,
+        PFP2: false,
+        PFP3: false,
+        PFP4: false,
       },
       canton: {
         title: "Cantons",
@@ -257,7 +196,6 @@ export default {
           SG: false,
           AR: false,
           AI: false,
-          FL: false,
           Étranger: false,
         }
       }
@@ -267,10 +205,10 @@ export default {
     paginatedPlaces() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
-      return this.places.slice(start, end);
+      return this.filteredPlaces.slice(start, end);
     },
     totalPages() {
-      return Math.ceil(this.places.length / this.itemsPerPage);
+      return Math.ceil(this.filteredPlaces.length / this.itemsPerPage);
     },
     displayedRangeStart() {
       return (this.currentPage - 1) * this.itemsPerPage + 1;
@@ -278,8 +216,37 @@ export default {
     displayedRangeEnd() {
       return Math.min(this.currentPage * this.itemsPerPage, this.totalPlaces);
     },
-    totalPages() {
-      return Math.ceil(this.places.length / this.itemsPerPage);
+    filteredPlaces() {
+      return this.allPlaces.filter(place => {
+        let matchesCategory = true;
+        let matchesCanton = true;
+        let matchesLanguage = true;
+        let matchesLevel = true;
+
+        const selectedCategories = Object.keys(this.category.categories).filter(key => this.category.categories[key]);
+        if (selectedCategories.length) {
+          matchesCategory = selectedCategories.every(category => {
+            return place.checkBoxItems.includes(category) || place[category] === "x";
+          });
+        }
+
+        const selectedCantons = Object.keys(this.canton.cantons).filter(key => this.canton.cantons[key]);
+        if (selectedCantons.length) {
+          matchesCanton = selectedCantons.includes(place.Canton);
+        }
+
+        const selectedLanguages = Object.keys(this.language).filter(key => this.language[key]);
+        if (selectedLanguages.length) {
+          matchesLanguage = selectedLanguages.some(lang => place.Language && place.Language.includes(lang));
+        }
+
+        const selectedLevels = Object.keys(this.level).filter(key => this.level[key]);
+        if (selectedLevels.length) {
+          matchesLevel = selectedLevels.includes(place.Level);
+        }
+
+        return matchesCategory && matchesCanton && matchesLanguage && matchesLevel;
+      });
     }
   },
   mounted() {
@@ -290,9 +257,22 @@ export default {
       const placesRef = ref(db, 'placedestage/');
       onValue(placesRef, (snapshot) => {
         const data = snapshot.val();
-        this.places = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-        this.totalPlaces = this.places.length; // Mettre à jour le total ici
+        this.allPlaces = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        this.totalPlaces = this.allPlaces.length;
       });
+    },
+    applyFilters() {
+      this.places = this.filteredPlaces;
+      this.totalPlaces = this.places.length;
+      this.currentPage = 1;
+    },
+    resetFilters() {
+      Object.keys(this.category.categories).forEach(key => this.category.categories[key] = false);
+      Object.keys(this.language).forEach(key => this.language[key] = false);
+      Object.keys(this.level).forEach(key => this.level[key] = false);
+      Object.keys(this.canton.cantons).forEach(key => this.canton.cantons[key] = false);
+      this.places = [...this.allPlaces];
+      this.currentPage = 1;
     },
     nextPage() {
       if (this.currentPage < this.totalPages) {
@@ -303,11 +283,17 @@ export default {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
+    },
+    goToDetails(id) {
+      if (id) {
+        this.$router.push({ name: 'PlaceDetail', params: { id: id } });
+      } else {
+        console.error("ID is undefined for this place.");
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-/* Si vous avez des styles dans "style.css", vous pouvez les intégrer ici. */
 </style>

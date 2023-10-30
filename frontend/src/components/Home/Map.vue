@@ -9,8 +9,8 @@
             <div class="col-xl-6">
               <form class="border rounded p-2">
                 <div class="input-group input-borderless">
-                  <input class="form-control me-1" type="search" placeholder="Trouver l'institution">
-                  <button type="button" class="btn btn-primary mb-0 rounded z-index-1"><i class="fas fa-search"></i></button>
+                  <input class="form-control me-1" type="search" v-model="searchQuery" placeholder="Trouver l'institution">
+                  <button type="button" class="btn btn-primary mb-0 rounded z-index-1" @click="applySearchFilter"><i class="fas fa-search"></i></button>
                 </div>
               </form>
             </div>
@@ -21,21 +21,20 @@
               <div class="card-body">
                 <h3 class="card-title">{{ selectedInstitution.Name }}</h3>
                 <p class="mb-2">
-                  <i class="fas fa-map-marker-alt text-primary"></i> <!-- Icône de localisation -->
+                  <i class="fas fa-map-marker-alt text-primary"></i>
                   Lieu: {{ selectedInstitution.Lieu }}
                 </p>
                 <p class="mb-2">
-                  <i class="fas fa-flag text-primary"></i> <!-- Icône de canton -->
+                  <i class="fas fa-flag text-primary"></i>
                   Canton: {{ selectedInstitution.Canton }}
                 </p>
                 <a :href="selectedInstitution.URL.startsWith('https://') ? selectedInstitution.URL : 'https://' + selectedInstitution.URL" class="btn btn-primary" target="_blank">
-                  <i class="fas fa-globe"></i> <!-- Icône de site web -->
+                  <i class="fas fa-globe"></i>
                   Site Web
                 </a>
               </div>
             </div>
           </div>
-
         </div>
         <div class="col-lg-4 col-xl-3">
           <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
@@ -70,7 +69,7 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary mb-0" type="button">Appliquer</button>
+                  <button class="btn btn-primary mb-0" type="button" @click="applyFilters">Appliquer</button>
                 </div>
               </form>
             </div>
@@ -80,6 +79,7 @@
     </div>
   </section>
 </template>
+
 
 <script>
 import { db } from '../../../firebase.js';
@@ -91,13 +91,11 @@ export default {
     return {
       map: null,
       tileLayer: null,
+      markers: [],
+      allInstitutions: [],
       institutions: [],
       selectedInstitution: null,
-      totalInstitutions: 0,
-      displayedRange: {
-        start: 1,
-        end: 20
-      },
+      searchQuery: '',
       category: {
         title: "Catégories",
         categories: {
@@ -143,7 +141,31 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    filteredInstitutions() {
+      return this.allInstitutions.filter(institution => {
+        let matchesCategory = true;
+        let matchesCanton = true;
+        let matchesSearch = true;
 
+        const selectedCategories = Object.keys(this.category.categories).filter(key => this.category.categories[key]);
+        if (selectedCategories.length) {
+          matchesCategory = selectedCategories.some(category => institution[category] === "x");
+        }
+
+        const selectedCantons = Object.keys(this.canton.cantons).filter(key => this.canton.cantons[key]);
+        if (selectedCantons.length) {
+          matchesCanton = selectedCantons.includes(institution.Canton);
+        }
+
+        if (this.searchQuery) {
+          matchesSearch = institution.Name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        }
+
+        return matchesCategory && matchesCanton && matchesSearch;
+      });
+    }
   },
   mounted() {
     this.initMap();
@@ -163,19 +185,29 @@ export default {
       const institutionsRef = ref(db, 'institutions/');
       onValue(institutionsRef, (snapshot) => {
         const data = snapshot.val();
-        this.institutions = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-        this.totalInstitutions = this.institutions.length; // Mettre à jour le total ici
+        this.allInstitutions = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
         this.addLocationsToMap();
       });
     },
+    clearMarkers() {
+      this.markers.forEach(marker => {
+        this.map.removeLayer(marker);
+      });
+      this.markers = [];
+    },
     addLocationsToMap() {
-      this.institutions.forEach(element => {
-        new L.Marker([element.Latitude, element.Longitude]).addTo(this.map)
+      this.clearMarkers();
+      this.filteredInstitutions.forEach(element => {
+        const marker = new L.Marker([element.Latitude, element.Longitude]).addTo(this.map)
             .on('click', () => {
               this.selectedInstitution = element;
             });
+        this.markers.push(marker);
       });
     },
+    applyFilters() {
+      this.addLocationsToMap();
+    }
   }
 }
 </script>
