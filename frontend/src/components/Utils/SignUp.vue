@@ -21,21 +21,22 @@
                   <label for="exampleInputEmail1" class="form-label">Email *</label>
                   <div class="input-group input-group-lg">
                     <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
-                    <input type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail" id="exampleInputEmail1">
+                    <input type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail" id="exampleInputEmail1" ref="email">
+
                   </div>
                 </div>
                 <div class="mb-4">
                   <label for="inputPassword5" class="form-label">Mot de passe *</label>
                   <div class="input-group input-group-lg">
                     <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword5">
+                    <input type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword5" ref="password">
                   </div>
                 </div>
                 <div class="mb-4">
                   <label for="inputPassword6" class="form-label">Confirmer le mot de passe *</label>
                   <div class="input-group input-group-lg">
                     <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword6">
+                    <input type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword5" ref="password">
                   </div>
                 </div>
                 <div class="mb-4">
@@ -46,7 +47,7 @@
                 </div>
                 <div class="align-items-center mt-0">
                   <div class="d-grid">
-                    <button class="btn btn-primary mb-0" type="button">S'inscrire</button>
+                    <button class="btn btn-primary mb-0" type="button" @click="submitForm">S'Inscrire</button>
                   </div>
                 </div>
               </form>
@@ -62,13 +63,44 @@
 </template>
 
 <script>
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from '../../../firebase.js';
+
 export default {
+  
   name: 'SignUp',
   data() {
     return{
+      user: null,  // Ajoutez cette ligne pour définir la propriété user
+
       signInPath : '/sign_in',
     }
+  },
+  methods: {
+  submitForm() {
+    const auth = getAuth();
+    const email = this.$refs.email.value;
+    const password = this.$refs.password.value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log("Utilisateur inscrit:", user);
+        // ... vous pouvez rediriger l'utilisateur ou faire autre chose
+        this.$router.push('/');  // Rediriger vers la page d'accueil
+
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Erreur:", errorCode, errorMessage);
+        // ... afficher un message d'erreur ou gérer l'erreur
+      });
   }
+}
+
 }
 </script>
 

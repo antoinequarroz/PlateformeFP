@@ -30,8 +30,8 @@ import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/sign_in', component: SignIn },
-    { path: '/sign_up', component: SignUp },
+    { path: '/sign_in', component: SignIn , name: 'sign_in' },
+    { path: '/sign_up', component: SignUp , name: 'sign_up'},
     { path: '/terms_of_use', component: TermsOfUse },
     { path: '/edit_user_profile', component: EditUserProfile },
     { path: '/map', component: Map },

@@ -4,7 +4,8 @@
       <div class="container-fluid">
         <div class="row">
           <!-- left -->
-          <div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+          <div
+            class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
             <div class="p-3 p-lg-5">
               <!-- Title -->
               <div class="text-center">
@@ -31,16 +32,20 @@
                   <div class="mb-4">
                     <label for="exampleInputEmail1" class="form-label">Email *</label>
                     <div class="input-group input-group-lg">
-                      <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
-                      <input type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail" id="exampleInputEmail1">
+                      <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                          class="bi bi-envelope-fill"></i></span>
+                      <input type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail"
+                        id="exampleInputEmail1">
                     </div>
                   </div>
                   <!-- Password -->
                   <div class="mb-4">
                     <label for="inputPassword5" class="form-label">Mot de passe *</label>
                     <div class="input-group input-group-lg">
-                      <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
-                      <input type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="Mot de passe" id="inputPassword5">
+                      <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                          class="fas fa-lock"></i></span>
+                      <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
+                        placeholder="Mot de passe" id="inputPassword5">
                     </div>
                     <div id="passwordHelpBlock" class="form-text">
                       Votre mot de passe doit comporter au moins 8 caractères.
@@ -61,14 +66,14 @@
                   <!-- Button -->
                   <div class="align-items-center mt-0">
                     <div class="d-grid">
-                      <button class="btn btn-primary mb-0" type="button">Login</button>
+                      <button class="btn btn-primary mb-0" type="button" @click="submitForm">Login</button>
                     </div>
                   </div>
                 </form>
                 <!-- Form END -->
                 <div class="mt-4 text-center">
                   <span>
-                    Vous n'avez pas de compte  <a :href="signUpPath">enregistrez-vous ici</a></span>
+                    Vous n'avez pas de compte <a :href="signUpPath">enregistrez-vous ici</a></span>
                 </div>
               </div>
             </div> <!-- Row END -->
@@ -80,19 +85,43 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: 'SignIn',
   data() {
     return {
-      signUpPath : '/sign_up',
+      user: null,  // Ajoutez cette ligne pour définir la propriété user
+
+      signUpPath: '/sign_up',
     };
   },
   methods: {
-    // Vos méthodes ici (par exemple, pour gérer la soumission du formulaire)
+    async submitForm() {
+      const auth = getAuth();
+      const email = document.getElementById('exampleInputEmail1').value;
+      const password = document.getElementById('inputPassword5').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        // Utilisateur connecté
+        const user = userCredential.user;
+        this.user = user;
+        onAuthStateChanged(auth, (user) => {
+          this.user = user;
+        });
+        console.log('Utilisateur connecté :', user);
+        this.$router.push('/');  // Rediriger vers la page d'accueil
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Erreur:', errorCode, errorMessage);
+        // ... afficher un message d'erreur ou gérer l'erreur
+      }
+    }
   }
+
 }
 </script>
 
-<style scoped>
-/* Vos styles ici */
-</style>
+<style scoped>/* Vos styles ici */</style>
