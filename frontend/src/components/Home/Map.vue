@@ -68,9 +68,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary mb-0" type="button" @click="applyFilters">Appliquer</button>
-                </div>
               </form>
             </div>
           </div>

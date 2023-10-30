@@ -32,13 +32,13 @@
           <div class="row g-4">
             <div class="col-sm-6 col-xl-4" v-for="place in paginatedPlaces" :key="place.id">
               <div class="card shadow h-100" @click="goToDetails(place.id)">
-                <img :src="place.src" class="card-img-top" alt="place image">
+                <img src="https://eduport.webestica.com/assets/images/courses/4by3/12.jpg" class="card-img-top" alt="place image">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ place.Canton }}</a>
                   </div>
                   <h5 class="card-title fw-normal">
-                    <a :href="'/place/' + place.id">{{ place.Nom }}</a>
+                    <a :href="'/place/' + place.id">{{ place.Name }}</a>
                   </h5>
                   <p class="mb-2 text-truncate-2">{{ place.Description }}</p>
                   <span class="h6 fw-light mb-0">{{ place.Street }}</span>
