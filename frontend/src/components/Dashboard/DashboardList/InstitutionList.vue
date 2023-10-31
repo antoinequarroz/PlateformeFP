@@ -33,7 +33,7 @@
                   <td>{{ institution.URL }}</td>
                   <td>
                     <button class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0" @click="goToDetails(institution.id)">Détails</button>
-                    <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0" @click="goToInstitutionForm(institution.id)">Modifier</button>
+                    <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0" @click="goToInstitutionFormModif(institution.id)">Modifier</button>
                     <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Supprimer</button>
                   </td>
                 </tr>
@@ -68,6 +68,9 @@ export default {
   methods: {
     goToInstitutionForm(id) {
       this.$router.push({ name: 'InstitutionForm', params: { id } });
+    },
+    goToInstitutionFormModif(id) {
+      this.$router.push({ name: 'InstitutionFormModif', params: { id } });
     },
     goToAdminDashboard() {
       this.$router.push({ name: 'AdminDashboard' });

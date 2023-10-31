@@ -11,10 +11,10 @@ import EtudiantList from "./components/Dashboard/DashboardList/EtudiantList.vue"
 import InstitutionForm from "./components/Dashboard/DashboardForms/InstitutionForm.vue";
 import EtudiantForm from "./components/Dashboard/DashboardForms/EtudiantForm.vue";
 import InstitutionDetails from "./components/Dashboard/DashboardDetails/InstitutionDetails.vue";
+import InstitutionFormModif from "./components/Dashboard/DashboardForms/InstitutionFormModif.vue";
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
-
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
@@ -43,6 +43,7 @@ const routes = [
     { path: '/institution_list', component: InstitutionList },
     { path: '/etudiant_list', component: EtudiantList },
     { path: '/institution_form/:id', component: InstitutionForm, name: 'InstitutionForm', props: true },
+    { path: '/institution_form_modif/:id', component: InstitutionFormModif, name: 'InstitutionFormModif', props: true },
     { path: '/etudiant_form', component: EtudiantForm, name: 'EtudiantForm'  },
     { path: '/institution/:id', component: InstitutionDetails, name: 'InstitutionDetail', props: true },
     { path: '/place_details', component: PlaceDetails, name: 'place-details'},
