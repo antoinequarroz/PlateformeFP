@@ -205,22 +205,34 @@
 
                     </div>
                     <div id="step-4" role="tabpanel" class="content fade" aria-labelledby="steppertrigger4">
-                      <h4>Informations supplémentaires</h4>
+                      <h4>Place de stage</h4>
                       <hr>
 
-                      <!-- Zone de texte pour la description du lieu -->
                       <div class="col-12">
                         <label for="description">Description du lieu:</label>
                         <textarea id="description" v-model="institution.Description" class="form-control" rows="5" placeholder="Entrez la description du lieu ici..."></textarea>
                       </div>
 
-                      <!-- ... autres champs ... -->
+                      <div class="col-12 mt-4">
+                        <h5>Place de Stage</h5>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="sector">Secteur:</label>
+                        <input type="text" id="sector" v-model="institution.Sector" class="form-control" placeholder="Entrez le secteur ici..." />
+                      </div>
+
+                      <div class="col-6">
+                        <label for="npmPractitionerTrainer">Npm Practitioner Trainer:</label>
+                        <input type="text" id="npmPractitionerTrainer" v-model="institution.NpmPractitionerTrainer" class="form-control" placeholder="Entrez le Npm Practitioner Trainer ici..." />
+                      </div>
 
                       <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-secondary prev-btn mb-0" @click="goToPrevStep">Précédent</button>
                         <button class="btn btn-primary next-btn mb-0" @click="envoyerDonnees">Envoyer</button>
                       </div>
                     </div>
+
 
                   </form>
                 </div>
@@ -266,6 +278,8 @@ export default {
         EmailResponsablePhysio: '',
         checkBoxItems: ['AIGU', 'REA', 'AMBU', 'MSQ', 'NEUROGER', 'SYSINT'],
         stages: [],
+        Sector: '',
+        NpmPractitionerTrainer: ''
       },
       cantons: [
         { code: 'AG', name: 'Argovie' },
@@ -299,54 +313,31 @@ export default {
       languages: ['Allemand', 'Français', 'Bilingue'],
     };
   },
-
   mounted() {
     this.stepper = new Stepper(document.querySelector('.bs-stepper'));
-
     const instId = this.$route.params.instSlug;
-    console.log("Institution ID:", this.$route.params.instSlug);
     const instRef = ref(db, 'institutions/' + instId);
-
     onValue(instRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        Object.assign(this.institution, data);
-      } else {
-        console.error('Institution does not exist');
-      }
+      const data = snapshot.val();
+      Object.assign(this.institution, data);
     }, {
       onlyOnce: true,
     });
-
     const placedestageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + '');
-
     onValue(placedestageRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const allPlacedestage = snapshot.val();
-        const matchedPlacedestage = Object.values(allPlacedestage).filter(
-            placedestage => placedestage.idInstitution === this.$route.params.instSlug
-        );
-
-        this.placedestages = matchedPlacedestage;
-      } else {
-        console.error('Pas de place de stages disponibles');
-        this.placedestages = [];
-      }
+      const allPlacedestage = snapshot.val();
+      const matchedPlacedestage = Object.values(allPlacedestage).filter(
+          placedestage => placedestage.idInstitution === this.$route.params.instSlug
+      );
+      this.placedestages = matchedPlacedestage;
     });
-
     watch(() => this.institution, async (newVal) => {
-      try {
-        await set(instRef, newVal);
-      } catch (error) {
-        console.error('Error updating institution:', error);
-      }
+      await set(instRef, newVal);
     }, { deep: true });
   },
-
   beforeUnmount() {
     if (this.placedestageRef) off(this.placedestageRef);
   },
-
   methods: {
     goToNextStep() {
       this.stepper.next();
@@ -357,40 +348,29 @@ export default {
     supprimerTousLesStages() {
       this.institution.stages = [];
     },
-
     async envoyerDonnees() {
-      try {
-        const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
-        const newStageData = {};
-        for (const stage of this.institution.stages) {
-          newStageData[stage.id] = stage;
-        }
-        await update(stageRef, newStageData);
-        this.institution.stages = [];
-        // Redirection vers InstitutionList.vue
-        this.$router.push({ name: 'InstitutionList' }); // Assurez-vous que le nom de la route est correct.
-      } catch (error) {
-        console.error('Erreur lors de l’envoi des données de stage:', error);
+      const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
+      const newStageData = {};
+      for (const stage of this.institution.stages) {
+        newStageData[stage.id] = stage;
       }
+      await update(stageRef, newStageData);
+      this.institution.stages = [];
+      this.$router.push({ name: 'InstitutionList' });
     },
-
     ajouterPlaceDeStage() {
       this.isStageAdded = false;
-
       const newStage = {
         id: `stage-${Date.now()}`,
         Sector: '',
         NpmPractitionerTrainer: '',
         idInstitution: this.$route.params.instSlug,
       };
-
       for (const item of this.institution.checkBoxItems) {
         newStage[item] = false;
       }
-
       this.institution.stages.push(newStage);
     },
-
     goToStep(stepNumber) {
       this.stepper.to(stepNumber);
     }
@@ -401,3 +381,5 @@ export default {
 <style scoped>
 
 </style>
+
+

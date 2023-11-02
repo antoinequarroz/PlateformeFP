@@ -254,7 +254,7 @@ export default {
   },
   methods: {
     fetchPlacesFromFirebase() {
-      const placesRef = ref(db, 'placedestage/');
+      const placesRef = ref(db, 'stages/');
       onValue(placesRef, (snapshot) => {
         const data = snapshot.val();
         this.allPlaces = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];

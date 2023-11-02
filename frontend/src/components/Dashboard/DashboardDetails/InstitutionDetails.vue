@@ -17,19 +17,14 @@
         </div>
         <div class="col-xl-8">
           <h1 class="mb-4">{{ institutionDetails ? institutionDetails.Name : 'Chargement...' }}</h1>
-          <div class="d-flex align-items-center mb-4">
-            <!-- Vous pouvez ajouter une logique de notation ici si nécessaire -->
-          </div>
-          <ul class="list-inline mb-4">
-            <!-- Vous pouvez ajouter une logique de prix ici si nécessaire -->
-          </ul>
-          <h4>Description</h4>
+          <h4 class="mt-4">Information</h4>
           <p><strong>Rue:</strong> {{ institutionDetails ? institutionDetails.Street : '' }}</p>
           <p><strong>Lieu:</strong> {{ institutionDetails ? institutionDetails.Lieu : '' }}</p>
           <p><strong>Langue:</strong> {{ institutionDetails ? institutionDetails.Langue : '' }}</p>
           <p><strong>Nom Responsable Physio:</strong> {{ institutionDetails ? institutionDetails.NomResponsablePhysio : '' }}</p>
           <p><strong>Téléphone Responsable Physio:</strong> {{ institutionDetails ? institutionDetails.PhoneResponsablePhysio : '' }}</p>
-          <p><strong>URL:</strong> <a :href="institutionDetails ? institutionDetails.URL : ''">{{ institutionDetails ? institutionDetails.URL : '' }}</a></p>
+          <p><strong>Site web</strong> <a :href="institutionDetails ? institutionDetails.URL : ''">{{ institutionDetails ? institutionDetails.URL : '' }}</a></p>
+          <div id="map" style="height: 400px;"></div>
         </div>
       </div>
     </div>
@@ -44,7 +39,9 @@ export default {
   name: 'InstitutionDetails',
   data() {
     return {
-      institutionDetails: null
+      institutionDetails: null,
+      map: null,
+      marker: null
     };
   },
   computed: {
@@ -61,11 +58,23 @@ export default {
     }
   },
   methods: {
+    initMap() {
+      if (this.institutionDetails) {
+        const lat = this.institutionDetails.Latitude;
+        const lng = this.institutionDetails.Longitude;
+        this.map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+        this.marker = L.marker([lat, lng]).addTo(this.map);
+      }
+    },
     fetchInstitutionDetailsFromFirebase() {
       const institutionRef = ref(db, `institutions/${this.institutionId}`);
       this.unsubscribe = onValue(institutionRef, (snapshot) => {
         if (snapshot.exists()) {
           this.institutionDetails = snapshot.val();
+          this.$nextTick(() => {
+            this.initMap();
+          });
         } else {
           this.$router.push({ name: 'Error404' });
         }
@@ -76,5 +85,4 @@ export default {
 </script>
 
 <style scoped>
-/* Si vous avez des styles spécifiques pour ce composant, ajoutez-les ici. */
 </style>
