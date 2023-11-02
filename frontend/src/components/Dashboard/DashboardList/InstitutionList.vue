@@ -75,8 +75,12 @@ export default {
     goToAdminDashboard() {
       this.$router.push({ name: 'AdminDashboard' });
     },
-    goToDetails(instSlug) {
-      this.$router.push({ name: 'institution-details', params: { instSlug } });
+    goToDetails(id) {
+      if (id) {
+        this.$router.push({ name: 'InstitutionDetail', params: { id: id } });
+      } else {
+        console.error("ID is undefined for this institution.");
+      }
     }
   }
 };

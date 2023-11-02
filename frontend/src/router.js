@@ -15,11 +15,7 @@ import InstitutionFormModif from "./components/Dashboard/DashboardForms/Institut
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
-<<<<<<< HEAD
 import Votation from "./components/Dashboard/DashboardDetails/Votation.vue";
-
-=======
->>>>>>> 202588b1db57b91c296369275e639db6ce06670e
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
