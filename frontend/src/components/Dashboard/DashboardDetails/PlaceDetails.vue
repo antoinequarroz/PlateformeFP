@@ -1,85 +1,86 @@
 <template>
   <div class="container">
-        <div class="row">
-          <div class="col-8">
-            <label for="annee_civil">Année Académique :</label>
-            <select v-model="annee_civil" id="annee_civil">
-              <option v-for="annee in anneescivils" :key="annee" :value="annee">{{ annee }}</option>
-            </select>
-            <div class="mt-3">
-              <button @click="ajouterAnneecivil" class="btn btn-primary-soft">Ajouter Année Académique</button>
-            </div>
-          </div>
-    <section class="pt-5">
-      <div class="container">
-        <div v-if="Object.keys(placedestages).length">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID Institution</th>
-                <th>Secteur</th>
-                <th>Praticien Formateur</th>
-                <th>Nom Institution</th>
-                <th>AIGU </th>
-                <th>REA </th>
-                <th>MSQ </th>
-                <th>SYSINT </th>
-                <th>NEUROGER </th>
-                <th>AMBU </th>
-                <th>PFP2</th>
-                <th>PFP1A </th>
-                <th>PFP1B </th>
-                <th>PFP4 </th>
-                <th>PFP3 </th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <template v-for="(places, id) in placedestages">
-                <tr v-for="place in places" :key="place.id">
-                  <td>{{ place.idInstitution }}</td>
-                  <td>{{ place.Sector }}</td>
-                  <td>{{ place.NpmPractitionerTrainer }}</td>
-                  <td>{{ getInstitutionName(place.idInstitution) }}</td>
-
-                  <td><input type="checkbox" :checked="place.AIGU" @change="updateFirebase('AIGU', place)" /></td>
-                  <td><input type="checkbox" :checked="place.REA" @change="updateFirebase('REA', place)" /></td>
-                  <td><input type="checkbox" :checked="place.MSQ" @change="updateFirebase('MSQ', place)" /></td>
-                  <td><input type="checkbox" :checked="place.SYSINT" @change="updateFirebase('SYSINT', place)" /></td>
-                  <td><input type="checkbox" :checked="place.NEUROGER" @change="updateFirebase('NEUROGER', place)" /></td>
-                  <td><input type="checkbox" :checked="place.AMBU" @change="updateFirebase('AMBU', place)" /></td>
-
-                  <td>
-                    <input type="checkbox" :checked="isStageChecked('PFP2', place.id)"
-                      @change="toggleStage('PFP2', place.id, place, $event.target.checked)" />
-
-                  </td>
-
-                  <td>
-                    <input type="checkbox" :checked="isStageChecked('PFP1A', place.id)"
-                      @change="toggleStage('PFP1A', place.id, place, $event.target.checked)" />
-                  </td>
-                  <td>
-                    <input type="checkbox" :checked="isStageChecked('PFP1B', place.id)"
-                      @change="toggleStage('PFP1B', place.id, place, $event.target.checked)" />
-                  </td>
-                  <td>
-                    <input type="checkbox" :checked="isStageChecked('PFP3', place.id)"
-                      @change="toggleStage('PFP3', place.id, place, $event.target.checked)" />
-                  </td>
-                  <td>
-                    <input type="checkbox" :checked="isStageChecked('PFP4', place.id)"
-                      @change="toggleStage('PFP4', place.id, place, $event.target.checked)" />
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
+    <div class="row">
+      <div class="col-8">
+        <label for="annee_civil">Année Académique :</label>
+        <select v-model="annee_civil" id="annee_civil">
+          <option v-for="annee in anneescivils" :key="annee" :value="annee">{{ annee }}</option>
+        </select>
+        <div class="mt-3">
+          <button @click="ajouterAnneecivil" class="btn btn-primary-soft">Ajouter Année Académique</button>
         </div>
-        <p v-else>Pas de places de stage disponibles</p>
       </div>
-    </section>
+      <section class="pt-5">
+        <div class="container">
+          <div v-if="Object.keys(placedestages).length">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID Institution</th>
+                  <th>Secteur</th>
+                  <th>Praticien Formateur</th>
+                  <th>Nom Institution</th>
+                  <th>AIGU </th>
+                  <th>REA </th>
+                  <th>MSQ </th>
+                  <th>SYSINT </th>
+                  <th>NEUROGER </th>
+                  <th>AMBU </th>
+                  <th>PFP2</th>
+                  <th>PFP1A </th>
+                  <th>PFP1B </th>
+                  <th>PFP4 </th>
+                  <th>PFP3 </th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <template v-for="(places, id) in placedestages">
+                  <tr v-for="place in places" :key="place.id">
+                    <td>{{ place.idInstitution }}</td>
+                    <td>{{ place.Sector }}</td>
+                    <td>{{ place.NpmPractitionerTrainer }}</td>
+                    <td>{{ getInstitutionName(place.idInstitution) }}</td>
+
+                    <td><input type="checkbox" :checked="place.AIGU" @change="updateFirebase('AIGU', place)" /></td>
+                    <td><input type="checkbox" :checked="place.REA" @change="updateFirebase('REA', place)" /></td>
+                    <td><input type="checkbox" :checked="place.MSQ" @change="updateFirebase('MSQ', place)" /></td>
+                    <td><input type="checkbox" :checked="place.SYSINT" @change="updateFirebase('SYSINT', place)" /></td>
+                    <td><input type="checkbox" :checked="place.NEUROGER" @change="updateFirebase('NEUROGER', place)" />
+                    </td>
+                    <td><input type="checkbox" :checked="place.AMBU" @change="updateFirebase('AMBU', place)" /></td>
+
+                    <td>
+                      <input type="checkbox" :checked="isStageChecked('PFP2', place.id)"
+                        @change="toggleStage('PFP2', place.id, place, $event.target.checked)" />
+
+                    </td>
+
+                    <td>
+                      <input type="checkbox" :checked="isStageChecked('PFP1A', place.id)"
+                        @change="toggleStage('PFP1A', place.id, place, $event.target.checked)" />
+                    </td>
+                    <td>
+                      <input type="checkbox" :checked="isStageChecked('PFP1B', place.id)"
+                        @change="toggleStage('PFP1B', place.id, place, $event.target.checked)" />
+                    </td>
+                    <td>
+                      <input type="checkbox" :checked="isStageChecked('PFP3', place.id)"
+                        @change="toggleStage('PFP3', place.id, place, $event.target.checked)" />
+                    </td>
+                    <td>
+                      <input type="checkbox" :checked="isStageChecked('PFP4', place.id)"
+                        @change="toggleStage('PFP4', place.id, place, $event.target.checked)" />
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <p v-else>Pas de places de stage disponibles</p>
         </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -123,28 +124,42 @@ export default {
         console.log('toggleStage called', { pfp, stageId, place, isChecked });
 
         const annee = this.annee_civil;
-        const stageRef = ref(db, `annees_civils/${annee}/${pfp}/${stageId}/active`);
+        const stageRef = ref(db, `annees_civils/${annee}/${pfp}/${stageId}`);
 
-        // Mettre à jour la valeur de 'active' dans la base de données avec l'état actuel de la case à cocher
-        await set(stageRef, isChecked);
+        // Créer un objet avec toutes les informations à stocker
+        const stageData = {
+          active: isChecked,
+          NpmPractitionerTrainer: place.NpmPractitionerTrainer,
+          idInstitution: place.idInstitution,
+          sector: place.Sector,
+          NpmPractitionerTrainer: place.NpmPractitionerTrainer,
+          AIGU:place.AIGU,
+          REA: place.REA,
+          MSQ: place.MSQ,
+          SYSINT: place.SYSINT,
+          NEUROGER: place.NEUROGER,
+          AMBU: place.AMBU,
+        };
+
+        // Mettre à jour la valeur dans la base de données avec l'objet complet
+        await set(stageRef, stageData);
 
         // Vérifiez que this.stages[pfp] et this.stages[pfp][stageId] sont bien définis
         if (!this.stages[pfp]) {
-            this.stages[pfp] = {};
+          this.stages[pfp] = {};
         }
         if (!this.stages[pfp][stageId]) {
-            this.stages[pfp][stageId] = { active: isChecked };
+          this.stages[pfp][stageId] = stageData;
         } else {
-            this.stages[pfp][stageId].active = isChecked;
+          this.stages[pfp][stageId] = stageData;
         }
+
         await this.fetchStages(this.annee_civil);  // re-fetch data after a change
-
-
-
       } catch (error) {
         console.error('Erreur lors de la mise à jour de l’état du stage dans la base de données:', error);
       }
     },
+
 
 
 
@@ -187,6 +202,8 @@ export default {
                 for (const placeId in places) {
                   if (!stagesIds[placeId]) stagesIds[placeId] = {}; // Initialisez stagesIds[placeId] comme un objet si ce n'est pas déjà le cas
                   stagesIds[placeId].active = false; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
+                  stagesIds[placeId].idInstitution = allPlacedestage[id].idInstitution; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
+                  stagesIds[placeId].ra = "ra"; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
                 }
               }
             }

@@ -21,7 +21,6 @@
                 <a class="nav-link active" :href="mapPath">Map</a>
                 <a class="nav-link active" :href="institutionPath">Institution</a>
                 <a class="nav-link active" :href="placePath">Place de stage</a>
-                <a class="nav-link active" :href="profilePath">Profile</a>
                 <a class="nav-link active" :href="faqPath">FAQ's</a>
                 <a class="nav-link active" :href="adminPath">Admin</a>
               </div>

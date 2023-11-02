@@ -14,6 +14,7 @@ import InstitutionDetails from "./components/Dashboard/DashboardDetails/Institut
 import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDetails.vue";
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
+import Votation from "./components/Dashboard/DashboardDetails/Votation.vue";
 
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
@@ -25,8 +26,6 @@ import SignIn from "./components/Utils/SignIn.vue";
 import SignUp from "./components/Utils/SignUp.vue";
 import TermsOfUse from "./components/Utils/TermsOfUse.vue";
 import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
-
-
 
 const routes = [
     { path: '/', component: HomePage },
@@ -54,6 +53,7 @@ const routes = [
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
     { path: '/praticien_formateur_details/:praticienFormateurSlug', component: PraticienFormateurDetails, name: 'praticien-formateur-details', props: true },
     { path: '/faq', component: Faq, name: 'Faq' },
+    { path: '/votation', component: Votation, name: 'Votation' },
 
     // ... autres routes si nécessaires
 ]
