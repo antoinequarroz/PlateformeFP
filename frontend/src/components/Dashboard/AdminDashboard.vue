@@ -27,7 +27,7 @@
             <li class="nav-item"> <a class="nav-link" :href="institutionListPath"><i class="fas fa-regular fa-hospital fa-fw me-2" ></i>Institution</a></li>
 
             <!-- Menu item 6 -->
-            <li class="nav-item"> <a class="nav-link" :href="valdidationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="votationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
 
             <!-- Menu item 7 -->
             <li class="nav-item"> <a class="nav-link" :href="userListPath"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
@@ -128,7 +128,7 @@ export default {
       userListPath: '/user_list',
       praticienFormateurListPath: '/praticien_formateur_list',
       enseignantListPath: '/enseignant_list',
-      valdidationPath: '/validation',
+      votationPath: '/votation',
       statistiquesPath: '/statistiques',
       faqAdminPath: '/faq_admin',
 

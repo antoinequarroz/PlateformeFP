@@ -136,7 +136,7 @@ Main Banner START -->
               </svg>
             </figure>
             <!-- Title -->
-            <h1 class="mb-0 display-6">Palteforme de formation
+            <h1 class="mb-0 display-6">Plateforme de formation
               <span class="position-relative">pratique
                 <!-- SVG START -->
 						<span class="position-absolute top-50 start-50 translate-middle ms-3 z-index-n1">

@@ -1,237 +1,188 @@
+
 <template>
-  <section class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h1 class="text-white">Soumettre une modification à l'institution</h1>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto text-center">
-          <p class="text-center">Utilisez cette interface pour modifier une institution au portail. Une fois que vous avez terminé d'ajouter l'élément, il sera examiné pour la qualité. Si approuvé.</p>
-        </div>
-
-        <div class="card bg-transparent rounded-3 mb-5">
-          <div id="stepper" class="bs-stepper stepper-outline">
-            <div class="card-header bg-light border-bottom px-lg-5">
-              <div class="bs-stepper-header" role="tablist">
-                <div class="step" data-target="#step-1">
-                  <div class="d-grid text-center align-items-center">
-                    <button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger1" aria-controls="step-1">
-                      <span class="bs-stepper-circle">1</span>
-                    </button>
-                    <h6 class="bs-stepper-label d-none d-md-block">Détail de l'institution</h6>
+  <div class="container">
+    <section class="pt-5">
+      <div class="container">
+        <div class="row g-4 g-sm-5">
+          <!-- ... comme précédemment pour la partie Left Sidebar ... -->
+          <div class="col-xl-4">
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-xl-12">
+                <!-- Card START -->
+                <div class="card shadow">
+                  <div class="rounded-3">
+                    <img :src="institution.Cyberlearn" alt="Image placeholder" />
                   </div>
                 </div>
-                <div class="line"></div>
-
-                <div class="step" data-target="#step-2">
-                  <div class="d-grid text-center align-items-center">
-                    <button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger2" aria-controls="step-2">
-                      <span class="bs-stepper-circle">2</span>
-                    </button>
-
-                    <h6 class="bs-stepper-label d-none d-md-block">Informations supplémentaires</h6>
-                  </div>
+                <br>
+                <div>
+                  <button class="btn btn-primary-soft me-1 mb-1 mb-md-0 mb-3 col-3">Réserver</button>
                 </div>
-                <div class="line"></div>
-
-                <div class="step" data-target="#step-3">
-                  <div class="d-grid text-center align-items-center">
-                    <button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger3" aria-controls="step-3">
-                      <span class="bs-stepper-circle">3</span>
-                    </button>
-                    <h6 class="bs-stepper-label d-none d-md-block">Médias de l'institution</h6>
-                  </div>
-                </div>
-                <div class="line"></div>
-
-                <div class="step" data-target="#step-4">
-                  <div class="d-grid text-center align-items-center">
-                    <button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger4" aria-controls="step-4">
-                      <span class="bs-stepper-circle">4</span>
-                    </button>
-                    <h6 class="bs-stepper-label d-none d-md-block">Description</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body">
-              <div class="bs-stepper-content">
-                <form onsubmit="return false">
-                  <div id="step-1" role="tabpanel" class="content fade" aria-labelledby="steppertrigger1">
-                    <h4>Détail de l'institution</h4>
-                    <hr>
-                    <div class="row g-4">
-                      <div class="col-12">
-                        <label for="name">Nom:</label>
-                        <input type="text" id="name" v-model="institution.Name" class="form-control" />
-                      </div>
-
-                      <div class="col-12">
-                        <label for="cyberlearn">Cyberlearn:</label>
-                        <input type="text" id="cyberlearn" v-model="institution.Cyberlearn" class="form-control" />
-                      </div>
-
-                      <div class="col-6">
-                        <label for="lieu">Lieu:</label>
-                        <input type="text" id="lieu" v-model="institution.Lieu" class="form-control" />
-                      </div>
-
-                      <div class="col-6">
-                        <label for="canton">Canton:</label>
-                        <select id="canton" v-model="institution.Canton" class="form-control">
-                          <option value="">-</option>
-                          <option v-for="canton in cantons" :key="canton.code" :value="canton.code">{{ canton.name }}</option>
-                        </select>
-                      </div>
-
-                      <div class="col-6">
-                        <label for="street">Rue:</label>
-                        <input type="text" id="street" v-model="institution.Street" class="form-control" />
-                      </div>
-
-                      <div class="col-3">
-                        <label for="latitude">Latitude:</label>
-                        <input type="text" id="latitude" v-model="institution.Latitude" class="form-control" placeholder="Ex: 48.8566" />
-                      </div>
-
-                      <div class="col-3">
-                        <label for="longitude">Longitude:</label>
-                        <input type="text" id="longitude" v-model="institution.Longitude" class="form-control" placeholder="Ex: 2.3522" />
-                      </div>
-
-                      <div class="col-12">
-                        <label for="url">URL:</label>
-                        <input type="text" id="url" v-model="institution.URL" class="form-control" />
-                      </div>
-
-                      <div class="d-flex justify-content-end mt-3">
-                        <button class="btn btn-primary next-btn mb-0" @click="goToNextStep">Suivant</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="step-2" role="tabpanel" class="content fade" aria-labelledby="steppertrigger2">
-                    <h4>Informations supplémentaires</h4>
-                    <hr>
-                    <div class="row g-4">
-                      <div class="col-8">
-                        <label for="nomResponsablePhysio">Nom Responsable Physio:</label>
-                        <input type="text" id="nomResponsablePhysio" v-model="institution.NomResponsablePhysio" class="form-control" />
-                      </div>
-                      <div class="col-4">
-                        <label for="language">Langue:</label>
-                        <select id="language" v-model="institution.Langue" class="form-control">
-                          <option value="">-</option>
-                          <option v-for="language in languages" :key="language" :value="language">{{ language }}</option>
-                        </select>
-                      </div>
-
-                      <div class="col-4">
-                        <label for="phoneResponsablePhysio">Téléphone Responsable Physio:</label>
-                        <input type="text" id="phoneResponsablePhysio" v-model="institution.PhoneResponsablePhysio" class="form-control" />
-                      </div>
-
-                      <div class="col-4">
-                        <label for="emailResponsablePhysio">Email Responsable Physio:</label>
-                        <input type="email" id="emailResponsablePhysio" v-model="institution.EmailResponsablePhysio" class="form-control" />
-                      </div>
-
-                      <div class="col-4">
-                        <label>Options :</label>
-                        <div class="checkboxes-horizontal" v-for="item in institution.checkBoxItems" :key="item">
-                          <input type="checkbox" :id="item" v-model="institution[item]" />
-                          <label :for="item">{{ item }}</label>
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-end mt-3">
-                        <button class="btn btn-secondary prev-btn mb-0" @click="goToPrevStep">Précédent</button>
-                        <button class="btn btn-primary next-btn mb-0" @click="goToNextStep">Suivant</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="step-3" role="tabpanel" class="content fade" aria-labelledby="steppertrigger3">
-                    <h4>Médias de l'institution</h4>
-                    <hr>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
-                          <img src="" class="h-50px" alt="">
-                          <div>
-                            <h6 class="my-2">Téléchargez l'image du cours ici, ou <a href="#!" class="text-primary">Parcourir</a></h6>
-                            <label style="cursor:pointer;">
-                              <span>
-                                <input class="form-control stretched-link" type="file" name="my-image" id="image" accept="image/gif, image/jpeg, image/png" />
-                               </span>
-                            </label>
-                            <p class="small mb-0 mt-2"><b>Note:</b> Seulement JPG, JPEG et PNG. Nos dimensions suggérées sont 600px * 450px. Une image plus grande sera recadrée en 4:3 pour s'adapter à nos vignettes/aperçus.</p>
-                          </div>
-                        </div>
-
-                        <div class="d-sm-flex justify-content-end mt-2">
-                          <button type="button" class="btn btn-sm btn-danger-soft mb-3">Supprimer l'image</button>
-                        </div>
-                      </div>
-
-                      <div class="col-12">
-                        <h5>Télécharger l'image</h5>
-                        <div class="col-12 mt-4 mb-5">
-                          <label class="form-label">URL de l'image</label>
-                          <input class="form-control" type="text" placeholder="Entrez l'URL de l'image">
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-between mt-3">
-                        <button class="btn btn-secondary prev-btn mb-0" @click="goToPrevStep">Précédent</button>
-                        <button class="btn btn-primary next-btn mb-0" @click="goToNextStep">Suivant</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="step-4" role="tabpanel" class="content fade" aria-labelledby="steppertrigger4">
-                    <h4>Informations supplémentaires</h4>
-                    <hr>
-                    <div class="col-12">
-                      <label for="description">Description du lieu:</label>
-                      <textarea id="description" v-model="institution.Description" class="form-control" rows="5" placeholder="Entrez la description du lieu ici..."></textarea>
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                      <button class="btn btn-secondary prev-btn mb-0" @click="goToPrevStep">Précédent</button>
-                      <button class="btn btn-primary next-btn mb-0" @click="envoyerDonnees">Envoyer</button>
-                    </div>
-                  </div>
-                </form>
               </div>
             </div>
           </div>
+          <!-- Main content START -->
+          <div class="col-xl-8">
+            <h1 class="mb-4">{{ institution.Name }}</h1>
+            <div class="d-flex align-items-center mb-4">
+              <h2 class="me-3 mb-0">{{ institution.Lieu }}</h2>
+              <div>
+                <a class="badge bg-primary bg-opacity-10 text-primary">{{ institution.Canton }}</a>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="name">Nom:</label>
+              <input type="text" id="name" v-model="institution.Name" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="cyberlearn">Cyberlearn:</label>
+              <input type="text" id="cyberlearn" v-model="institution.Cyberlearn" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="lieu">Lieu:</label>
+              <input type="text" id="lieu" v-model="institution.Lieu" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="canton">Canton:</label>
+              <input type="text" id="canton" v-model="institution.Canton" class="form-control" />
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="street">Street:</label>
+              <input type="text" id="street" v-model="institution.Street" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="url">URL:</label>
+              <input type="text" id="url" v-model="institution.URL" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="nomResponsablePhysio">Nom Responsable Physio:</label>
+              <input type="text" id="nomResponsablePhysio" v-model="institution.NomResponsablePhysio"
+                     class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="phoneResponsablePhysio">Téléphone Responsable Physio:</label>
+              <input type="text" id="phoneResponsablePhysio" v-model="institution.PhoneResponsablePhysio"
+                     class="form-control" />
+            </div>
+
+            <div class="mb-3">
+              <label for="emailResponsablePhysio">Email Responsable Physio:</label>
+              <input type="email" id="emailResponsablePhysio" v-model="institution.EmailResponsablePhysio"
+                     class="form-control" />
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="aigu" v-model="institution.AIGU" class="form-check-input" />
+              <label for="aigu" class="form-check-label">AIGU</label>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="rea" v-model="institution.REA" class="form-check-input" />
+              <label for="rea" class="form-check-label">REA</label>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="ambu" v-model="institution.AMBU" class="form-check-input" />
+              <label for="ambu" class="form-check-label">AMBU</label>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="msq" v-model="institution.MSQ" class="form-check-input" />
+              <label for="msq" class="form-check-label">MSQ</label>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="neuroger" v-model="institution.NEUROGER" class="form-check-input" />
+              <label for="neuroger" class="form-check-label">NEUROGER</label>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="sysint" v-model="institution.SYSINT" class="form-check-input" />
+              <label for="sysint" class="form-check-label">SYSINT</label>
+            </div>
+
+
+            <div v-for="(place, index) in placesDeStage" :key="index">
+              <div class="mb-3">
+                <label for="sector">Secteur:</label>
+                <span>{{ place.Sector }}</span>
+              </div>
+
+              <div class="mb-3">
+                <label for="npmPractitionerTrainer">NPM Praticien Formateur:</label>
+                <span>{{ place.NpmPractitionerTrainer }}</span>
+              </div>
+
+              <!-- Et ainsi de suite pour les autres propriétés de place de stage -->
+
+            </div>
+
+            <div v-for="(stage, index) in stages" :key="index">
+              <!-- Afficher les données de stage ici -->
+            </div>
+            <button @click="supprimerTousLesStages" class="btn btn-danger">Supprimer tous les stages</button>
+
+
+            <div class="mb-3">
+              <button @click="ajouterPlaceDeStage" class="btn btn-primary" :disabled="isStageAdded">Ajouter une place de
+                stage</button>
+            </div>
+
+            <div v-for="(stage, index) in institution.stages" :key="index">
+              <div class="mb-3">
+                <label for="sector">Secteur:</label>
+                <input type="text" :id="'sector-' + index" v-model="stage.Sector" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label for="npmPractitionerTrainer">NPM Praticien Formateur:</label>
+                <input type="text" :id="'npmPractitionerTrainer-' + index" v-model="stage.NpmPractitionerTrainer"
+                       class="form-control" />
+              </div>
+
+              <!-- Les 5 Checkbox -->
+              <div class="mb-3 form-check">
+                <div v-for="(item, index) in institution.checkBoxItems" :key="index" class="mb-3 form-check">
+                  <input type="checkbox" :id="item + '-' + index" v-model="stage[item]" class="form-check-input" />
+                  <label :for="item + '-' + index" class="form-check-label">{{ item }}</label>
+                </div>
+                <div class="mb-3">
+                  <button @click="envoyerDonnees" class="btn btn-primary">Envoyer les Données de Stage</button>
+                </div>
+
+              </div>
+              <!-- ... autres checkbox ... -->
+            </div>
+          </div>
+          <!-- Main content END -->
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
+
 import { db } from '../../../../firebase.js';
-import { ref, onValue, set, off, update } from "firebase/database";
-import { watch } from 'vue';
+import { ref, onValue, set, get } from "firebase/database";
+import { watch } from 'vue'; // Importer le hook 'watch'
 
 export default {
   name: 'InstitutionFormModif',
   data() {
     return {
-      stepper: null,
       isStageAdded: false,
-      placedestages: [],
+
       institution: {
         Cyberlearn: '',
         Name: '',
@@ -240,9 +191,6 @@ export default {
         Description: '',
         Street: '',
         URL: '',
-        Latitude: '',
-        Longitude: '',
-        Langue: '',
         AIGU: false,
         REA: false,
         AMBU: false,
@@ -252,109 +200,108 @@ export default {
         NomResponsablePhysio: '',
         PhoneResponsablePhysio: '',
         EmailResponsablePhysio: '',
+
+        // ... autres propriétés ...
         checkBoxItems: ['AIGU', 'REA', 'AMBU', 'MSQ', 'NEUROGER', 'SYSINT'],
-        stages: [],
+        placesDeStage: [],
+
+        stages: [], // Assurez-vous que c'est bien un tableau vide
       },
-      cantons: [
-        { code: 'AG', name: 'Argovie' },
-        { code: 'AI', name: 'Appenzell Rhodes-Intérieures' },
-        { code: 'AR', name: 'Appenzell Rhodes-Extérieures' },
-        { code: 'BE', name: 'Berne' },
-        { code: 'BL', name: 'Bâle-Campagne' },
-        { code: 'BS', name: 'Bâle-Ville' },
-        { code: 'FR', name: 'Fribourg' },
-        { code: 'GE', name: 'Genève' },
-        { code: 'GL', name: 'Glaris' },
-        { code: 'GR', name: 'Grisons' },
-        { code: 'JU', name: 'Jura' },
-        { code: 'LU', name: 'Lucerne' },
-        { code: 'NE', name: 'Neuchâtel' },
-        { code: 'NW', name: 'Nidwald' },
-        { code: 'OW', name: 'Obwald' },
-        { code: 'SG', name: 'Saint-Gall' },
-        { code: 'SH', name: 'Schaffhouse' },
-        { code: 'SO', name: 'Soleure' },
-        { code: 'SZ', name: 'Schwytz' },
-        { code: 'TG', name: 'Thurgovie' },
-        { code: 'TI', name: 'Tessin' },
-        { code: 'UR', name: 'Uri' },
-        { code: 'VD', name: 'Vaud' },
-        { code: 'VS', name: 'Valais' },
-        { code: 'ZG', name: 'Zoug' },
-        { code: 'ZH', name: 'Zurich' },
-        {code : 'ET', name: 'Étranger'}
-      ],
-      languages: ['Allemand', 'Français', 'Bilingue'],
+      // Autres propriétés de l'institution ici
+
     };
   },
-  mounted() {
-    this.stepper = new Stepper(document.querySelector('.bs-stepper'));
-    const instId = this.$route.params.instSlug;
-    const instRef = ref(db, 'institutions/' + instId);
-    onValue(instRef, (snapshot) => {
-      const data = snapshot.val();
-      Object.assign(this.institution, data);
-    }, {
-      onlyOnce: true,
-    });
-    const placedestageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + '');
-    onValue(placedestageRef, (snapshot) => {
-      const allPlacedestage = snapshot.val();
-      const matchedPlacedestage = Object.values(allPlacedestage).filter(
-          placedestage => placedestage.idInstitution === this.$route.params.instSlug
-      );
-      this.placedestages = matchedPlacedestage;
-    });
-    watch(() => this.institution, async (newVal) => {
-      await set(instRef, newVal);
-    }, { deep: true });
-  },
-  beforeUnmount() {
-    if (this.placedestageRef) off(this.placedestageRef);
-  },
+
   methods: {
-    goToNextStep() {
-      this.stepper.next();
-    },
-    goToPrevStep() {
-      this.stepper.previous();
-    },
     supprimerTousLesStages() {
       this.institution.stages = [];
     },
+
     async envoyerDonnees() {
-      const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
-      const newStageData = {};
-      for (const stage of this.institution.stages) {
-        newStageData[stage.id] = stage;
+      try {
+        const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
+        await set(stageRef, this.institution.stages); // Envoyer les données de stages à la table 'placedestage'
+        this.institution.stages = [];
+
+        //  this.$router.push({ name: 'InstitutionProfile', params: { instSlug: this.$route.params.instSlug } }); // Naviguer vers le profil de l'institution
+      } catch (error) {
+        console.error('Erreur lors de l’envoi des données de stage:', error);
       }
-      await update(stageRef, newStageData);
-      this.institution.stages = [];
-      this.$router.push({ name: 'InstitutionList' });
     },
+
+
     ajouterPlaceDeStage() {
-      this.isStageAdded = false;
+      this.isStageAdded = true; // Désactiver le bouton après avoir ajouté une place de stage
+
       const newStage = {
-        id: `stage-${Date.now()}`,
         Sector: '',
         NpmPractitionerTrainer: '',
-        idInstitution: this.$route.params.instSlug,
       };
+
       for (const item of this.institution.checkBoxItems) {
         newStage[item] = false;
       }
+
       this.institution.stages.push(newStage);
     },
-    goToStep(stepNumber) {
-      this.stepper.to(stepNumber);
-    }
-  }
+    // ... autres méthodes ...
+  },
+
+
+
+
+  async mounted() {
+    const instId = this.$route.params.instSlug; // L'ID de l'institution est passé en tant que paramètre de route
+    const instRef = ref(db, 'institutions/' + instId);
+
+    // Récupérer la valeur initiale de l'institution depuis la base de données
+    onValue(instRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.institution = snapshot.val();
+        // Après avoir récupéré les données, activez le bouton pour ajouter des stages
+        this.isStageAdded = false;
+      } else {
+        console.error('Institution does not exist');
+      }
+    }, {
+      onlyOnce: true,
+    });
+
+    const placedestageRef = ref(db, 'placedestage'); // Ajustement ici
+
+    onValue(placedestageRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const allPlaces = snapshot.val();
+        this.placesDeStage = Object.values(allPlaces)
+            .filter(place => place.institutionId === instId);
+      } else {
+        console.error('Pas de places de stage disponibles');
+      }
+    });
+
+    const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug);
+    onValue(stageRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.stages = snapshot.val();
+      } else {
+        console.error('Pas de données de stage disponibles');
+      }
+    }, {
+      onlyOnce: true,
+    });
+
+    // Mettre en place un watcher sur l'objet institution
+    watch(() => this.institution, async (newVal) => {
+      try {
+        await set(instRef, newVal); // Mettre à jour la base de données à chaque changement
+      } catch (error) {
+        console.error('Error updating institution:', error);
+      }
+    }, { deep: true }); // L'option deep: true permet d'observer les propriétés imbriquées de l'objet institution
+  },
 };
 </script>
 
-
 <style scoped>
-
+/* Vos styles CSS ici si nécessaire */
 </style>
-
-
