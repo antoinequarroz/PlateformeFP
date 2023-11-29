@@ -32,7 +32,7 @@
             <!-- Menu item 7 -->
             <li class="nav-item"> <a class="nav-link" :href="userListPath"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
 
-            <li class="nav-item"> <a class="nav-link" :href="enseignantListPath"> <i class="fas fa-user fa-fw me-2"></i>Enseignant</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="enseignentListPath"> <i class="fas fa-user fa-fw me-2"></i>Enseignant</a></li>
 
             <li class="nav-item"> <a class="nav-link" :href="praticienFormateurListPath"> <i class="fas fa-user fa-fw me-2"></i>Praticien formateur</a></li>
 
@@ -127,7 +127,7 @@ export default {
       PFPDetailsPath: '/PFP_details',
       userListPath: '/user_list',
       praticienFormateurListPath: '/praticien_formateur_list',
-      enseignantListPath: '/enseignant_list',
+      enseignentListPath: '/enseignent_list',
       votationPath: '/votation',
       statistiquesPath: '/statistiques',
       faqAdminPath: '/faq_admin',

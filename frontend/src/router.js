@@ -17,10 +17,14 @@ import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.v
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
 import Votation from "./components/Dashboard/DashboardDetails/Votation.vue";
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
+import NewUserFormModif from "./components/Dashboard/DashboardForms/NewUserFormModif.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
+import EnseignentForm from "./components/Dashboard/DashboardForms/EnseignentForm.vue";
+import EnseignentFormModif from "./components/Dashboard/DashboardForms/EnseignentFormModif.vue";
+import EnseignentList from "./components/Dashboard/DashboardList/EnseignentList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
 import PraticienFormateurList from "./components/Dashboard/DashboardList/PraticienFormateurList.vue";
-import PraticienFormateurDetails from "./components/Dashboard/DashboardDetails/PraticienFormateurDetails.vue";
+import PraticienFormateurFormModif from "./components/Dashboard/DashboardForms/PraticienFormateurFormModif.vue";
 import Faq from "./components/Home/Faq.vue";
 import SignIn from "./components/Utils/SignIn.vue";
 import SignUp from "./components/Utils/SignUp.vue";
@@ -49,10 +53,15 @@ const routes = [
     { path: '/pfp_details', component: PFPDetails, name: 'pfp-details'},
     { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },
     { path: '/new_user_form', component: NewUserForm, name: 'NewUserForm'  },
+    { path: '/new_user_form_modif/:userId', component: NewUserFormModif, name: 'NewUserFormModif', props: true },
     { path: '/user_list', component: UserList, name: 'UserList' },
+    { path: '/enseignent_form', component: EnseignentForm, name: 'EnseignentForm'  },
+    { path: '/enseignent_form_modif/:enseignantId', component: EnseignentFormModif, name: 'EnseignentFormModif', props: true },
+    { path: '/enseignent_list', component: EnseignentList, name: 'EnseignentList' },
     { path: '/praticien_formateur_form', component: PraticienFormateurForm, name: 'PraticienFormateurForm'  },
+    { path: '/praticien_formateur_form_modif/:praticienFormateurId', component: PraticienFormateurForm, name: 'PraticienFormateurFormModif', props: true },
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
-    { path: '/praticien_formateur_details/:praticienFormateurSlug', component: PraticienFormateurDetails, name: 'praticien-formateur-details', props: true },
+
     { path: '/faq', component: Faq, name: 'Faq' },
     { path: '/votation', component: Votation, name: 'Votation' },
 

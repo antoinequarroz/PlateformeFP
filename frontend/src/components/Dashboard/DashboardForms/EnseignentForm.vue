@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-4">Nouveau praticien formateur</h1>
-    <form @submit.prevent="addNewPraticienFormateur">
+    <h1 class="mb-4">Nouvel enseignant</h1>
+    <form @submit.prevent="addNewEnseignant">
       <div class="mb-3">
         <label for="prenom" class="form-label">Prénom</label>
         <input type="text" class="form-control" id="prenom" v-model="prenom" required>
@@ -24,7 +24,7 @@ import { db } from '../../../../firebase.js';
 import { ref, get, set } from "firebase/database";
 
 export default {
-  name: 'PraticienFormateurForm',
+  name: 'EnseignantForm',
   data() {
     return {
       prenom: '',
@@ -33,18 +33,18 @@ export default {
     };
   },
   methods: {
-    async addNewPraticienFormateur() {
+    async addNewEnseignant() {
       try {
-        const praticiensFormateursRef = ref(db, 'praticiensFormateurs'); // Assurez-vous que cette référence est correcte
+        const enseignantsRef = ref(db, 'enseignants');
 
-        // Obtenir les données actuelles pour compter le nombre de praticiens formateurs
-        const snapshot = await get(praticiensFormateursRef);
-        const praticiensFormateursData = snapshot.val();
-        const nextPraticienFormateurId = praticiensFormateursData ? Object.keys(praticiensFormateursData).length + 1 : 1;
+        // Obtenir les données actuelles pour compter le nombre d'enseignants
+        const snapshot = await get(enseignantsRef);
+        const enseignantsData = snapshot.val();
+        const nextEnseignantId = enseignantsData ? Object.keys(enseignantsData).length + 1 : 1;
 
-        // Création d'un nouveau praticien formateur avec un identifiant séquentiel
-        const newPraticienFormateurRef = ref(db, 'praticiensFormateurs/' + nextPraticienFormateurId);
-        await set(newPraticienFormateurRef, {
+        // Création d'un nouvel enseignant avec un identifiant séquentiel
+        const newEnseignantRef = ref(db, 'enseignants/' + nextEnseignantId);
+        await set(newEnseignantRef, {
           Prenom: this.prenom,
           Nom: this.nom,
           Email: this.email,
@@ -55,11 +55,11 @@ export default {
         this.nom = '';
         this.email = '';
 
-        // Rediriger vers la liste des praticiens formateurs
-        // Assurez-vous que la route 'PraticienFormateurList' est correctement définie dans votre routeur
-        this.$router.push({ name: 'PraticienFormateurList' });
+        // Rediriger vers la liste des enseignants
+        // Assurez-vous que la route 'EnseignantList' est correctement définie dans votre routeur
+        this.$router.push({ name: 'EnseignantList' });
       } catch (error) {
-        console.error('Erreur d’ajout du nouveau praticien formateur', error);
+        console.error('Erreur d’ajout du nouvel enseignant', error);
       }
     }
   }
