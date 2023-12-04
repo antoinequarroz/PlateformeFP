@@ -5,7 +5,7 @@
 
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
-          <h1>Votez pour votre place de PFP</h1>
+          <h1>Valider la PFP</h1>
 
           <label for="classInput" class="form-label">Classe : </label> <br>
           <label for="classInput" class="form-label">PFP : </label> <br>
@@ -28,59 +28,43 @@
               <th>Langue</th>
               <th>Secteur</th>
               <th>Praticien Formateur</th>
+              <th>Nom Institution</th>
               <th>AIGU </th>
               <th>REA </th>
               <th>MSQ </th>
               <th>SYSINT </th>
               <th>NEUROGER </th>
               <th>AMBU </th>
-     
-              <th>Choix 1 </th>
-              <th>Choix 2 </th>
-              <th>Choix 3 </th>
-              <th>Choix 4 </th>
-              <th>Choix 5 </th>
+              <th>SAE </th>
+              <th>ETUDIANT </th>
 
             </tr>
           </thead>
           <tbody>
             <tr v-for="(stage, index) in stages" :key="index">
               <td>{{ stage.id }}</td>
-              <td>{{ stage.institution }} -</td>
-              <td>{{ stage.canton }} - </td>
-              <td>{{ stage.lieu }}-</td>
-              <td>{{ stage.langue }}</td>
-              <td>{{ stage.sector }} -</td>
+              <td>{{ stage.institution }} - </td>
+              <td>{{ stage.canton }} -</td>
+              <td>{{ stage.lieu }}</td>
+              <td>{{ stage.langue }} -</td>
+              <td>{{ stage.sector }} - </td>
               <td>{{ stage.NpmPractitionerTrainer }}</td>
+              <td>{{ stage.nomInstitution }} -</td>
               <td>{{ stage.AIGU }}</td>
               <td>{{ stage.REA }}</td>
               <td>{{ stage.MSQ }}</td>
               <td>{{ stage.SYSINT }}</td>
               <td>{{ stage.NEUROGER }}</td>
-      
               <td>{{ stage.AMBU }}</td>
-           
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
+     
+              <td>{{ stage.SAE }} -</td>
+              <td>{{ stage.STUDENT }} -</td>
             </tr>
           </tbody>
 
         </table>
 
-        <button @click="createPFP" class="btn btn-primary">Choisir ses choix pour la PFP</button>
+        <button @click="createPFP" class="btn btn-primary">Valider PFP</button>
 
       </div>
     </section>
@@ -94,7 +78,7 @@ import { db } from '../../../../firebase.js';
 import { ref, onValue, set, off, update, push, get, child } from "firebase/database";
 import { watch, reactive } from 'vue';
 export default {
-  name: 'Votation',
+  name: 'Validation',
   data() {
     return {
       stages: [], // Ici seront stockées les informations des stages
@@ -128,46 +112,10 @@ export default {
   },
 
 
-
 };
 </script>
   
 <style scoped>
-.table-responsive {
-  overflow-x: auto;
-}
-
-.table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
-}
-
-.table th,
-.table td {
-  padding: 0.5rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-  font-size: 0.8rem; /* Réduire la taille de la police */
-}
-
-/* Assurez-vous que les cellules ne prennent pas plus de place que nécessaire */
-.table td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Pour les petits écrans, vous pouvez utiliser une requête média pour ajuster la taille de la police et la largeur des colonnes */
-@media (max-width: 768px) {
-  .table th,
-  .table td {
-    padding: 0.3rem;
-    font-size: 0.7rem; /* Encore plus petit sur les appareils mobiles */
-  }
-}
-
 /* Vos styles CSS ici si nécessaire */
 </style>
   

@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
+      <h1>Définissez les PFP</h1>
+
       <div class="col-8">
         <label for="annee_civil">Année Académique :</label>
         <select v-model="annee_civil" id="annee_civil">

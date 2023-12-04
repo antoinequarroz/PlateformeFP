@@ -36,11 +36,10 @@
           <thead>
             <tr>
               <th>ID Stage</th>
-              <th>Active</th>
+              <th>Nom Institution</th>
               <th>ID Institution</th>
               <th>Secteur</th>
               <th>Praticien Formateur</th>
-              <th>Nom Institution</th>
               <th>AIGU </th>
               <th>REA </th>
               <th>MSQ </th>
@@ -54,10 +53,10 @@
           <tbody>
             <tr v-for="stage in filteredStages" :key="stage.name">
               <td>{{ stage.id }}</td>
-              <td>{{ getInstitutionName(stage.idInstitution) }}</td>
+              <td>{{ getInstitutionName(stage.idInstitution) }} </td>
               <td>{{ stage.idInstitution }}</td>
               <td>{{ stage.NpmPractitionerTrainer }}</td>
-              <td>{{ stage.Sector }}</td>
+              <td>{{ stage.sector }}</td>
               <td>{{ stage.AIGU }}</td>
               <td>{{ stage.REA }}</td>
               <td>{{ stage.REA }}</td>
@@ -65,7 +64,16 @@
               <td>{{ stage.SYSINT }}</td>
               <td>{{ stage.NEUROGER }}</td>
               <td>{{ stage.AMBU }}</td>
-        
+              <td>
+                <input type="checkbox" v-model="stage.showStudents">
+              </td>
+              <td v-if="stage.showStudents">
+                <select v-model="stage.selectedStudent" @change="handleStudentSelection(stage)">
+                  <option v-for="student in etudiants" :value="student.id">{{ student.name }}</option>
+                </select>
+
+              </td>
+
 
             </tr>
           </tbody>
@@ -97,6 +105,9 @@ export default {
       filteredStages: [],  // pour stocker les stages filtrés
       aiguValues: [],  // Assurez-vous que c'est bien initialisé
       institutions: {},
+      students: [], // Liste d'étudiants à récupérer depuis votre base de données
+      etudiants: [], // Ici seront stockés les étudiants
+
 
     };
   },
@@ -105,9 +116,68 @@ export default {
     anneeAcademique: 'fetchAnneeCivilRef',
     selectedPFP: 'fetchAnneeCivilRef',
 
+  
   },
 
   methods: {
+
+    initializePfpData() {
+    this.pfpData = {};
+    this.filteredStages.forEach(stage => {
+      this.pfpData[stage.id] = { ...stage };
+    });
+  },  
+    updatePfpData(stage) {
+    // Mettre à jour pfpData avec les nouvelles données du stage
+    Vue.set(this.pfpData, stage.id, { ...stage });
+  },
+    async createPFP() {
+    try {
+      // Construisez l'identifiant pour l'année-PFP (par exemple, "23-PFP1A")
+      const anneePFP = `${this.anneeAcademique}-${this.selectedPFP}`;
+      console.log(anneePFP);
+      // Construisez l'objet à enregistrer
+      const pfpData = {};
+      this.filteredStages.forEach(stage => {
+        pfpData[stage.id] = { ...stage };  // Copiez chaque stage dans pfpData
+      });
+
+      // Chemin de référence dans Firebase où vous voulez sauvegarder les données
+      const pfpRef = ref(db, `lieustage/${anneePFP}`);
+
+      // Enregistrez les données dans Firebase
+      await set(pfpRef, pfpData);
+      console.log('PFP créé avec succès:', anneePFP);
+    } catch (error) {
+      console.error('Erreur lors de la création du PFP:', error);
+    }
+  },
+    handleStudentSelection(stage) {
+
+      // Par exemple, enregistrez la sélection dans une base de données
+    },
+
+    async fetchEtudiants() {
+      try {
+        const etudiantsRef = ref(db, '/chemin_vers_etudiants');
+        const snapshot = await get(etudiantsRef);
+        if (snapshot.exists()) {
+          this.etudiants = Object.values(snapshot.val());
+        } else {
+          console.error('Aucun étudiant trouvé');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des étudiants:', error);
+      }
+    },
+
+
+    handleStudentSelection(stage, event) {
+      // Logique pour gérer la sélection d'un étudiant
+      const selectedStudentId = event.target.value;
+      // Vous pouvez maintenant utiliser selectedStudentId pour mettre à jour votre base de données ou effectuer d'autres actions
+    },
+
     displayValue(index) {
       return this.aiguValues[index];
     },
@@ -338,11 +408,18 @@ export default {
     },
 
     getInstitutionName(idInstitution) {
-      console.log( this.institutions[idInstitution]?.Name);
+      console.log(this.institutions[idInstitution]?.Name);
       return this.institutions[idInstitution]?.Name || 'Nom inconnu';
     },
   },
   // Dans la section script
+  mounted() {
+    // ... Votre logique existante ...
+    this.fetchEtudiants();
+    this.initializePfpData();
+
+  },
+
   computed: {
     // ... autres propriétés calculées ...
     displayValues() {

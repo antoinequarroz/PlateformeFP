@@ -5,7 +5,7 @@
 
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
-          <h1>Votez pour votre place de PFP</h1>
+          <h1>Reception Votatation</h1>
 
           <label for="classInput" class="form-label">Classe : </label> <br>
           <label for="classInput" class="form-label">PFP : </label> <br>
@@ -21,60 +21,23 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Stage</th>
-              <th>Institution</th>
-              <th>Canton</th>
-              <th>Lieu</th>
-              <th>Langue</th>
-              <th>Secteur</th>
-              <th>Praticien Formateur</th>
-              <th>AIGU </th>
-              <th>REA </th>
-              <th>MSQ </th>
-              <th>SYSINT </th>
-              <th>NEUROGER </th>
-              <th>AMBU </th>
+              <th>Etudiant</th>
+             
      
-              <th>Choix 1 </th>
-              <th>Choix 2 </th>
-              <th>Choix 3 </th>
-              <th>Choix 4 </th>
-              <th>Choix 5 </th>
+              <th>Choix </th>
+              <th>Lesé</th>
+           
 
             </tr>
           </thead>
           <tbody>
             <tr v-for="(stage, index) in stages" :key="index">
-              <td>{{ stage.id }}</td>
+              <td>XX - YY </td>
               <td>{{ stage.institution }} -</td>
               <td>{{ stage.canton }} - </td>
-              <td>{{ stage.lieu }}-</td>
-              <td>{{ stage.langue }}</td>
-              <td>{{ stage.sector }} -</td>
-              <td>{{ stage.NpmPractitionerTrainer }}</td>
-              <td>{{ stage.AIGU }}</td>
-              <td>{{ stage.REA }}</td>
-              <td>{{ stage.MSQ }}</td>
-              <td>{{ stage.SYSINT }}</td>
-              <td>{{ stage.NEUROGER }}</td>
-      
-              <td>{{ stage.AMBU }}</td>
+          
            
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
+        
             </tr>
           </tbody>
 
@@ -94,7 +57,7 @@ import { db } from '../../../../firebase.js';
 import { ref, onValue, set, off, update, push, get, child } from "firebase/database";
 import { watch, reactive } from 'vue';
 export default {
-  name: 'Votation',
+  name: 'Reception',
   data() {
     return {
       stages: [], // Ici seront stockées les informations des stages

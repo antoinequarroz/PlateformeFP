@@ -66,75 +66,47 @@
             <div class="mb-3">
               <label for="nomResponsablePhysio">Nom Responsable Physio:</label>
               <input type="text" id="nomResponsablePhysio" v-model="institution.NomResponsablePhysio"
-                     class="form-control" />
+                class="form-control" />
             </div>
 
             <div class="mb-3">
               <label for="phoneResponsablePhysio">Téléphone Responsable Physio:</label>
               <input type="text" id="phoneResponsablePhysio" v-model="institution.PhoneResponsablePhysio"
-                     class="form-control" />
+                class="form-control" />
             </div>
 
             <div class="mb-3">
               <label for="emailResponsablePhysio">Email Responsable Physio:</label>
               <input type="email" id="emailResponsablePhysio" v-model="institution.EmailResponsablePhysio"
-                     class="form-control" />
+                class="form-control" />
             </div>
 
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="aigu" v-model="institution.AIGU" class="form-check-input" />
-              <label for="aigu" class="form-check-label">AIGU</label>
-            </div>
+            <div v-for="(stage, index) in stages" :key="stage.id">
+              <h2>Place de stage </h2>
+              <br> Secteur :
+              <input type="text" v-model="stage.Sector" @change="updateStage(stage, 'Sector')"> <br>
+              Praticien Formateur : <input type="text" v-model="stage.NpmPractitionerTrainer"
+                @change="updateStage(stage, 'NpmPractitionerTrainer')"><br>
 
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="rea" v-model="institution.REA" class="form-check-input" />
-              <label for="rea" class="form-check-label">REA</label>
-            </div>
+              <input type="checkbox" v-model="stage.AIGU" @change="updateStage(stage, 'AIGU')"> AIGU<br>
+              <input type="checkbox" v-model="stage.AMBU" @change="updateStage(stage, 'AMBU')"> AMBU<br>
+              <input type="checkbox" v-model="stage.MSQ" @change="updateStage(stage, 'MSQ')"> MSQ<br>
+              <input type="checkbox" v-model="stage.NEUROGER" @change="updateStage(stage, 'NEUROGER')"> NEUROGER<br>
+              <input type="checkbox" v-model="stage.REA" @change="updateStage(stage, 'REA')"> REA<br>
+              <input type="checkbox" v-model="stage.SYSINT" @change="updateStage(stage, 'SYSINT')"> SYSINT<br>
 
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="ambu" v-model="institution.AMBU" class="form-check-input" />
-              <label for="ambu" class="form-check-label">AMBU</label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="msq" v-model="institution.MSQ" class="form-check-input" />
-              <label for="msq" class="form-check-label">MSQ</label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="neuroger" v-model="institution.NEUROGER" class="form-check-input" />
-              <label for="neuroger" class="form-check-label">NEUROGER</label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="sysint" v-model="institution.SYSINT" class="form-check-input" />
-              <label for="sysint" class="form-check-label">SYSINT</label>
+              <input type="checkbox" v-model="stage.active" @change="updateStage(stage, 'active')"> Active
+              <br>
+              <button @click="supprimerStage(stage.id)">Supprimer</button>
+              <!-- Ajoutez d'autres champs ici en fonction des propriétés de votre objet stage -->
+              <!-- ... -->
             </div>
 
 
-            <div v-for="(place, index) in placesDeStage" :key="index">
-              <div class="mb-3">
-                <label for="sector">Secteur:</label>
-                <span>{{ place.Sector }}</span>
-              </div>
-
-              <div class="mb-3">
-                <label for="npmPractitionerTrainer">NPM Praticien Formateur:</label>
-                <span>{{ place.NpmPractitionerTrainer }}</span>
-              </div>
-
-              <!-- Et ainsi de suite pour les autres propriétés de place de stage -->
-
-            </div>
-
-            <div v-for="(stage, index) in stages" :key="index">
-              <!-- Afficher les données de stage ici -->
-            </div>
-            <button @click="supprimerTousLesStages" class="btn btn-danger">Supprimer tous les stages</button>
-
+<br> <br> <br> 
 
             <div class="mb-3">
-              <button @click="ajouterPlaceDeStage" class="btn btn-primary" :disabled="isStageAdded">Ajouter une place de
+              <button @click="ajouterPlaceDeStage" class="btn btn-primary">Ajouter une place de
                 stage</button>
             </div>
 
@@ -147,7 +119,7 @@
               <div class="mb-3">
                 <label for="npmPractitionerTrainer">NPM Praticien Formateur:</label>
                 <input type="text" :id="'npmPractitionerTrainer-' + index" v-model="stage.NpmPractitionerTrainer"
-                       class="form-control" />
+                  class="form-control" />
               </div>
 
               <!-- Les 5 Checkbox -->
@@ -172,17 +144,17 @@
 </template>
 
 <script>
-
 import { db } from '../../../../firebase.js';
-import { ref, onValue, set, get } from "firebase/database";
-import { watch } from 'vue'; // Importer le hook 'watch'
+import { ref, onValue, set ,remove } from "firebase/database";
+import { watch } from 'vue';
 
 export default {
   name: 'InstitutionFormModif',
   data() {
     return {
+      stepper: null,
       isStageAdded: false,
-
+      placedestages: [],
       institution: {
         Cyberlearn: '',
         Name: '',
@@ -191,6 +163,9 @@ export default {
         Description: '',
         Street: '',
         URL: '',
+        Latitude: '',
+        Longitude: '',
+        Langue: '',
         AIGU: false,
         REA: false,
         AMBU: false,
@@ -200,59 +175,196 @@ export default {
         NomResponsablePhysio: '',
         PhoneResponsablePhysio: '',
         EmailResponsablePhysio: '',
-
-        // ... autres propriétés ...
         checkBoxItems: ['AIGU', 'REA', 'AMBU', 'MSQ', 'NEUROGER', 'SYSINT'],
-        placesDeStage: [],
-
-        stages: [], // Assurez-vous que c'est bien un tableau vide
+        stages: [],
       },
-      // Autres propriétés de l'institution ici
-
+      cantons: [
+        { code: 'AG', name: 'Argovie' },
+        { code: 'AI', name: 'Appenzell Rhodes-Intérieures' },
+        { code: 'AR', name: 'Appenzell Rhodes-Extérieures' },
+        { code: 'BE', name: 'Berne' },
+        { code: 'BL', name: 'Bâle-Campagne' },
+        { code: 'BS', name: 'Bâle-Ville' },
+        { code: 'FR', name: 'Fribourg' },
+        { code: 'GE', name: 'Genève' },
+        { code: 'GL', name: 'Glaris' },
+        { code: 'GR', name: 'Grisons' },
+        { code: 'JU', name: 'Jura' },
+        { code: 'LU', name: 'Lucerne' },
+        { code: 'NE', name: 'Neuchâtel' },
+        { code: 'NW', name: 'Nidwald' },
+        { code: 'OW', name: 'Obwald' },
+        { code: 'SG', name: 'Saint-Gall' },
+        { code: 'SH', name: 'Schaffhouse' },
+        { code: 'SO', name: 'Soleure' },
+        { code: 'SZ', name: 'Schwytz' },
+        { code: 'TG', name: 'Thurgovie' },
+        { code: 'TI', name: 'Tessin' },
+        { code: 'UR', name: 'Uri' },
+        { code: 'VD', name: 'Vaud' },
+        { code: 'VS', name: 'Valais' },
+        { code: 'ZG', name: 'Zoug' },
+        { code: 'ZH', name: 'Zurich' },
+        { code: 'ET', name: 'Étranger' }
+      ],
+      languages: ['Allemand', 'Français', 'Bilingue'],
     };
   },
-
   methods: {
-    supprimerTousLesStages() {
-      this.institution.stages = [];
+
+    chargerStages() {
+    const stagesRef = ref(db, `/placedestage/${this.$route.params.id}`);
+    onValue(stagesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.stages = Object.values(snapshot.val());
+        this.showStages = true; // Affichez les stages une fois chargés
+      } else {
+        console.error('Pas de stages trouvés');
+      }
+    });
+  },
+
+    supprimerStage(stageId) {
+      // Logique pour supprimer la place de stage
+      const stageRef = ref(db, `/placedestage/${this.$route.params.id}/${stageId}`);
+      remove(stageRef)
+        .then(() => {
+          console.log('Stage supprimé avec succès');
+          // Mettre à jour la liste des stages localement après la suppression
+          this.stages = this.stages.filter(stage => stage.id !== stageId);
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la suppression:', error);
+        });
+    },
+
+    updateStage(stage, field) {
+      // Mettre à jour la base de données Firebase pour ce stage spécifique
+      const stageRef = ref(db, `placedestage/${stage.idInstitution}/${stage.id}`);
+      set(stageRef, stage)
+        .then(() => {
+          console.log(`Stage ${field} mis à jour avec succès`);
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la mise à jour:', error);
+        });
+    },
+
+    async supprimerTousLesStages() {
+      try {
+        const stageRef = ref(db, 'placedestage/' + this.$route.params.id + "/");
+        await set(stageRef, []); // Videz les stages dans Firebase
+        this.institution.stages = [];
+        this.showSuccessMessage = true;
+        this.successMessage = 'Tous les stages ont été supprimés avec succès.';
+      } catch (error) {
+        this.showErrorMessage = true;
+        this.errorMessage = 'Erreur lors de la suppression des stages: ' + error.message;
+      }
     },
 
     async envoyerDonnees() {
-      try {
-        const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug + "/");
-        await set(stageRef, this.institution.stages); // Envoyer les données de stages à la table 'placedestage'
-        this.institution.stages = [];
-
-        //  this.$router.push({ name: 'InstitutionProfile', params: { instSlug: this.$route.params.instSlug } }); // Naviguer vers le profil de l'institution
-      } catch (error) {
-        console.error('Erreur lors de l’envoi des données de stage:', error);
+      if (this.validateFormData()) { // Ajouter une méthode de validation si nécessaire
+        try {
+          const stageRef = ref(db, 'placedestage/' + this.$route.params.id + "/");
+          await set(stageRef, this.institution.stages);
+          this.showSuccessMessage = true;
+          this.successMessage = 'Les données de stage ont été envoyées avec succès.';
+        } catch (error) {
+          this.showErrorMessage = true;
+          this.errorMessage = 'Erreur lors de l’envoi des données de stage: ' + error.message;
+        }
       }
     },
-
 
     ajouterPlaceDeStage() {
-      this.isStageAdded = true; // Désactiver le bouton après avoir ajouté une place de stage
+      this.isStageAdded = false;
 
       const newStage = {
+        id: `stage-${Date.now()}`,
         Sector: '',
         NpmPractitionerTrainer: '',
+
+        AIGU: false,
+        AMBU: false,
+        MSQ: false,
+        NEUROGER: false,
+        REA: false,
+        SYSINT: false,
+        PFP1A: false,
+        PFP1B: false,
+        PFP2: false,
+        PFP3: false,
+        active: true,
+        idInstitution: this.$route.params.id,
       };
 
-      for (const item of this.institution.checkBoxItems) {
-        newStage[item] = false;
-      }
+      // Ajoutez le nouveau stage au tableau de stages
 
-      this.institution.stages.push(newStage);
+      // Envoi des données à Firebase (exemple de code)
+      // Assurez-vous d'avoir une référence correcte à votre base de données
+      const stageRef = ref(db, `placedestage/${this.$route.params.id}/${newStage.id}`);
+      set(stageRef, newStage)
+        .then(() => {
+          console.log('Stage ajouté avec succès');
+        })
+        .catch((error) => {
+          console.error('Erreur lors de l\'ajout du stage:', error);
+        });
     },
-    // ... autres méthodes ...
+
+
+    // fonction envoie sur firebase databsae realtime /place de stage/idInstution/
   },
 
+  validateFormData() {
+    // Implémenter la logique de validation ici
+    // Retournez true si le formulaire est valide, sinon false
+    return false
+
+  },
+
+
+  mounted() {
+  // ... Votre logique existante ...
+  this.fetchEtudiants();
+},
+
+
+  beforeMount() {
+  const stagesRef = ref(db, `/placedestage/${this.$route.params.id}`);
+  onValue(stagesRef, (snapshot) => {
+    if (snapshot.exists()) {
+      this.stages = Object.values(snapshot.val());
+    } else {
+      console.error('Pas de stages trouvés');
+    }
+  });
+},
 
 
 
   async mounted() {
-    const instId = this.$route.params.instSlug; // L'ID de l'institution est passé en tant que paramètre de route
+    const instId = this.$route.params.id; // L'ID de l'institution est passé en tant que paramètre de route
     const instRef = ref(db, 'institutions/' + instId);
+
+
+
+
+    const stagesRef = ref(db, `/placedestage/${this.$route.params.id}`);
+ 
+
+  
+    onValue(stagesRef, (snapshot) => {
+  if (snapshot.exists()) {
+    console.log("Données récupérées :", snapshot.val());
+    this.stages = Object.values(snapshot.val());
+  } else {
+    console.error('Pas de stages trouvés');
+  }
+});
+
+
 
     // Récupérer la valeur initiale de l'institution depuis la base de données
     onValue(instRef, (snapshot) => {
@@ -273,22 +385,12 @@ export default {
       if (snapshot.exists()) {
         const allPlaces = snapshot.val();
         this.placesDeStage = Object.values(allPlaces)
-            .filter(place => place.institutionId === instId);
+          .filter(place => place.institutionId === instId);
       } else {
         console.error('Pas de places de stage disponibles');
       }
     });
 
-    const stageRef = ref(db, 'placedestage/' + this.$route.params.instSlug);
-    onValue(stageRef, (snapshot) => {
-      if (snapshot.exists()) {
-        this.stages = snapshot.val();
-      } else {
-        console.error('Pas de données de stage disponibles');
-      }
-    }, {
-      onlyOnce: true,
-    });
 
     // Mettre en place un watcher sur l'objet institution
     watch(() => this.institution, async (newVal) => {
@@ -302,6 +404,41 @@ export default {
 };
 </script>
 
+
 <style scoped>
-/* Vos styles CSS ici si nécessaire */
+.stages-container {
+  /* Styles pour le conteneur des stages */
+}
+
+.stage {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.checkboxes {
+  margin-bottom: 10px;
+}
+
+.checkboxes div {
+  margin-bottom: 5px;
+}
 </style>

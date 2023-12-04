@@ -16,6 +16,8 @@ import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDet
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
 import Votation from "./components/Dashboard/DashboardDetails/Votation.vue";
+import Validation from "./components/Dashboard/DashboardDetails/Validation.vue";
+import Reception from "./components/Dashboard/DashboardDetails/Reception.vue";
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
 import NewUserFormModif from "./components/Dashboard/DashboardForms/NewUserFormModif.vue";
 import UserList from "./components/Dashboard/DashboardList/UserList.vue";
@@ -64,6 +66,8 @@ const routes = [
 
     { path: '/faq', component: Faq, name: 'Faq' },
     { path: '/votation', component: Votation, name: 'Votation' },
+    { path: '/validation', component: Validation, name: 'Validation' },
+    { path: '/reception', component: Reception, name: 'Reception' },
 
     // ... autres routes si nécessaires
 ]

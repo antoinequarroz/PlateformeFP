@@ -27,7 +27,9 @@
             <li class="nav-item"> <a class="nav-link" :href="institutionListPath"><i class="fas fa-regular fa-hospital fa-fw me-2" ></i>Institution</a></li>
 
             <!-- Menu item 6 -->
-            <li class="nav-item"> <a class="nav-link" :href="votationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="votationPath"><i class="fas fa-align-center fa-fw me-2"></i>Votation </a></li>
+            <li class="nav-item"> <a class="nav-link" :href="validationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="receptionPath"><i class="fas fa-align-center fa-fw me-2"></i>Reception</a></li>
 
             <!-- Menu item 7 -->
             <li class="nav-item"> <a class="nav-link" :href="userListPath"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
@@ -48,6 +50,7 @@
             
             <li class="nav-item"> <a class="nav-link" :href="faqAdminPath"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
 
+            <button @click="exportDataToJSON" class="btn btn-primary">Télécharger données </button>
 
           </ul>
           <!-- Sidebar menu end -->
@@ -96,12 +99,14 @@
   </div>
 </template>
 <script>
+import { db } from '../../../firebase.js';
 
 import CounterBoxes from "./DashboardItems/CounterBoxes.vue";
 import StatsBox from "./DashboardItems/StatsBox.vue";
 import TeamSection from "./DashboardItems/TeamSection.vue";
 import FaqBox from "./DashboardItems/FaqBox.vue";
 import Institution from "../Home/Institution.vue";
+import { ref, onValue, set, off, update, push, get, child } from "firebase/database";
 
 export default {
   name: 'AminDashboard',
@@ -129,9 +134,36 @@ export default {
       praticienFormateurListPath: '/praticien_formateur_list',
       enseignentListPath: '/enseignent_list',
       votationPath: '/votation',
+      validationPath: '/validation',
+      receptionPath: '/reception',
       statistiquesPath: '/statistiques',
       faqAdminPath: '/faq_admin',
 
+    }
+  },
+  
+  methods: {
+    exportDataToJSON() {
+      get(ref(db)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const jsonStr = JSON.stringify(data, null, 2);
+          const blob = new Blob([jsonStr], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'firebaseData.json';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+          console.log("Writtend data");
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
     }
   },
   components: {
