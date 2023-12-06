@@ -11,7 +11,7 @@
                 <div class="card shadow">
                   <!-- Image -->
                   <div class="rounded-3">
-                    <img src="path-to-your-image" alt="Image placeholder" />
+               
                   </div>
                 </div>
                 <br>
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+{{ asset('../../assets/images/FR-DE_HEDS.png') }}
+
 export default {
   name: 'SimplifiedComponent'
 };
