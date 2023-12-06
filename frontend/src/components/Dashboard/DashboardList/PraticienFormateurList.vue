@@ -28,7 +28,6 @@
                   <tr>
                     <th scope="col" class="border-0 rounded-start">Nom</th>
                     <th scope="col" class="border-0">Prénom</th>
-                    <th scope="col" class="border-0">Email</th>
                     <th scope="col" class="border-0 rounded-end">Action</th>
                   </tr>
                   </thead>
@@ -36,7 +35,6 @@
                   <tr v-for="praticiensFormateurs in filteredPraticiensFormateurs" :key="praticiensFormateurs.id">
                     <td>{{ praticiensFormateurs.Nom }}</td>
                     <td>{{ praticiensFormateurs.Prenom }}</td>
-                    <td>{{ praticiensFormateurs.Email }}</td>
                     <td>
                       <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0" @click="goToPraticienFormateurFormModif(praticiensFormateurs.id)">Modifier</button>
                       <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0" @click="deletePraticienFormateur(praticiensFormateurs.id)">Supprimer</button>
