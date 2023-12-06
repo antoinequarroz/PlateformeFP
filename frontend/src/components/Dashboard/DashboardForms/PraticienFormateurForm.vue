@@ -10,10 +10,7 @@
         <label for="nom" class="form-label">Nom</label>
         <input type="text" class="form-control" id="nom" v-model="nom" required>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" v-model="email" required>
-      </div>
+
       <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
   </div>
@@ -29,7 +26,6 @@ export default {
     return {
       prenom: '',
       nom: '',
-      email: '',
     };
   },
   methods: {
@@ -47,13 +43,11 @@ export default {
         await set(newPraticienFormateurRef, {
           Prenom: this.prenom,
           Nom: this.nom,
-          Email: this.email,
         });
 
         // Réinitialiser les champs du formulaire
         this.prenom = '';
         this.nom = '';
-        this.email = '';
 
         // Rediriger vers la liste des praticiens formateurs
         // Assurez-vous que la route 'PraticienFormateurList' est correctement définie dans votre routeur

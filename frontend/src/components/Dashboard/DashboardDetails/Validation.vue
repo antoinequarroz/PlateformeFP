@@ -5,7 +5,7 @@
 
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
-          <h1>Valider la PFP</h1>
+          <h1>Cas particuliers (SAE, Lésés, ...)</h1>
 
           <label for="classInput" class="form-label">Classe : </label> <br>
           <label for="classInput" class="form-label">PFP : </label> <br>

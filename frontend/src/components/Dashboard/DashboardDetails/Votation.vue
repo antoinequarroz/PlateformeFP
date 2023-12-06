@@ -57,7 +57,6 @@
               <td>{{ stage.MSQ }}</td>
               <td>{{ stage.SYSINT }}</td>
               <td>{{ stage.NEUROGER }}</td>
-      
               <td>{{ stage.AMBU }}</td>
            
             <td>  <div class="mb-3 form-check">
