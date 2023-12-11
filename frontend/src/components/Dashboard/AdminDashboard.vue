@@ -4,6 +4,7 @@
       <!-- Navbar brand for xl START -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="#">
+
           <img class="navbar-brand-item" src="../../assets/images/FR-DE_HEDS.png" alt="HEDS Image">
 
         </a>
@@ -108,6 +109,7 @@ import TeamSection from "./DashboardItems/TeamSection.vue";
 import FaqBox from "./DashboardItems/FaqBox.vue";
 import Institution from "../Home/Institution.vue";
 import { ref, onValue, set, off, update, push, get, child } from "firebase/database";
+{{ asset('../../assets/images/FR-DE_HEDS.png') }}
 
 export default {
   name: 'AminDashboard',

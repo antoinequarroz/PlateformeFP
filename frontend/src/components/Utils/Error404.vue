@@ -5,7 +5,6 @@
         <div class="col-12 text-center">
           <!-- Image -->
           <img src="../../assets/images/element/error404-01.svg" class="h-200px h-md-400px mb-4" alt="Erreur 404">
-
           <!-- Titre -->
           <h1 class="display-1 text-danger mb-0">404</h1>
           <!-- Sous-titre -->
@@ -21,6 +20,8 @@
 </template>
 
 <script>
+{{ asset('../../assets/images/element/error404-01.svg') }}
+
 export default {
   name: 'Erreur404'
 }

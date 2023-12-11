@@ -11,7 +11,10 @@
                 <div class="card shadow">
                   <!-- Image -->
                   <div class="rounded-3">
+
                     <img :src="yourImagePath" alt="Image placeholder">
+
+
                   </div>
                 </div>
                 <br>
@@ -70,7 +73,12 @@
 </template>
 
 <script>
+
 import yourImage from '../../../assets/images/event/10.jpg';
+
+{{ asset('../../assets/images/FR-DE_HEDS.png') }}
+
+
 export default {
   data() {
     return {
