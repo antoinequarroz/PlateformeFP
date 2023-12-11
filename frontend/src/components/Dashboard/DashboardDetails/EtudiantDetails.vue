@@ -76,7 +76,6 @@
 
 import yourImage from '../../../assets/images/event/10.jpg';
 
-{{ asset('../../assets/images/FR-DE_HEDS.png') }}
 
 
 export default {

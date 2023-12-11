@@ -20,7 +20,7 @@
 </template>
 
 <script>
-{{ asset('../../assets/images/element/error404-01.svg') }}
+
 
 export default {
   name: 'Erreur404'

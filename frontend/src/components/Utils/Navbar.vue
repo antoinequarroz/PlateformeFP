@@ -37,23 +37,18 @@
               <div class="dropdown ms-1 ms-lg-0">
                 <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside"
                    data-bs-display="static" data-bs-toggle="dropdown">
-<<<<<<< HEAD
-                  <img class="avatar-img rounded-circle" src="/src/assets/images/avatar/avatar99.png" alt="avatar">
-=======
+
                   <img class="avatar-img rounded-circle" src="../../assets/images/avatar/avatar99.png" alt="avatar">
->>>>>>> 4861f1b6ecafcca845e7d8fab5fe4943decaa33f
+
                 </a>
                 <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
                     aria-labelledby="profileDropdown">
                   <li class="px-3 mb-3">
                     <div class="d-flex align-items-center">
                       <div class="avatar me-3">
-<<<<<<< HEAD
-                        <img class="avatar-img rounded-circle shadow" src="/src/assets/images/avatar/avatar99.png"
-=======
-                        <img class="avatar-img rounded-circle shadow" src="../../assets/images/avatar/avatar99.png"
->>>>>>> 4861f1b6ecafcca845e7d8fab5fe4943decaa33f
-                             alt="avatar">
+
+
+                        <img class="avatar-img rounded-circle shadow" src="../../assets/images/avatar/avatar99.png" alt="avatar">
                       </div>
                       <div>
                         <a class="h6" href="#">Antoine Quarroz</a>
@@ -80,8 +75,7 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-{{ asset('../../assets/images/avatar/avatar99.png') }}
-{{ asset('src/assets/images/avatar/avatar99.png') }}
+
 
 export default {
   name: "Navbar",

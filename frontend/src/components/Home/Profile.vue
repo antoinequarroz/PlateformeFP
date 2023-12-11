@@ -68,7 +68,7 @@ import ResumStageUserProfile from '../UserProfile/ResumStageUserProfile.vue';
 import DocumentsUserProfile from '../UserProfile/DocumentsUserProfile.vue';
 import EditUserProfile from '../UserProfile/EditUserProfile.vue';
 import DeleteUserProfile from '../UserProfile/DeleteUserProfile.vue';
-{{ asset('../../assets/images/avatar/avatar99.png') }}
+
 
 
 export default {
