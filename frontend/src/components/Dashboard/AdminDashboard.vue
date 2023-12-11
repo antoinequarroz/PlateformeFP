@@ -4,7 +4,8 @@
       <!-- Navbar brand for xl START -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="#">
-          <img class="navbar-brand-item" src="assets/images/FR-DE_HEDS.png" alt="">
+          <img class="navbar-brand-item" src="../../assets/images/FR-DE_HEDS.png" alt="HEDS Image">
+
         </a>
       </div>
 

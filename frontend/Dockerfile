@@ -1,20 +1,13 @@
-# Utiliser une image de base officielle, par exemple Node pour une application Node.js
-FROM node:14
-
-# Définir le répertoire de travail dans le conteneur
-WORKDIR /usr/src/app
-
-# Copier les fichiers package.json et package-lock.json (ou yarn.lock)
+# Étape de construction
+FROM node:latest as build-stage
+WORKDIR /app
 COPY package*.json ./
-
-# Installer les dépendances du projet
 RUN npm install
-
-# Copier le reste des fichiers du projet dans le conteneur
 COPY . .
+RUN npm run build
 
-# Exposer le port sur lequel l'application s'exécute
-EXPOSE 3000
-
-# Définir la commande pour démarrer l'application
-CMD ["npm", "vite"]
+# Étape de production
+FROM nginx:alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

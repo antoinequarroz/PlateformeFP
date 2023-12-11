@@ -11,7 +11,7 @@
                 <div class="card shadow">
                   <!-- Image -->
                   <div class="rounded-3">
-                    <img src="path-to-your-image" alt="Image placeholder" />
+                    <img :src="yourImagePath" alt="Image placeholder">
                   </div>
                 </div>
                 <br>
@@ -70,8 +70,13 @@
 </template>
 
 <script>
+import yourImage from '../../../assets/images/event/10.jpg';
 export default {
-  name: 'SimplifiedComponent'
+  data() {
+    return {
+      yourImagePath: yourImage
+    };
+  }
 };
 </script>
 
