@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="#">
 
-          <img class="navbar-brand-item" src="../../assets/images/FR-DE_HEDS.png" alt="HEDS Image">
+          <img class="navbar-brand-item" src="LogoHEDS" alt="HEDS Image">
 
         </a>
       </div>
@@ -115,6 +115,7 @@ export default {
   name: 'AminDashboard',
   data() {
     return {
+      LogoHEDS: '/assets/images/FR-DE_HEDS.png',
       charts: [
         [
           {
@@ -130,7 +131,6 @@ export default {
       ],
       institutionListPath: '/institution_list',
       etudiantListPath: '/etudiant_list',
-
       placeDetailsPath: '/place_details',
       PFPDetailsPath: '/PFP_details',
       userListPath: '/user_list',
