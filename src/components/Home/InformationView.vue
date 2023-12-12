@@ -149,7 +149,7 @@ Main Banner START -->
             </h1>
 
             <!-- Content -->
-            <p class="my-4 lead">Retrouver les différentes places de stage pour la formation pratique de la Haute école de Santé Valais</p>
+            <p class="my-4 lead">Retrouver les différentes places de formation pratique de la filière physiothérapie de la HES-SO Valais-Wallis</p>
 
 
             <div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">

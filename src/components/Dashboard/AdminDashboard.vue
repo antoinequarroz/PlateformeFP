@@ -4,10 +4,7 @@
       <!-- Navbar brand for xl START -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="#">
-
-          <img src="/assets/images/FR-DE_HEDS.png" alt="Description">
-
-
+          <img class="img-heds" src="../../assets/images/FR-DE_HEDS.png" alt="Description">
         </a>
       </div>
 
@@ -31,29 +28,29 @@
 
             <!-- Menu item 6 -->
             <li class="nav-item"> <a class="nav-link" :href="votationPath"><i class="fa fa-align-center fa-fw me-2"></i>Votation </a></li>
-            <li class="nav-item"> <a class="nav-link" :href="validationPath"><i class="fas fa-align-center fa-fw me-2"></i>Validation</a></li>
-            <li class="nav-item"> <a class="nav-link" :href="receptionPath"><i class="fas fa-align-center fa-fw me-2"></i>Reception</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="validationPath"><i class="fas fa-check fa-fw me-2"></i>Validation</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="receptionPath"><i class="fas fa-thumbs-up fa-fw me-2"></i>Reception</a></li>
 
             <!-- Menu item 7 -->
             <li class="nav-item"> <a class="nav-link" :href="userListPath"> <i class="fas fa-user fa-fw me-2"></i>Nouvel utilisateur</a></li>
 
-            <li class="nav-item"> <a class="nav-link" :href="enseignentListPath"> <i class="fas fa-user fa-fw me-2"></i>Enseignant</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="enseignentListPath"> <i class="fas fa-user-tie fa-fw me-2"></i>Enseignant</a></li>
 
-            <li class="nav-item"> <a class="nav-link" :href="praticienFormateurListPath"> <i class="fas fa-user fa-fw me-2"></i>Praticien formateur</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="praticienFormateurListPath"> <i class="fas fa-users fa-fw me-2"></i>Praticien formateur</a></li>
 
             <!-- Menu item 8 -->
-            <li class="nav-item"> <a class="nav-link" :href="statistiquesPath"> <i class="fas fa-stamp fa-fw me-2"></i>Statistiques</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="statistiquesPath"> <i class="fas fa-chart-area fa-fw me-2"></i>Statistiques</a></li>
 
             <!-- Menu item 9 -->
 
-            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Création PFP</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="PFPDetailsPath"> <i class="fas fa-folder-plus fa-fw me-2"></i>Création PFP</a></li>
 
-            <li class="nav-item"> <a class="nav-link" :href="placeDetailsPath"> <i class="fas fa-question fa-fw me-2"></i>Tableau des Places</a></li>
+            <li class="nav-item"> <a class="nav-link" :href="placeDetailsPath"> <i class="fas fa-table fa-fw me-2"></i>Tableau des Places</a></li>
 
             
             <li class="nav-item"> <a class="nav-link" :href="faqAdminPath"> <i class="fas fa-question fa-fw me-2"></i>FAQ's</a></li>
 
-            <button @click="exportDataToJSON" class="btn btn-primary">Télécharger données </button>
+            <button @click="exportDataToJSON" class="btn btn-primary"> <i class="fas fa-download fa-fw me-2"></i>Télécharger données </button>
 
           </ul>
           <!-- Sidebar menu end -->
@@ -182,5 +179,8 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez vos styles CSS ici si nécessaire */
+.img-heds {
+  height: 40px;
+  width: auto;
+}
 </style>
