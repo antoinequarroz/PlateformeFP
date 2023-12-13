@@ -7,12 +7,12 @@
         <div class="row mt-4 mt-md-0">
           <!-- Image 1 -->
           <div class="col-6">
-            <img class="rounded" src="https://source.unsplash.com/random/200x200?sig=1" alt="">
+            <img class="rounded" src="../../assets/images/heds/image/LLB2.jpg" alt="">
           </div>
 
           <!-- Image 2 -->
           <div class="col-6 mt-5 position-relative">
-            <img class="rounded" src="https://source.unsplash.com/random/200x200?sig=2" alt="">
+            <img class="rounded" src="../../assets/images/heds/image/llbetudiant.png" style="width: 67%" alt="">
             <!-- SVG decoration -->
             <figure class="position-absolute top-0 end-0 mb-5 mt-n4 d-none d-lg-block">
               <svg	width="192.5px" height="89.4px" viewBox="0 0 192.5 89.4">
@@ -32,11 +32,11 @@
             </figure>
             <div class="p-3 card card-body shadow rounded-3 d-inline-block position-relative mt-n2">
               <!-- Info -->
-              <h6 class="mb-2">Congratulations <span class="ms-1"><i class="fas fa-check-circle text-success"></i></span></h6>
-              <p class="mb-0 small">Your admission is successfully confirmed.</p>
+              <h6 class="mb-2">Choix d'une place <span class="ms-1"><i class="fas fa-check-circle text-success"></i></span></h6>
+              <p class="mb-0 small">Choisissez votre prochain lieu  de stage maintenant</p>
               <!-- Icon -->
               <div class="icon-lg bg-primary rounded-circle position-absolute top-100 start-100 translate-middle">
-                <i class="bi bi-shield-check text-white"></i>
+                <i class="bi bi-bandaid text-white"></i>
               </div>
             </div>
           </div>
