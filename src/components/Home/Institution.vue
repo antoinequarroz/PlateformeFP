@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-xl-9">
-          <h1>Place de formation pratique (PFP)</h1>
+          <h1>Institution</h1>
           <br>
           <div class="row mb-4 align-items-center">
             <div class="col-xl-6">
@@ -80,17 +80,6 @@
             </div>
             <div class="offcanvas-body p-3 p-lg-0">
               <form>
-                <div class="card card-body shadow p-4 mb-4">
-                  <h4 class="mb-3">{{ category.title }}</h4>
-                  <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center" v-for="(value, key) in category.categories" :key="key">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" v-model="category.categories[key]" :id="key">
-                        <label class="form-check-label" :for="key">{{ key }}</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="card card-body shadow p-4 mb-4">
                   <h4 class="mb-3">{{ canton.title }}</h4>
                   <div class="row">
