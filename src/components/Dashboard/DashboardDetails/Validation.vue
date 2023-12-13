@@ -5,12 +5,11 @@
 
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
-          <h1>Cas particuliers (SAE, Lésés, ...)</h1>
+          <h1>Validation de la répartition </h1>
 
-          <label for="classInput" class="form-label">Classe : </label> <br>
-          <label for="classInput" class="form-label">PFP : </label> <br>
-          <label for="classInput" class="form-label">Année académique</label> <br>
-          <label for="classInput" class="form-label">Votre Email</label>
+          <label for="classInput" class="form-label">Classe : B22 </label> <br>
+          <label for="classInput" class="form-label">PFP : PFP2</label> <br>
+          <label for="classInput" class="form-label">Année académique : 23</label> <br>
 
         
 
