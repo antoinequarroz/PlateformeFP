@@ -38,10 +38,10 @@
 
                   </div>
                   <h5 class="card-title fw-normal">
-                    <a :href="'/place/' + place.id">{{ place.idInstitution }}</a>
+                    <a :href="'/place/' + place.id">{{ place.Sector }}</a>
                   </h5>
                   <p class="mb-2 text-truncate-2">{{ place.NpmPractitionerTrainer }}</p>
-                  <p class="mb-2 text-truncate-2">{{ place.Sector}}</p>
+                  <p class="mb-2 text-truncate-2">{{ place.idInstitution }}</p>
                 </div>
                 <div class="card-footer pt-0 pb-3">
                   <hr>
