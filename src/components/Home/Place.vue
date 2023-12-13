@@ -256,20 +256,22 @@ export default {
     fetchPlacesFromFirebase() {
       const placesRef = ref(db, 'placedestage/');
       onValue(placesRef, (snapshot) => {
-        const data = snapshot.val();
-        console.log("Données récupérées de Firebase:", data); // Log pour débogage
-        if (data) {
-          this.allPlaces = Object.keys(data).map(key => {
-            const stage = data[key];
-            // Vous pouvez ajouter ici des champs supplémentaires ou un traitement des données si nécessaire
-            return {
-              id: key,
-              ...stage
-            };
+        const institutionsData = snapshot.val();
+        this.allPlaces = [];
+        if (institutionsData) {
+          Object.keys(institutionsData).forEach((institutionId) => {
+            const stages = institutionsData[institutionId];
+            Object.keys(stages).forEach((stageId) => {
+              const stage = stages[stageId];
+              this.allPlaces.push({
+                id: stageId,
+                idInstitution: institutionId,
+                ...stage
+              });
+            });
           });
           this.totalPlaces = this.allPlaces.length;
         } else {
-          this.allPlaces = [];
           this.totalPlaces = 0;
         }
       });
