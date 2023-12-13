@@ -32,7 +32,7 @@
           <div class="row g-4">
             <div class="col-sm-6 col-xl-4" v-for="institution in paginatedInstitutions" :key="institution.id">
               <div class="card shadow h-100" @click.stop="goToDetails(institution.id)">
-                <img src="https://eduport.webestica.com/assets/images/courses/4by3/11.jpg" class="card-img-top" alt="institution image">
+                <img :src="institution.imageUrl || 'https://eduport.webestica.com/assets/images/courses/4by3/10.jpg'" class="card-img-top" :alt="institution.Name">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ institution.Canton }}</a>
@@ -134,6 +134,7 @@
 <script>
 import { db } from '../../../firebase.js';
 import { ref, onValue } from "firebase/database";
+import { getDownloadURL, ref as storageRef } from "firebase/storage"; // Importez getDownloadURL et ref de 'firebase/storage'
 
 export default {
   name: 'Institution',
@@ -256,10 +257,25 @@ export default {
   methods: {
     fetchInstitutionsFromFirebase() {
       const institutionsRef = ref(db, 'institutions/');
-      onValue(institutionsRef, (snapshot) => {
+      onValue(institutionsRef, async (snapshot) => {
         const data = snapshot.val();
-        this.allInstitutions = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-        this.totalInstitutions = this.allInstitutions.length;
+        if (data) {
+          const imagePromises = Object.keys(data).map(async key => {
+            const institution = { id: key, ...data[key] };
+            if (institution.imagePath) {
+              const imageRef = storageRef(storage, institution.imagePath);
+              institution.imageSrc = await getDownloadURL(imageRef).catch(() => 'https://eduport.webestica.com/assets/images/courses/4by3/21.jpg');
+            } else {
+              institution.imageSrc = 'https://eduport.webestica.com/assets/images/courses/4by3/21.jpg'; // Chemin d'une image par défaut si aucune image n'est fournie
+            }
+            return institution;
+          });
+          this.allInstitutions = await Promise.all(imagePromises);
+          this.totalInstitutions = this.allInstitutions.length;
+        } else {
+          this.allInstitutions = [];
+          this.totalInstitutions = 0;
+        }
       });
     },
     applyFilters() {
