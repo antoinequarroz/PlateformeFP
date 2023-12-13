@@ -9,7 +9,7 @@
               <div class="col-md-8 col-xl-12">
                 <div class="card shadow">
                   <div class="rounded-3">
-                    <img src="https://eduport.webestica.com/assets/images/courses/4by3/11.jpg" class="card-img-top" alt="institution image">
+                    <img src="https://eduport.webestica.com/assets/images/courses/4by3/21.jpg" class="card-img-top" alt="institution image">
                   </div>
                 </div>
               </div>

@@ -32,7 +32,7 @@
           <div class="row g-4">
             <div class="col-sm-6 col-xl-4" v-for="place in paginatedPlaces" :key="place.id">
               <div class="card shadow h-100" @click="goToDetails(place.id)">
-                <img src="https://eduport.webestica.com/assets/images/courses/4by3/12.jpg" class="card-img-top" alt="place image">
+                <img src="https://eduport.webestica.com/assets/images/courses/4by3/21.jpg" class="card-img-top img-cards" alt="place image">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
 
@@ -311,4 +311,13 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  cursor: pointer;
+}
+.img-cards{
+  width: 100%;
+  height: 220px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
 </style>
