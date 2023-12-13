@@ -18,7 +18,7 @@
                 <h1 class="h3 mb-2">Liste des Praticiens Formateurs</h1>
                 <p class="mb-2">Il y a {{ praticiensFormateurs.length }} Praticiens Formateurs enregistrés dans la base de données</p>
                 <div>
-                  <button class="btn btn-sm btn-primary m-1" @click="goToPraticienFormateurForm">Ajouter un enseignant</button>
+                  <button class="btn btn-sm btn-primary m-1" @click="goToPraticienFormateurForm">Ajouter un praticien formateur</button>
                   <button class="btn btn-sm btn-secondary m-1" @click="goToAdminDashboard">Retour</button>
                 </div>
               </div>

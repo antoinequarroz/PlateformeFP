@@ -26,7 +26,6 @@ import EnseignentFormModif from "./components/Dashboard/DashboardForms/Enseignen
 import EnseignentList from "./components/Dashboard/DashboardList/EnseignentList.vue";
 import PraticienFormateurForm from "./components/Dashboard/DashboardForms/PraticienFormateurForm.vue";
 import PraticienFormateurList from "./components/Dashboard/DashboardList/PraticienFormateurList.vue";
-import PraticienFormateurFormModif from "./components/Dashboard/DashboardForms/PraticienFormateurFormModif.vue";
 import Faq from "./components/Home/Faq.vue";
 import SignIn from "./components/Utils/SignIn.vue";
 import SignUp from "./components/Utils/SignUp.vue";
@@ -34,18 +33,18 @@ import TermsOfUse from "./components/Utils/TermsOfUse.vue";
 import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 
 const routes = [
-    { path: '/', component: HomePage },
+    { path: '/', component: HomePage, name: 'HomePage' },
     { path: '/sign_in', component: SignIn , name: 'sign_in' },
     { path: '/sign_up', component: SignUp , name: 'sign_up'},
-    { path: '/terms_of_use', component: TermsOfUse },
+    { path: '/terms_of_use', component: TermsOfUse, name: 'TermsOfUse' },
     { path: '/edit_user_profile', component: EditUserProfile },
-    { path: '/map', component: Map },
-    { path: '/institution', component: Institution },
-    { path: '/place', component: Place },
-    { path: '/profile', component: Profile },
-    { path: '/admin', component: AdminDashboard },
-    { path: '/:pathMatch(.*)*', component: Error404 },
-    { path: '/institution_list', component: InstitutionList },
+    { path: '/map', component: Map, name: Map },
+    { path: '/institution', component: Institution, name: Institution },
+    { path: '/place', component: Place, name: Place },
+    { path: '/profile', component: Profile, name: 'Profile' },
+    { path: '/admin', component: AdminDashboard, name: 'AdminDashboard' },
+    { path: '/:pathMatch(.*)*', component: Error404, name: 'Error404' },
+    { path: '/institution_list', component: InstitutionList, name: 'InstitutionList' },
     { path: '/etudiant_list', component: EtudiantList },
     { path: '/institution_form/:id', component: InstitutionForm, name: 'InstitutionForm', props: true },
     { path: '/institution_form_modif/:id', component: InstitutionFormModif, name: 'InstitutionFormModif', props: true },

@@ -34,7 +34,10 @@
                   <td>
                     <button class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0" @click="goToDetails(institution.id)">Détails</button>
                     <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0" @click="goToInstitutionFormModif(institution.id)">Modifier</button>
-                    <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Supprimer</button>
+                    <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0" @click="supprimerInstitution(institution.id)">Supprimer</button>
+
+
+
                   </td>
                 </tr>
                 </tbody>
@@ -49,7 +52,7 @@
 
 <script>
 import { db } from '../../../../firebase.js';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, remove } from "firebase/database";
 
 export default {
   name: "InstitutionList",
@@ -66,6 +69,27 @@ export default {
     });
   },
   methods: {
+    supprimerInstitution(institutionId) {
+      if (!institutionId) {
+        alert("ID de l'institution est manquant ou incorrect.");
+        return;
+      }
+
+      // Confirmer avec l'utilisateur avant la suppression
+      if (window.confirm("Êtes-vous sûr de vouloir supprimer cette institution ?")) {
+        const instRef = ref(db, 'institutions/' + institutionId);
+        remove(instRef)
+            .then(() => {
+              alert("L'institution a été supprimée avec succès.");
+              // Recharger la liste des institutions après la suppression
+              this.fetchInstitutions();
+            })
+            .catch((error) => {
+              console.error("Erreur lors de la suppression de l'institution:", error);
+              alert("Une erreur est survenue lors de la suppression de l'institution.");
+            });
+      }
+    },
     goToInstitutionForm(id) {
       this.$router.push({ name: 'InstitutionForm', params: { id } });
     },

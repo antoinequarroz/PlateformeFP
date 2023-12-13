@@ -147,14 +147,7 @@
                         <input type="email" id="emailResponsablePhysio" v-model="institution.EmailResponsablePhysio" class="form-control" />
                       </div>
 
-                      <div class="col-4">
-                        <label>Options :</label>
-                        <div class="checkboxes-horizontal" v-for="item in institution.checkBoxItems" :key="item">
-                          <input type="checkbox" :id="item" v-model="institution[item]" />
-                          <label :for="item">{{ item }}</label>
-                        </div>
 
-                      </div>
 
                       <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-secondary prev-btn mb-0" @click="goToPrevStep">Précédent</button>
@@ -264,7 +257,6 @@ export default {
         NomResponsablePhysio: '',
         PhoneResponsablePhysio: '',
         EmailResponsablePhysio: '',
-        checkBoxItems: ['AIGU', 'REA', 'AMBU', 'MSQ', 'NEUROGER', 'SYSINT'],
         stages: [],
       },
       cantons: [
@@ -368,7 +360,7 @@ export default {
         await update(stageRef, newStageData);
         this.institution.stages = [];
         // Redirection vers InstitutionList.vue
-        this.$router.push({ name: 'InstitutionList' }); // Assurez-vous que le nom de la route est correct.
+        this.$router.push({ name: 'InstitutionList' });
       } catch (error) {
         console.error('Erreur lors de l’envoi des données de stage:', error);
       }

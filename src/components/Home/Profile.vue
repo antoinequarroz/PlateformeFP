@@ -10,14 +10,14 @@
             <div class="row d-flex justify-content-between mt-2 mt-md-0">
               <div class="col-auto">
                 <div class="avatar avatar-xxl position-relative mt-n3">
-                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="../../assets/images/avatar/avatar99.png" alt="">
+                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="../../assets/images/avatar/01.jpg" alt="">
                   <span class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Admin</span>
                 </div>
               </div>
               <div class="col d-flex justify-content-between align-items-center">
                 <div>
-                  <h1 class="my-1 fs-4">Antoine Quarroz</h1>
-                  <span class="badge text-bg-primary rounded-pill">BA22</span>
+                  <h1 class="my-1 fs-4">User Test</h1>
+                  <span class="badge text-bg-primary rounded-pill">BA21</span>
                 </div>
               </div>
             </div>

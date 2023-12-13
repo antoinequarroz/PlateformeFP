@@ -35,18 +35,18 @@
                 <img src="https://eduport.webestica.com/assets/images/courses/4by3/12.jpg" class="card-img-top" alt="place image">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
-                    <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ place.Canton }}</a>
+
                   </div>
                   <h5 class="card-title fw-normal">
-                    <a :href="'/place/' + place.id">{{ place.Name }}</a>
+                    <a :href="'/place/' + place.id">{{ place.idInstitution }}</a>
                   </h5>
-                  <p class="mb-2 text-truncate-2">{{ place.Description }}</p>
-                  <span class="h6 fw-light mb-0">{{ place.Street }}</span>
+                  <p class="mb-2 text-truncate-2">{{ place.NpmPractitionerTrainer }}</p>
+                  <p class="mb-2 text-truncate-2">{{ place.Sector}}</p>
                 </div>
                 <div class="card-footer pt-0 pb-3">
                   <hr>
                   <div class="d-flex justify-content-between">
-                    <span class="h6 fw-light mb-0">{{ place.Lieu }}</span>
+
                   </div>
                 </div>
               </div>
@@ -254,11 +254,24 @@ export default {
   },
   methods: {
     fetchPlacesFromFirebase() {
-      const placesRef = ref(db, 'stages/');
+      const placesRef = ref(db, 'placedestage/');
       onValue(placesRef, (snapshot) => {
         const data = snapshot.val();
-        this.allPlaces = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-        this.totalPlaces = this.allPlaces.length;
+        console.log("Données récupérées de Firebase:", data); // Log pour débogage
+        if (data) {
+          this.allPlaces = Object.keys(data).map(key => {
+            const stage = data[key];
+            // Vous pouvez ajouter ici des champs supplémentaires ou un traitement des données si nécessaire
+            return {
+              id: key,
+              ...stage
+            };
+          });
+          this.totalPlaces = this.allPlaces.length;
+        } else {
+          this.allPlaces = [];
+          this.totalPlaces = 0;
+        }
       });
     },
     applyFilters() {
