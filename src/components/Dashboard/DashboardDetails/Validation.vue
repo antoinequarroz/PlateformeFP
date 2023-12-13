@@ -21,22 +21,12 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Stage</th>
+              
+              <th>ETUDIANT </th>
               <th>Institution</th>
-              <th>Canton</th>
-              <th>Lieu</th>
-              <th>Langue</th>
               <th>Secteur</th>
               <th>Praticien Formateur</th>
-              <th>Nom Institution</th>
-              <th>AIGU </th>
-              <th>REA </th>
-              <th>MSQ </th>
-              <th>SYSINT </th>
-              <th>NEUROGER </th>
-              <th>AMBU </th>
-              <th>SAE </th>
-              <th>ETUDIANT </th>
+              <th>Cas particulier</th>
 
             </tr>
           </thead>
@@ -46,19 +36,9 @@
               <td>{{ stage.institution }} - </td>
               <td>{{ stage.canton }} -</td>
               <td>{{ stage.lieu }}</td>
-              <td>{{ stage.langue }} -</td>
-              <td>{{ stage.sector }} - </td>
-              <td>{{ stage.NpmPractitionerTrainer }}</td>
-              <td>{{ stage.nomInstitution }} -</td>
-              <td>{{ stage.AIGU }}</td>
-              <td>{{ stage.REA }}</td>
-              <td>{{ stage.MSQ }}</td>
-              <td>{{ stage.SYSINT }}</td>
-              <td>{{ stage.NEUROGER }}</td>
-              <td>{{ stage.AMBU }}</td>
-     
-              <td>{{ stage.SAE }} -</td>
-              <td>{{ stage.STUDENT }} -</td>
+              <td>{{ stage.lieu }}</td>
+              <td>{{ stage.lieu }}</td>
+           
             </tr>
           </tbody>
 
@@ -90,21 +70,24 @@ export default {
 
   methods: {
     async fetchStages() {
-      try {
-        const stagesRef = ref(db, 'lieustage/23-PFP1A /');
-        const snapshot = await get(stagesRef);
-        if (snapshot.exists()) {
-          this.stages = Object.values(snapshot.val());
-          console.log("Okk");
-          console.log("VAL : " + Object.values(snapshot.val()));
-          console.log(this.stages);
-        } else {
-          console.error('Aucun stage trouvé dans lieustage/23-PFP1A');
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des stages:', error);
+    try {
+      // Modifier le chemin pour pointer vers les données de votation
+      const studentName = "nom_de_l_etudiant"; // Remplacez par le nom de l'étudiant concerné
+      const votationRef = ref(db, `votation/23/PFP2/${studentName}`);
+
+      const snapshot = await get(votationRef);
+      if (snapshot.exists()) {
+        // Supposons que les données soient sous la forme d'un tableau de stages
+        this.stages = Object.values(snapshot.val().choices);
+
+        console.log("Stages récupérés :", this.stages);
+      } else {
+        console.error(`Aucun stage trouvé pour votation/23/PFP2/${studentName}`);
       }
-    },
+    } catch (error) {
+      console.error('Erreur lors de la récupération des stages:', error);
+    }
+  },
   },
 
   mounted() {

@@ -7,35 +7,33 @@
         <div class="mb-3">
           <h1>Votez pour votre place de PFP</h1>
           <div>
-            <!-- Liste pour la Classe -->
-            <label for="classeSelect" class="form-label">Classe :      </label>
-            <select id="classeSelect" v-model="selectedClasse">
-              <option value="B22">B22</option>
-              <option value="B23">B23</option>
-              <option value="B24">B24</option>
-            </select>
-          </div>
+  <label for="classeSelect" class="form-label">Classe :</label>
+  <select id="classeSelect" v-model="selectedClasse">
+    <option value="B22">B22</option>
+    <option value="B23">B23</option>
+    <option value="B24">B24</option>
+  </select>
+</div>
 
-          <div>
-            <!-- Liste pour les PFP -->
-            <label for="pfpSelect" class="form-label">PFP : </label>
-            <select id="pfpSelect" v-model="selectedPFP">
-              <option value="PFP1A">PFP1A</option>
-              <option value="PFP1B">PFP1B</option>
-              <option value="PFP2">PFP2</option>
-              <option value="PFP3">PFP3</option>
-              <option value="PFP4">PFP4</option>
-            </select>
-          </div>
+<div>
+  <label for="pfpSelect" class="form-label">PFP :</label>
+  <select id="pfpSelect" v-model="selectedPFP">
+    <option value="PFP1A">PFP1A</option>
+    <option value="PFP1B">PFP1B</option>
+    <option value="PFP2">PFP2</option>
+    <option value="PFP3">PFP3</option>
+    <option value="PFP4">PFP4</option>
+  </select>
+</div>
 
-          <div>
-            <!-- Liste pour l'Année Académique -->
-            <label for="anneeAcademiqueSelect" class="form-label">Année académique :</label>
-            <select id="anneeAcademiqueSelect" v-model="selectedAnneeAcademique">
-              <option value="23">23</option>
-              <option value="24">24</option>
-            </select>
-          </div>
+<div>
+  <label for="anneeAcademiqueSelect" class="form-label">Année académique :</label>
+  <select id="anneeAcademiqueSelect" v-model="selectedAnneeAcademique">
+    <option value="23">23</option>
+    <option value="24">24</option>
+  </select>
+</div>
+
 
 
 
@@ -116,8 +114,10 @@ export default {
     return {
       stages: [], // Ici seront stockées les informations des stages
       choiceStates: {}, // Pour gérer l'état des choix
-      activeChoices: {} // Suivi des choix actifs pour chaque ligne
-
+      activeChoices: {}, // Suivi des choix actifs pour chaque ligne
+      selectedClasse: 'B22',
+      selectedPFP: 'PFP2',
+      selectedAnneeAcademique: '23',
 
     };
   },
