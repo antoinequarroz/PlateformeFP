@@ -18,10 +18,9 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID Institution</th>
+                  <th>Nom Institution</th>
                   <th>Secteur</th>
                   <th>Praticien Formateur</th>
-                  <th>Nom Institution</th>
                   <th>AIGU </th>
                   <th>REA </th>
                   <th>MSQ </th>
@@ -39,10 +38,10 @@
               <tbody>
                 <template v-for="(places, id) in placedestages">
                   <tr v-for="place in places" :key="place.id">
-                    <td>{{ place.idInstitution }}</td>
+                    <td>{{ getInstitutionName(place.idInstitution) }}</td>
+
                     <td>{{ place.Sector }}</td>
                     <td>{{ place.NpmPractitionerTrainer }}</td>
-                    <td>{{ getInstitutionName(place.idInstitution) }}</td>
 
                     <td><input type="checkbox" :checked="place.AIGU" @change="updateFirebase('AIGU', place)" /></td>
                     <td><input type="checkbox" :checked="place.REA" @change="updateFirebase('REA', place)" /></td>
@@ -135,7 +134,7 @@ export default {
           idInstitution: place.idInstitution,
           sector: place.Sector,
           NpmPractitionerTrainer: place.NpmPractitionerTrainer,
-          AIGU:place.AIGU,
+          AIGU: place.AIGU,
           REA: place.REA,
           MSQ: place.MSQ,
           SYSINT: place.SYSINT,
@@ -195,6 +194,7 @@ export default {
           // Récupérez tous les ID de stages de la table placedestage
           const placedestageRef = ref(db, 'placedestage/');
           let stagesIds = {};
+          console.log("x_ddeaa")
 
           await onValue(placedestageRef, (snapshot) => {
             if (snapshot.exists()) {
@@ -204,13 +204,19 @@ export default {
                 for (const placeId in places) {
                   if (!stagesIds[placeId]) stagesIds[placeId] = {}; // Initialisez stagesIds[placeId] comme un objet si ce n'est pas déjà le cas
                   stagesIds[placeId].active = false; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
+                  console.log(allPlacedestage[id])
+                  console.log(allPlacedestage[id].idInstitution)
+                  console.log(allPlacedestage[id].MSQ)
+
                   stagesIds[placeId].idInstitution = allPlacedestage[id].idInstitution; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
                   stagesIds[placeId].ra = "ra"; // Maintenant, vous pouvez assigner une propriété à stagesIds[placeId]
                 }
               }
             }
           });
+          console.log("x_aqqa")
 
+          console.log(stagesIds);
 
           // Créer une référence pour la nouvelle année académique dans Firebase
           await set(nouvelleAnneeRef, {
@@ -220,7 +226,7 @@ export default {
             PFP3: stagesIds,
             PFP4: stagesIds,
           });
-
+          console.log("x_aa")
           alert(`Année académique ${annee} ajoutée avec succès!`);
         } catch (error) {
           console.error('Erreur lors de l’ajout de l’année académique:', error);
@@ -314,6 +320,7 @@ export default {
     onValue(institutionsRef, (snapshot) => {
       if (snapshot.exists()) {
         this.institutions = snapshot.val();
+        console.log
       } else {
         console.error('Pas d’institutions disponibles');
         this.institutions = {};

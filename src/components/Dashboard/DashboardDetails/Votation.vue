@@ -6,13 +6,39 @@
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
           <h1>Votez pour votre place de PFP</h1>
+          <div>
+            <!-- Liste pour la Classe -->
+            <label for="classeSelect" class="form-label">Classe :      </label>
+            <select id="classeSelect" v-model="selectedClasse">
+              <option value="B22">B22</option>
+              <option value="B23">B23</option>
+              <option value="B24">B24</option>
+            </select>
+          </div>
 
-          <label for="classInput" class="form-label">Classe : </label> <br>
-          <label for="classInput" class="form-label">PFP : </label> <br>
-          <label for="classInput" class="form-label">Année académique</label> <br>
-          <label for="classInput" class="form-label">Votre Email</label>
+          <div>
+            <!-- Liste pour les PFP -->
+            <label for="pfpSelect" class="form-label">PFP : </label>
+            <select id="pfpSelect" v-model="selectedPFP">
+              <option value="PFP1A">PFP1A</option>
+              <option value="PFP1B">PFP1B</option>
+              <option value="PFP2">PFP2</option>
+              <option value="PFP3">PFP3</option>
+              <option value="PFP4">PFP4</option>
+            </select>
+          </div>
 
-        
+          <div>
+            <!-- Liste pour l'Année Académique -->
+            <label for="anneeAcademiqueSelect" class="form-label">Année académique :</label>
+            <select id="anneeAcademiqueSelect" v-model="selectedAnneeAcademique">
+              <option value="23">23</option>
+              <option value="24">24</option>
+            </select>
+          </div>
+
+
+
 
 
         </div>
@@ -21,7 +47,6 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Stage</th>
               <th>Institution</th>
               <th>Canton</th>
               <th>Lieu</th>
@@ -34,7 +59,7 @@
               <th>SYSINT </th>
               <th>NEUROGER </th>
               <th>AMBU </th>
-     
+
               <th>Choix 1 </th>
               <th>Choix 2 </th>
               <th>Choix 3 </th>
@@ -45,49 +70,42 @@
           </thead>
           <tbody>
             <tr v-for="(stage, index) in stages" :key="index">
-              <td>{{ stage.id }}</td>
-              <td>{{ stage.institution }} -</td>
-              <td>{{ stage.canton }} - </td>
-              <td>{{ stage.lieu }}-</td>
-              <td>{{ stage.langue }}</td>
+              <td>{{ getInstitutionName(stage.idInstitution) }} </td>
+              <td>{{ getInstitutionCanton(stage.idInstitution) }} </td>
+              <td>{{ getInstitutionLieu(stage.idInstitution) }} </td>
+              <td>{{ getInstitutionLangue(stage.idInstitution) }} </td>
+
+
               <td>{{ stage.sector }} -</td>
               <td>{{ stage.NpmPractitionerTrainer }}</td>
-              <td>{{ stage.AIGU }}</td>
-              <td>{{ stage.REA }}</td>
-              <td>{{ stage.MSQ }}</td>
-              <td>{{ stage.SYSINT }}</td>
-              <td>{{ stage.NEUROGER }}</td>
-              <td>{{ stage.AMBU }}</td>
-           
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
-            <td>  <div class="mb-3 form-check">
-              <input type="checkbox"  class="form-check-input" />
-            </div></td>
+              <td> <input type="checkbox" v-model="stage.AIGU" disabled></td>
+              <td> <input type="checkbox" v-model="stage.REA" disabled></td>
+              <td> <input type="checkbox" v-model="stage.MSQ" disabled></td>
+              <td> <input type="checkbox" v-model="stage.SYSINT" disabled></td>
+              <td> <input type="checkbox" v-model="stage.NEUROGER" disabled></td>
+              <td> <input type="checkbox" v-model="stage.AMBU" disabled></td>
+
+              <td v-for="n in 5" :key="n">
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" :checked="stage[`choice${n}`]"
+                    :disabled="activeChoices[index] && activeChoices[index] !== n"
+                    @change="() => handleCheckboxChange(index, n)" />
+                </div>
+              </td>
             </tr>
           </tbody>
 
         </table>
 
-        <button @click="createPFP" class="btn btn-primary">Choisir ses choix pour la PFP</button>
+        <button @click="choice" class="btn btn-primary">Choisir ses choix pour la PFP</button>
 
       </div>
     </section>
   </div>
 </template>
-  
-  
-  
+    
+    
+    
 <script>
 import { db } from '../../../../firebase.js';
 import { ref, onValue, set, off, update, push, get, child } from "firebase/database";
@@ -97,6 +115,10 @@ export default {
   data() {
     return {
       stages: [], // Ici seront stockées les informations des stages
+      choiceStates: {}, // Pour gérer l'état des choix
+      activeChoices: {} // Suivi des choix actifs pour chaque ligne
+
+
     };
   },
 
@@ -104,34 +126,157 @@ export default {
 
 
   methods: {
-    async fetchStages() {
-      try {
-        const stagesRef = ref(db, 'lieustage/23-PFP1A /');
-        const snapshot = await get(stagesRef);
-        if (snapshot.exists()) {
-          this.stages = Object.values(snapshot.val());
-          console.log("Okk");
-          console.log("VAL : " + Object.values(snapshot.val()));
-          console.log(this.stages);
-        } else {
-          console.error('Aucun stage trouvé dans lieustage/23-PFP1A');
+    async choice() {
+    try {
+      // Créer un objet pour stocker les choix de l'étudiant
+      const now = new Date();
+      const formattedTime = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+
+      const studentChoices = {
+        studentName: "test " + formattedTime,
+        choices: []
+      };
+
+      // Parcourir les stages et ajouter les ID des stages sélectionnés
+      this.stages.forEach((stage, index) => {
+        for (let i = 1; i <= 5; i++) {
+          if (stage[`choice${i}`]) {
+            studentChoices.choices.push(stage.id);
+          }
         }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des stages:', error);
+      });
+
+      // Référence de la base de données Firebase pour enregistrer les choix
+      const votationRef = ref(db, `votation/23/PFP2/${studentChoices.studentName}`);
+       
+      // Enregistrement des choix dans Firebase
+      await set(votationRef, studentChoices);
+
+      console.log("Choix enregistrés avec succès :", studentChoices);
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement des choix :", error);
+    }
+  },
+
+    handleCheckboxChange(stageIndex, choiceIndex) {
+    // Désactivez tous les choix pour cette ligne
+    for (let i = 1; i <= 5; i++) {
+      this.stages[stageIndex][`choice${i}`] = false;
+    }
+
+    // Activez la case à cocher sélectionnée
+    this.stages[stageIndex][`choice${choiceIndex}`] = true;
+
+    // Réinitialiser les choix pour les autres lignes dans la même colonne
+    this.stages.forEach((stage, idx) => {
+      if (idx !== stageIndex) {
+        stage[`choice${choiceIndex}`] = false;
       }
+    });
+  },
+
+
+    async fetchStages() {
+  try {
+    const stagesRef = ref(db, 'lieustage/23-PFP2/');
+    const snapshot = await get(stagesRef);
+    if (snapshot.exists()) {
+      const stagesData = snapshot.val();
+      // Filtrer les stages où 'selectedStudent' est vide
+      this.stages = Object.values(stagesData).filter(stage => !stage.selectedStudent);
+
+      console.log("Stages filtrés :", this.stages);
+    } else {
+      console.error('Aucun stage trouvé dans lieustage/23-PFP1A');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des stages:', error);
+  }
+},
+
+    getInstitutionName(idInstitution) {
+      return this.institutions[idInstitution]?.Name || 'Nom inconnu';
+    },
+
+    getInstitutionCanton(idInstitution) {
+      return this.institutions[idInstitution]?.Canton || 'Canton inconnu';
+    },
+
+    getInstitutionLieu(idInstitution) {
+      return this.institutions[idInstitution]?.Lieu || 'Lieu inconnu';
+    },
+
+    getInstitutionLangue(idInstitution) {
+      return this.institutions[idInstitution]?.Langue || 'Langue inconnue';
     },
   },
 
   mounted() {
     this.fetchStages();
+
+    const institutionsRef = ref(db, 'institutions/');
+
+    onValue(institutionsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.institutions = snapshot.val();
+        console.log
+      } else {
+        console.error('Pas d’institutions disponibles');
+        this.institutions = {};
+      }
+    });
+
   },
 
 
 
 };
 </script>
-  
+    
 <style scoped>
+/* Style pour les cases à cocher */
+input[type="checkbox"] {
+  /* Augmenter la taille de la case à cocher */
+  width: 20px;
+  height: 20px;
+
+  /* Ajouter une bordure pour une meilleure visibilité */
+  border: 2px solid #28a745;
+  /* Vert */
+
+  /* Ajouter un peu d'espace autour de la case à cocher */
+  margin: 5px;
+}
+
+/* Style pour les cases à cocher cochées */
+input[type="checkbox"]:checked {
+  /* Changer la couleur de fond en vert lorsque la case est cochée */
+  background-color: #28a745;
+  /* Vert */
+  border-color: #218838;
+  /* Vert plus foncé */
+
+  /* Pour conserver l'apparence de la coche (le "check") */
+  -webkit-appearance: none;
+  /* Pour Chrome et Safari */
+  appearance: none;
+  /* Standard */
+
+  /* Créer une coche personnalisée */
+  position: relative;
+}
+
+/* Style de la coche personnalisée */
+input[type="checkbox"]:checked:after {
+  content: '✔';
+  /* Caractère de la coche */
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  font-size: 18px;
+  color: white;
+}
+
 .table-responsive {
   overflow-x: auto;
 }
@@ -148,7 +293,8 @@ export default {
   padding: 0.5rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
-  font-size: 0.8rem; /* Réduire la taille de la police */
+  font-size: 0.8rem;
+  /* Réduire la taille de la police */
 }
 
 /* Assurez-vous que les cellules ne prennent pas plus de place que nécessaire */
@@ -160,13 +306,15 @@ export default {
 
 /* Pour les petits écrans, vous pouvez utiliser une requête média pour ajuster la taille de la police et la largeur des colonnes */
 @media (max-width: 768px) {
+
   .table th,
   .table td {
     padding: 0.3rem;
-    font-size: 0.7rem; /* Encore plus petit sur les appareils mobiles */
+    font-size: 0.7rem;
+    /* Encore plus petit sur les appareils mobiles */
   }
 }
 
 /* Vos styles CSS ici si nécessaire */
 </style>
-  
+    
