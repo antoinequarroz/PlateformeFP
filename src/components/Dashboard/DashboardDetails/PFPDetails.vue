@@ -35,9 +35,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID Stage</th>
               <th>Nom Institution</th>
-              <th>ID Institution</th>
               <th>Secteur</th>
               <th>Praticien Formateur</th>
               <th>AIGU </th>
@@ -52,27 +50,26 @@
           </thead>
           <tbody>
             <tr v-for="stage in filteredStages" :key="stage.name">
-              <td>{{ stage.id }}</td>
               <td>{{ getInstitutionName(stage.idInstitution) }} </td>
-              <td>{{ stage.idInstitution }}</td>
               <td>{{ stage.NpmPractitionerTrainer }}</td>
               <td>{{ stage.sector }}</td>
-              <td>{{ stage.AIGU }}</td>
-              <td>{{ stage.REA }}</td>
-              <td>{{ stage.REA }}</td>
-              <td>{{ stage.MSQ }}</td>
-              <td>{{ stage.SYSINT }}</td>
-              <td>{{ stage.NEUROGER }}</td>
-              <td>{{ stage.AMBU }}</td>
+              <td> <input type="checkbox" v-model="stage.AIGU"></td>
+              <td> <input type="checkbox" v-model="stage.REA"></td>
+              <td> <input type="checkbox" v-model="stage.MSQ"></td>
+              <td> <input type="checkbox" v-model="stage.SYSINT"></td>
+              <td> <input type="checkbox" v-model="stage.NEUROGER"></td>
+              <td> <input type="checkbox" v-model="stage.AMBU"></td>
+
+
               <td>
-                <input type="checkbox" v-model="stage.showStudents">
+                <input type="checkbox" v-model="stage.SAE">
               </td>
-              <td v-if="stage.showStudents">
+              <td v-if="stage.SAE">
                 <select v-model="stage.selectedStudent" @change="handleStudentSelection(stage)">
                   <option v-for="student in etudiants" :value="student.id">{{ student.name }}</option>
                 </select>
-
               </td>
+
 
 
             </tr>
@@ -116,53 +113,54 @@ export default {
     anneeAcademique: 'fetchAnneeCivilRef',
     selectedPFP: 'fetchAnneeCivilRef',
 
-  
+
   },
 
   methods: {
 
     initializePfpData() {
-    this.pfpData = {};
-    this.filteredStages.forEach(stage => {
-      this.pfpData[stage.id] = { ...stage };
-    });
-  },  
-    updatePfpData(stage) {
-    // Mettre à jour pfpData avec les nouvelles données du stage
-    Vue.set(this.pfpData, stage.id, { ...stage });
-  },
-    async createPFP() {
-    try {
-      // Construisez l'identifiant pour l'année-PFP (par exemple, "23-PFP1A")
-      const anneePFP = `${this.anneeAcademique}-${this.selectedPFP}`;
-      console.log(anneePFP);
-      // Construisez l'objet à enregistrer
-      const pfpData = {};
+      this.pfpData = {};
       this.filteredStages.forEach(stage => {
-        pfpData[stage.id] = { ...stage };  // Copiez chaque stage dans pfpData
+        this.pfpData[stage.id] = { ...stage };
       });
-
-      // Chemin de référence dans Firebase où vous voulez sauvegarder les données
-      const pfpRef = ref(db, `lieustage/${anneePFP}`);
-
-      // Enregistrez les données dans Firebase
-      await set(pfpRef, pfpData);
-      console.log('PFP créé avec succès:', anneePFP);
-    } catch (error) {
-      console.error('Erreur lors de la création du PFP:', error);
-    }
-  },
-    handleStudentSelection(stage) {
-
-      // Par exemple, enregistrez la sélection dans une base de données
     },
+   
+    async createPFP() {
+      try {
+        // Construisez l'identifiant pour l'année-PFP (par exemple, "23-PFP1A")
+        const anneePFP = `${this.anneeAcademique}-${this.selectedPFP}`;
+        console.log(anneePFP);
+        // Construisez l'objet à enregistrer
+        const pfpData = {};
+        this.filteredStages.forEach(stage => {
+          pfpData[stage.id] = { ...stage };  // Copiez chaque stage dans pfpData
+        });
+
+        // Chemin de référence dans Firebase où vous voulez sauvegarder les données
+        const pfpRef = ref(db, `lieustage/${anneePFP}`);
+
+        // Enregistrez les données dans Firebase
+        await set(pfpRef, pfpData);
+        console.log('PFP créé avec succès:', anneePFP);
+      } catch (error) {
+        console.error('Erreur lors de la création du PFP:', error);
+      }
+    },
+
+
+
 
     async fetchEtudiants() {
       try {
-        const etudiantsRef = ref(db, '/chemin_vers_etudiants');
+        const etudiantsRef = ref(db, 'etudiants');
         const snapshot = await get(etudiantsRef);
         if (snapshot.exists()) {
-          this.etudiants = Object.values(snapshot.val());
+          const data = snapshot.val();
+          this.etudiants = Object.keys(data).map(key => ({
+            id: key,
+            name: `${data[key].Prenom} ${data[key].Nom}`,
+            ...data[key]
+          }));
         } else {
           console.error('Aucun étudiant trouvé');
         }
@@ -182,61 +180,7 @@ export default {
       return this.aiguValues[index];
     },
 
-    async getAiguValue(stage_id, index) {
-      const stagesRef = ref(db, 'stages');  // Assurez-vous que 'db' est correctement initialisé
-      const stagesSnapshot = await get(stagesRef);
-      console.log(index);
-      console.log("bla");
-      if (stagesSnapshot.exists()) {
-        const stagesData = stagesSnapshot.val();
-        const institutionIds = [];
-        console.log("ble");
-
-        for (const stageKey in stagesData) {
-          const stage = stagesData[stageKey];
-          console.log(stage.placedestages);
-          const stage2 = stage.placedestages;
-          console.log("blu");
-
-          for (const stageKey2 in stage2) {
-            const stage3 = stage2[stageKey2];
-            console.log(stage);
-            console.log("blo");
-
-            for (const stageKey3 in stage3) {
-              const stage4 = stage3[stageKey3];
-              console.log(stage4);
-              console.log("bloi");
-              console.log(stage4.id + " - bla - " + stage_id);
-
-              if (stage4.id === stage_id) {
-                console.log("ok12ka");
-                institutionIds.push(stage4);
-                console.log("bli");
-
-                console.log("ok12ka");
-                console.log(stage4.Sector);
-                console.log(institutionIds[index]);
-                this.aiguValues[index] = "fds - 12";  // Mettre à jour la propriété réactive
-              }
-            }
-          }
-
-
-
-
-
-        }
-
-        console.error('No matching stage found for given stage_id');
-        return null;  // Retourner null si aucun stage correspondant n'est trouvé
-      } else {
-        console.error('No data available');
-        return null;  // Retourner null si aucune donnée n'est disponible
-      }
-    },
-    // ... autres méthodes ...
-
+  
 
     async fetchAndFilterStagess() {
       const stagesRef = ref(db, 'stages');  // Assurez-vous que 'db' est correctement initialisé
@@ -408,15 +352,28 @@ export default {
     },
 
     getInstitutionName(idInstitution) {
-      console.log(this.institutions[idInstitution]?.Name);
-      return this.institutions[idInstitution]?.Name || 'Nom inconnu';
+      console.log(this.institutions[1]);
+      console.log(idInstitution);
+      return this.institutions[idInstitution]?.Name || 'Nom insconnu';
     },
   },
   // Dans la section script
-  mounted() {
+  async mounted() {
     // ... Votre logique existante ...
     this.fetchEtudiants();
     this.initializePfpData();
+
+    const institutionsRef = ref(db, 'institutions/');
+
+    onValue(institutionsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        this.institutions = snapshot.val();
+        console.log
+      } else {
+        console.error('Pas d’institutions disponibles');
+        this.institutions = {};
+      }
+    });
 
   },
 
@@ -434,32 +391,7 @@ export default {
     }
   },
 
-  mounted: async function () {
-    console.log("okkkas");
-    await this.fetchAndFilterStages();
-    console.log("xy2z")
-
-    await this.updateAllStageData();
-    console.log("xyz")
-    console.log("vla+ " + this.filteredStages);
-    for (let index = 0; index < this.filteredStages.length; index++) {
-      const stage = this.filteredStages[index];
-      console.log(this.filteredStages[index]);
-      console.log("okk112" + stage.id);
-      await this.getAiguValue(stage.id, index);  // Appeler getAiguValue pour chaque stage
-    }
-
-    const institutionsRef = ref(db, 'institutions/');
-
-    onValue(institutionsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        this.institutions = snapshot.val();
-      } else {
-        console.error('Pas d’institutions disponibles');
-        this.institutions = {};
-      }
-    });
-  }
+  
 
 };
 </script>
