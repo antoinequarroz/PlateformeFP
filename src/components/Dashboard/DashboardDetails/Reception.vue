@@ -7,10 +7,9 @@
         <div class="mb-3">
           <h1>Reception Votatation</h1>
 
-          <label for="classInput" class="form-label">Classe : </label> <br>
-          <label for="classInput" class="form-label">PFP : </label> <br>
-          <label for="classInput" class="form-label">Année académique</label> <br>
-          <label for="classInput" class="form-label">Votre Email</label>
+          <label for="classInput" class="form-label">Classe : 22</label> <br>
+          <label for="classInput" class="form-label">PFP : PFP2 </label> <br>
+          <label for="classInput" class="form-label">Année académique : 23</label> <br>
 
         
 
@@ -21,11 +20,11 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Etudiant</th>
-             
-     
-              <th>Choix </th>
-              <th>Lesé</th>
+              <th>ETUDIANT </th>
+              <th>Institution</th>
+              <th>Secteur</th>
+              <th>Praticien Formateur</th>
+              <th>Cas particulier</th>
            
 
             </tr>

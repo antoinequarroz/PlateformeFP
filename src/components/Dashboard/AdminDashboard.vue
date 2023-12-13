@@ -28,6 +28,7 @@
 
             <!-- Menu item 6 -->
             <li class="nav-item"> <a class="nav-link" :href="votationPath"><i class="fa fa-align-center fa-fw me-2"></i>Votation </a></li>
+            <li class="nav-item"> <a class="nav-link" :href="votationPreviewPath"><i class="fa fa-align-center fa-fw me-2"></i>Votation Preview </a></li>
             <li class="nav-item"> <a class="nav-link" :href="validationPath"><i class="fas fa-check fa-fw me-2"></i>Validation</a></li>
             <li class="nav-item"> <a class="nav-link" :href="receptionPath"><i class="fas fa-thumbs-up fa-fw me-2"></i>Reception</a></li>
 
@@ -135,6 +136,7 @@ export default {
       praticienFormateurListPath: '/praticien_formateur_list',
       enseignentListPath: '/enseignent_list',
       votationPath: '/votation',
+      votationPreviewPath: '/votation_preview',
       validationPath: '/validation',
       receptionPath: '/reception',
       statistiquesPath: '/statistiques',
