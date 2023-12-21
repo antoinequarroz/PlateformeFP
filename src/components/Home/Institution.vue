@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-xl-9">
-          <h1>Institution</h1>
+          <h1>Institutions</h1>
           <br>
           <div class="row mb-4 align-items-center">
             <div class="col-xl-6">
@@ -17,7 +17,7 @@
             <div class="col-xl-3 mt-3 mt-xl-0">
               <form class="border rounded p-2 input-borderless">
                 <select class="form-select form-select-sm js-choice border-0" aria-label=".form-select-sm">
-                  <option value="">Derniers ajouté</option>
+                  <option value="">Derniers ajoutés</option>
                   <option>Premier ajouté</option>
                 </select>
               </form>
@@ -161,32 +161,33 @@ export default {
       canton: {
         title: "Cantons",
         cantons: {
-          VD: false,
-          VS: false,
-          GE: false,
-          FR: false,
-          NE: false,
-          JU: false,
-          BE: false,
-          SO: false,
-          BS: false,
-          BL: false,
           AG: false,
-          ZH: false,
+          AI: false,
+          AR: false,
+          BE: false,
+          BL: false,
+          BS: false,
+          FL: false,
+          FR: false,
+          GE: false,
+          GL: false,
+          GR: false,
+          JU: false,
+          LU: false,
+          NE: false,
+          NW: false,
+          OW: false,
+          SG: false,
           SH: false,
+          SO: false,
+          SZ: false,
           TG: false,
           TI: false,
-          GR: false,
-          LU: false,
-          OW: false,
-          NW: false,
           UR: false,
-          SZ: false,
+          VD: false,
+          VS: false,
+          ZH: false,
           ZG: false,
-          GL: false,
-          SG: false,
-          AR: false,
-          AI: false,
           Étranger: false,
         }
       }

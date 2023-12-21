@@ -32,8 +32,8 @@
             </figure>
             <div class="p-3 card card-body shadow rounded-3 d-inline-block position-relative mt-n2">
               <!-- Info -->
-              <h6 class="mb-2">Choix d'une place <span class="ms-1"><i class="fas fa-check-circle text-success"></i></span></h6>
-              <p class="mb-0 small">Choisissez votre prochain lieu  de stage maintenant</p>
+              <h6 class="mb-2">Choix d'une place de formation pratique <span class="ms-1"><i class="fas fa-check-circle text-success"></i></span></h6>
+              <p class="mb-0 small">Choisissez votre prochain lieu  de formation pratique</p>
               <!-- Icon -->
               <div class="icon-lg bg-primary rounded-circle position-absolute top-100 start-100 translate-middle">
                 <i class="bi bi-bandaid text-white"></i>
@@ -44,7 +44,7 @@
 
         <div class="col-lg-6 mt-5 mt-lg-0">
         <!-- Title -->
-        <h2 class="mb-3">Bienvenu sur la plateforme de choix de stage</h2>
+        <h2 class="mb-3">Bienvenue sur la plateforme de choix de stage</h2>
         <p class="mb-3 mb-lg-4">Two before narrow not relied on how except moment myself Dejection assurance Mrs led certainly So gate at no only none open Betrayed.</p>
         <!-- Content -->
         <div class="row g-4">

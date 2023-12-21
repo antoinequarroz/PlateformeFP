@@ -232,7 +232,7 @@ Counter START -->
                 <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10"	data-purecounter-delay="200">175</h5>
                 <span class="mb-0 h5"></span>
               </div>
-              <p class="mb-0">Place de stage</p>
+              <p class="mb-0">Places de stage</p>
             </div>
           </div>
         </div>

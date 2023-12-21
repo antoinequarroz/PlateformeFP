@@ -44,7 +44,7 @@
           </figure>
 
           <!-- Title -->
-          <h2 class="h1">Comment utiliser la plateforme</h2>
+          <h2 class="h2">Comment utiliser la plateforme de formation pratique</h2>
         </div>
 
         <div class="col-lg-5 position-relative mt-4 mt-lg-0">
