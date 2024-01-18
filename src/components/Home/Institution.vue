@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-xl-9">
-          <h1>Place de formation pratique (PFP)</h1>
+          <h1>Institutions</h1>
           <br>
           <div class="row mb-4 align-items-center">
             <div class="col-xl-6">
@@ -17,7 +17,7 @@
             <div class="col-xl-3 mt-3 mt-xl-0">
               <form class="border rounded p-2 input-borderless">
                 <select class="form-select form-select-sm js-choice border-0" aria-label=".form-select-sm">
-                  <option value="">Derniers ajouté</option>
+                  <option value="">Derniers ajoutés</option>
                   <option>Premier ajouté</option>
                 </select>
               </form>
@@ -32,7 +32,7 @@
           <div class="row g-4">
             <div class="col-sm-6 col-xl-4" v-for="institution in paginatedInstitutions" :key="institution.id">
               <div class="card shadow h-100" @click.stop="goToDetails(institution.id)">
-                <img :src="institution.imageUrl || 'https://eduport.webestica.com/assets/images/courses/4by3/10.jpg'" class="card-img-top" :alt="institution.Name">
+                <img :src="institution.imageUrl || 'https://eduport.webestica.com/assets/images/courses/4by3/10.jpg'" class="card-img-top img-card" :alt="institution.Name">
                 <div class="card-body pb-0">
                   <div class="d-flex justify-content-between mb-2">
                     <a href="#" class="badge bg-purple bg-opacity-10 text-purple">{{ institution.Canton }}</a>
@@ -80,17 +80,6 @@
             </div>
             <div class="offcanvas-body p-3 p-lg-0">
               <form>
-                <div class="card card-body shadow p-4 mb-4">
-                  <h4 class="mb-3">{{ category.title }}</h4>
-                  <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center" v-for="(value, key) in category.categories" :key="key">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" v-model="category.categories[key]" :id="key">
-                        <label class="form-check-label" :for="key">{{ key }}</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="card card-body shadow p-4 mb-4">
                   <h4 class="mb-3">{{ canton.title }}</h4>
                   <div class="row">
@@ -172,32 +161,33 @@ export default {
       canton: {
         title: "Cantons",
         cantons: {
-          VD: false,
-          VS: false,
-          GE: false,
-          FR: false,
-          NE: false,
-          JU: false,
-          BE: false,
-          SO: false,
-          BS: false,
-          BL: false,
           AG: false,
-          ZH: false,
+          AI: false,
+          AR: false,
+          BE: false,
+          BL: false,
+          BS: false,
+          FL: false,
+          FR: false,
+          GE: false,
+          GL: false,
+          GR: false,
+          JU: false,
+          LU: false,
+          NE: false,
+          NW: false,
+          OW: false,
+          SG: false,
           SH: false,
+          SO: false,
+          SZ: false,
           TG: false,
           TI: false,
-          GR: false,
-          LU: false,
-          OW: false,
-          NW: false,
           UR: false,
-          SZ: false,
+          VD: false,
+          VS: false,
+          ZH: false,
           ZG: false,
-          GL: false,
-          SG: false,
-          AR: false,
-          AI: false,
           Étranger: false,
         }
       }
@@ -315,5 +305,12 @@ export default {
 <style scoped>
 .card {
   cursor: pointer;
+}
+
+.img-card{
+  width: 100%;
+  height: 220px;
+  border-radius: 0.5rem;
+  object-fit: cover;
 }
 </style>

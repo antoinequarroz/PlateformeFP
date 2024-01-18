@@ -1,8 +1,8 @@
 <template>
   <section class="position-relative overflow-hidden pt-5 pt-lg-3">
     <div class="container">
-      <h1>Map</h1>
-      <h3>Liste des différentes PFP de la filière physiothérapie</h3>
+      <h1>Carte interactive</h1>
+      <p>Liste des différentes places de formation pratique de la filière physiothérapie de la HES-SO Valais-Wallis</p>
       <div class="row">
         <div class="col-lg-8 col-xl-9">
           <div class="row mb-4 align-items-center">
@@ -97,43 +97,43 @@ export default {
         title: "Catégories",
         categories: {
           AIGU: false,
-          REA: false,
-          MSQ: false,
-          SYSINT: false,
-          NEURO_GER: false,
           AMBU: false,
+          MSQ: false,
+          NEURO_GER: false,
+          REA: false,
+          SYSINT: false,
         }
       },
       canton: {
         title: "Cantons",
         cantons: {
-          VD: false,
-          VS: false,
-          GE: false,
-          FR: false,
-          NE: false,
-          JU: false,
-          BE: false,
-          SO: false,
-          BS: false,
-          BL: false,
           AG: false,
-          ZH: false,
+          AI: false,
+          AR: false,
+          BE: false,
+          BL: false,
+          BS: false,
+          FL: false,
+          FR: false,
+          GE: false,
+          GL: false,
+          GR: false,
+          JU: false,
+          LU: false,
+          NE: false,
+          NW: false,
+          OW: false,
+          SG: false,
           SH: false,
+          SO: false,
+          SZ: false,
           TG: false,
           TI: false,
-          GR: false,
-          LU: false,
-          OW: false,
-          NW: false,
           UR: false,
-          SZ: false,
+          VD: false,
+          VS: false,
+          ZH: false,
           ZG: false,
-          GL: false,
-          SG: false,
-          AR: false,
-          AI: false,
-          FL: false,
           Étranger: false,
         }
       }

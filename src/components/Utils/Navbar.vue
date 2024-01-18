@@ -17,9 +17,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-link active" :href="homePath">Accueil</a>
-                <a class="nav-link active" :href="mapPath">Map</a>
-                <a class="nav-link active" :href="institutionPath">Institution</a>
-                <a class="nav-link active" :href="placePath">Place de stage</a>
+                <a class="nav-link active" :href="mapPath">Carte interactive</a>
+                <a class="nav-link active" :href="institutionPath">Institutions</a>
+                <a class="nav-link active" :href="placePath">Places de stage</a>
                 <a class="nav-link active" :href="faqPath">FAQ's</a>
               </div>
             </div>
@@ -30,7 +30,7 @@
               </template>
               <template v-else>
                 <a class="nav-link active" :href="adminPath">Admin</a>
-                <a class="nav-link active" :href="profilePath">Profile</a>
+                <a class="nav-link active" :href="profilePath">Profil</a>
               </template>
             </div>
             <template v-if="user">
