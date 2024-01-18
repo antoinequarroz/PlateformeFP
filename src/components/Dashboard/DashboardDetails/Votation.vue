@@ -6,39 +6,7 @@
         <!-- Menu de sélection PFP -->
         <div class="mb-3">
           <h1>Votez pour votre place de PFP</h1>
-          <div>
-  <label for="classeSelect" class="form-label">Classe :</label>
-  <select id="classeSelect" v-model="selectedClasse">
-    <option value="B22">B22</option>
-    <option value="B23">B23</option>
-    <option value="B24">B24</option>
-  </select>
-</div>
-
-<div>
-  <label for="pfpSelect" class="form-label">PFP :</label>
-  <select id="pfpSelect" v-model="selectedPFP">
-    <option value="PFP1A">PFP1A</option>
-    <option value="PFP1B">PFP1B</option>
-    <option value="PFP2">PFP2</option>
-    <option value="PFP3">PFP3</option>
-    <option value="PFP4">PFP4</option>
-  </select>
-</div>
-
-<div>
-  <label for="anneeAcademiqueSelect" class="form-label">Année académique :</label>
-  <select id="anneeAcademiqueSelect" v-model="selectedAnneeAcademique">
-    <option value="23">23</option>
-    <option value="24">24</option>
-  </select>
-</div>
-
-
-
-
-
-
+        
         </div>
 
 
@@ -64,6 +32,14 @@
               <th>Choix 4 </th>
               <th>Choix 5 </th>
 
+              <th> </th>
+
+              <th>ET Choix 1 </th>
+              <th>ET Choix 2 </th>
+              <th>ET Choix 3 </th>
+              <th>ET Choix 4 </th>
+              <th>ET Choix 5 </th>
+              <th>ET Choix : Total</th>
             </tr>
           </thead>
           <tbody>
@@ -90,6 +66,14 @@
                     @change="() => handleCheckboxChange(index, n)" />
                 </div>
               </td>
+              <td> </td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>55</td>
+
             </tr>
           </tbody>
 
@@ -127,72 +111,72 @@ export default {
 
   methods: {
     async choice() {
-    try {
-      // Créer un objet pour stocker les choix de l'étudiant
-      const now = new Date();
-      const formattedTime = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+      try {
+        // Créer un objet pour stocker les choix de l'étudiant
+        const now = new Date();
+        const formattedTime = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
-      const studentChoices = {
-        studentName: "test " + formattedTime,
-        choices: []
-      };
+        const studentChoices = {
+          studentName: "test " + formattedTime,
+          choices: []
+        };
 
-      // Parcourir les stages et ajouter les ID des stages sélectionnés
-      this.stages.forEach((stage, index) => {
-        for (let i = 1; i <= 5; i++) {
-          if (stage[`choice${i}`]) {
-            studentChoices.choices.push(stage.id);
+        // Parcourir les stages et ajouter les ID des stages sélectionnés
+        this.stages.forEach((stage, index) => {
+          for (let i = 1; i <= 5; i++) {
+            if (stage[`choice${i}`]) {
+              studentChoices.choices.push(stage.id);
+            }
           }
-        }
-      });
+        });
 
-      // Référence de la base de données Firebase pour enregistrer les choix
-      const votationRef = ref(db, `votation/23/PFP2/${studentChoices.studentName}`);
-       
-      // Enregistrement des choix dans Firebase
-      await set(votationRef, studentChoices);
+        // Référence de la base de données Firebase pour enregistrer les choix
+        const votationRef = ref(db, `votation/23/PFP2/${studentChoices.studentName}`);
 
-      console.log("Choix enregistrés avec succès :", studentChoices);
-    } catch (error) {
-      console.error("Erreur lors de l'enregistrement des choix :", error);
-    }
-  },
+        // Enregistrement des choix dans Firebase
+        await set(votationRef, studentChoices);
+
+        console.log("Choix enregistrés avec succès :", studentChoices);
+      } catch (error) {
+        console.error("Erreur lors de l'enregistrement des choix :", error);
+      }
+    },
 
     handleCheckboxChange(stageIndex, choiceIndex) {
-    // Désactivez tous les choix pour cette ligne
-    for (let i = 1; i <= 5; i++) {
-      this.stages[stageIndex][`choice${i}`] = false;
-    }
-
-    // Activez la case à cocher sélectionnée
-    this.stages[stageIndex][`choice${choiceIndex}`] = true;
-
-    // Réinitialiser les choix pour les autres lignes dans la même colonne
-    this.stages.forEach((stage, idx) => {
-      if (idx !== stageIndex) {
-        stage[`choice${choiceIndex}`] = false;
+      // Désactivez tous les choix pour cette ligne
+      for (let i = 1; i <= 5; i++) {
+        this.stages[stageIndex][`choice${i}`] = false;
       }
-    });
-  },
+
+      // Activez la case à cocher sélectionnée
+      this.stages[stageIndex][`choice${choiceIndex}`] = true;
+
+      // Réinitialiser les choix pour les autres lignes dans la même colonne
+      this.stages.forEach((stage, idx) => {
+        if (idx !== stageIndex) {
+          stage[`choice${choiceIndex}`] = false;
+        }
+      });
+    },
 
 
     async fetchStages() {
-  try {
-    const stagesRef = ref(db, 'lieustage/23-PFP2/');
-    const snapshot = await get(stagesRef);
-    if (snapshot.exists()) {
-      const stagesData = snapshot.val();
-      // Filtrer les stages où 'selectedStudent' est vide
-      this.stages = Object.values(stagesData).filter(stage => !stage.selectedStudent);
+      try {
+        const stagesRef = ref(db, 'lieustage/23-PFP2/');
+        const snapshot = await get(stagesRef);
+        if (snapshot.exists()) {
+          const stagesData = snapshot.val();
+          // Filtrer les stages où 'selectedStudent' est vide
+          this.stages = Object.values(stagesData).filter(stage => !stage.selectedStudent);
 
-      console.log("Stages filtrés :", this.stages);
-    } else {
-      console.error('Aucun stage trouvé dans lieustage/23-PFP1A');
-    }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des stages:', error);
-  }
-},
+          console.log("Stages filtrés :", this.stages);
+        } else {
+          console.error('Aucun stage trouvé dans lieustage/23-PFP1A');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des stages:', error);
+      }
+    },
 
     getInstitutionName(idInstitution) {
       return this.institutions[idInstitution]?.Name || 'Nom inconnu';
