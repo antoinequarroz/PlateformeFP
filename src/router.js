@@ -32,6 +32,7 @@ import SignIn from "./components/Utils/SignIn.vue";
 import SignUp from "./components/Utils/SignUp.vue";
 import TermsOfUse from "./components/Utils/TermsOfUse.vue";
 import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
+import InfoRouter from "./components/Utils/InfoRouter.vue";
 
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
@@ -63,7 +64,7 @@ const routes = [
     { path: '/praticien_formateur_form', component: PraticienFormateurForm, name: 'PraticienFormateurForm'  },
     { path: '/praticien_formateur_form_modif/:praticienFormateurId', component: PraticienFormateurForm, name: 'PraticienFormateurFormModif', props: true },
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
-
+    { path: '/info_router', component: InfoRouter, name: 'InfoRouter' },
     { path: '/faq', component: Faq, name: 'Faq' },
     { path: '/votation', component: Votation, name: 'Votation' },
     { path: '/votation_preview', component: VotationPreview, name: 'VotationPreview' },

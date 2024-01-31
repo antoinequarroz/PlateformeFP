@@ -10,14 +10,14 @@
             <div class="row d-flex justify-content-between mt-2 mt-md-0">
               <div class="col-auto">
                 <div class="avatar avatar-xxl position-relative mt-n3">
-                  <img class="avatar-img rounded-circle border border-white border-3 shadow" src="../../assets/images/avatar/01.jpg" alt="">
+                  <img class="avatar-img rounded-circle border border-white border-3 shadow" :src="user.photoURL" alt="">
                   <span class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Admin</span>
                 </div>
               </div>
               <div class="col d-flex justify-content-between align-items-center">
                 <div>
-                  <h1 class="my-1 fs-4">User Test</h1>
-                  <span class="badge text-bg-primary rounded-pill">BA21</span>
+                  <h1 class="my-1 fs-4">{{ user.email }}</h1>
+                  <span class="badge text-bg-primary rounded-pill">{{ user.classe }}</span>
                 </div>
               </div>
             </div>
@@ -63,13 +63,12 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import HomeUserProfile from '../UserProfile/HomeUserProfile.vue';
 import ResumStageUserProfile from '../UserProfile/ResumStageUserProfile.vue';
 import DocumentsUserProfile from '../UserProfile/DocumentsUserProfile.vue';
 import EditUserProfile from '../UserProfile/EditUserProfile.vue';
 import DeleteUserProfile from '../UserProfile/DeleteUserProfile.vue';
-
-
 
 export default {
   name: 'Profile',
@@ -82,8 +81,24 @@ export default {
   },
   data() {
     return {
-      activeTab: 'homeUserProfile'
+      activeTab: 'homeUserProfile',
+      user: null,
+      profileTitle: 'Profile',
+      photoURL: 'https://firebasestorage.googleapis.com/v0/b/tp-2-antoine-quarroz.appspot.com/o/avatar%2Favatar99.png?alt=media&token=8b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b'
+
     };
+  },
+  created() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // L'utilisateur est connecté
+        this.user = user;
+      } else {
+        // L'utilisateur est déconnecté
+        this.user = null;
+      }
+    });
   },
   methods: {
     setActiveTab(tabName) {
