@@ -109,7 +109,7 @@
                   <ul class="list-inline mb-0">
                     <li class="list-inline-item mb-2" v-for="(value, key) in level" :key="key">
                       <input type="checkbox" class="btn-check" :id="'btn-check-' + key">
-                      <label class="btn btn-light btn-primary-soft-check" :for="'btn-check-' + key">{{ key }}</label>
+                      <label class="btn btn-light btn-primary-soft-check btn-language" :for="'btn-check-' + key">{{ key }}</label>
                     </li>
                   </ul>
                 </div>
@@ -118,7 +118,7 @@
                   <ul class="list-inline mb-0 g-3">
                     <li class="list-inline-item mb-2" v-for="(value, key) in language" :key="key">
                       <input type="checkbox" class="btn-check" :id="'btn-check-' + key">
-                      <label class="btn btn-light btn-primary-soft-check" :for="'btn-check-' + key">{{ key }}</label>
+                      <label class="btn btn-light btn-primary-soft-check btn-language" :for="'btn-check-' + key">{{ key }}</label>
                     </li>
                   </ul>
                 </div>
@@ -159,6 +159,7 @@ export default {
         Français: false,
         Allemand: false,
         Anglais: false,
+        Italien: false,
       },
       level: {
         PFP1A: false,
@@ -319,5 +320,10 @@ export default {
   height: 220px;
   border-radius: 0.5rem;
   object-fit: cover;
+}
+
+.btn-language {
+  height: 40.05px;
+  width: 101.05px;
 }
 </style>
