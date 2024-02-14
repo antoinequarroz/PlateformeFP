@@ -51,7 +51,6 @@
         </div>
         <div class="col-xl-9">
           <HomeUserProfile v-if="activeTab === 'homeUserProfile'" />
-          <StageUserProfile v-if="activeTab === 'stageUserProfile'" />
           <ResumStageUserProfile v-if="activeTab === 'resumStageUserProfile'" />
           <DocumentsUserProfile v-if="activeTab === 'documentsUserProfile'" />
           <EditUserProfile v-if="activeTab === 'editUserProfile'" />
@@ -63,7 +62,7 @@
 </template>
 
 <script>
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthStore } from '../../stores/authStore';
 import HomeUserProfile from '../UserProfile/HomeUserProfile.vue';
 import ResumStageUserProfile from '../UserProfile/ResumStageUserProfile.vue';
 import DocumentsUserProfile from '../UserProfile/DocumentsUserProfile.vue';
@@ -79,26 +78,14 @@ export default {
     EditUserProfile,
     DeleteUserProfile
   },
-  data() {
+  setup() {
+    const authStore = useAuthStore();
+    authStore.listenToAuthChanges();
     return {
+      user: authStore.user,
       activeTab: 'homeUserProfile',
-      user: null,
       profileTitle: 'Profile',
-      photoURL: 'https://firebasestorage.googleapis.com/v0/b/tp-2-antoine-quarroz.appspot.com/o/avatar%2Favatar99.png?alt=media&token=8b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b'
-
     };
-  },
-  created() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // L'utilisateur est connecté
-        this.user = user;
-      } else {
-        // L'utilisateur est déconnecté
-        this.user = null;
-      }
-    });
   },
   methods: {
     setActiveTab(tabName) {
