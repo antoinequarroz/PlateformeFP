@@ -17,6 +17,7 @@
               <div class="col d-flex justify-content-between align-items-center">
                 <div>
                   <h1 class="my-1 fs-4">{{ user.email }}</h1>
+                  <p>ID de l'utilisateur: {{ user.uid }}</p>
                   <span class="badge text-bg-primary rounded-pill">{{ user.classe }}</span>
                 </div>
               </div>
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import { useAuthStore } from '../../stores/authStore';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import HomeUserProfile from '../UserProfile/HomeUserProfile.vue';
 import ResumStageUserProfile from '../UserProfile/ResumStageUserProfile.vue';
 import DocumentsUserProfile from '../UserProfile/DocumentsUserProfile.vue';
@@ -78,14 +79,22 @@ export default {
     EditUserProfile,
     DeleteUserProfile
   },
-  setup() {
-    const authStore = useAuthStore();
-    authStore.listenToAuthChanges();
+  data() {
     return {
-      user: authStore.user,
+      user: null,
       activeTab: 'homeUserProfile',
-      profileTitle: 'Profile',
+      profileTitle: "Your Profile",
     };
+  },
+  created() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
   },
   methods: {
     setActiveTab(tabName) {

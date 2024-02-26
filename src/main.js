@@ -1,19 +1,27 @@
 // main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import { createPinia } from 'pinia' // Importez createPinia
+import { createApp, reactive, provide, inject } from 'vue';
+import App from './App.vue';
+import router from './router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import "plyr/dist/plyr.css";
-import './assets/js/functions.js'
+import './assets/js/functions.js';
 import L from 'leaflet';
 
 const app = createApp(App);
-
-const pinia = createPinia(); // Créez une instance de Pinia
-
-// Utilisez Pinia et le router avec votre application Vue
-app.use(pinia);
 app.use(router);
 
-// Montez l'application Vue
+// Créer un état réactif pour l'utilisateur
+const userState = reactive({
+    user: null
+});
+
+// Écouter les changements d'état d'authentification
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+    userState.user = user;
+});
+
+// Créer un plugin simple pour fournir l'état de l'utilisateur à toute l'application
+app.provide('userState', userState);
+
 app.mount('#app');

@@ -49,8 +49,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../../stores/authStore';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const email = ref('');
@@ -58,25 +57,15 @@ const password = ref('');
 const router = useRouter();
 const auth = getAuth();
 
-const authStore = useAuthStore();
-
 const submitForm = async () => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-    const user = {
-      email: userCredential.user.email,
-      uid: userCredential.user.uid,
-      // Ajoutez ici d'autres données de profil que vous souhaitez stocker
-    };
-    authStore.login(user); // Mettez à jour l'état dans Pinia
-    router.push('/'); // Redirigez l'utilisateur vers la page d'accueil ou le tableau de bord
+    await signInWithEmailAndPassword(auth, email.value, password.value);
+    router.push('/');
   } catch (error) {
     console.error("Erreur de connexion: ", error.message);
-    // Gérez les erreurs de connexion ici, par exemple en affichant un message d'erreur
   }
 };
 </script>
 
 <style scoped>
-/* Vos styles ici */
 </style>
