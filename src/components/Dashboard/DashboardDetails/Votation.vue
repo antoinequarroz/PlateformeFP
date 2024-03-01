@@ -228,6 +228,7 @@ export default {
     retourAccueil() {
       this.$router.push('/'); // Redirige l'utilisateur vers la route de l'accueil
     },
+
     stageHasUnmetCriteria(stage) {
       // Ensure that stage and stage.Secteur are defined before accessing properties
       if (!stage || !stage.Secteur) {
@@ -240,6 +241,11 @@ export default {
       // Assuming `unmetCriteria` is an array of strings corresponding to keys in stage.Secteur
       return unmetCriteria.some(critere => stage.Secteur[critere] === true);
     },
+
+
+
+
+
 
     fetchStagesData() {
       const db = getDatabase();
@@ -261,16 +267,28 @@ export default {
 
     getCriteresObligatoires() {
       const criteres = [];
+      let hasZeroValue = false; // Flag to check if any criteria have value "0"
+
       if (this.studentData) {
-        // Parcourir chaque propriété de studentData
+        // Iterate over each property of studentData
         Object.entries(this.studentData).forEach(([key, value]) => {
-          if (value === "0") { // Si la valeur est zéro, c'est un critère obligatoire
-            criteres.push(key); // Ajouter la clé à la liste des critères
+          if (value === "0") { // If the value is "0", it's an obligatory criteria
+            criteres.push(key); // Add the key to the list of criteria
+            hasZeroValue = true; // Set flag to true
           }
         });
+
+        // If no criteria equal "0", add all criteria as obligatory
+        if (!hasZeroValue) {
+          Object.keys(this.studentData).forEach(key => {
+            criteres.push(key); // Add all criteria keys to the list
+          });
+        }
       }
-      return criteres; // Retourner la liste des clés des critères à zéro
+      return criteres; // Return the list of obligatory criteria
     },
+
+
     fetchStudentData(userId) {
       const db = getDatabase();
       const studentRef = ref(db, `/students/ba21/${userId}`);
