@@ -35,8 +35,8 @@ import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 import InfoExterne from "./components/Utils/InfoExterne.vue";
 
 const routes = [
+    /*
     { path: '/', component: HomePage, name: 'HomePage' },
-    { path: '/sign_in', component: SignIn , name: 'sign_in' },
     { path: '/sign_up', component: SignUp , name: 'sign_up'},
     { path: '/terms_of_use', component: TermsOfUse, name: 'TermsOfUse' },
     { path: '/edit_user_profile', component: EditUserProfile },
@@ -45,7 +45,6 @@ const routes = [
     { path: '/place', component: Place, name: Place },
     { path: '/profile', component: Profile, name: 'Profile' },
     { path: '/admin', component: AdminDashboard, name: 'AdminDashboard' },
-    { path: '/:pathMatch(.*)*', component: Error404, name: 'Error404' },
     { path: '/institution_list', component: InstitutionList, name: 'InstitutionList' },
     { path: '/etudiant_list', component: EtudiantList },
     { path: '/institution_form/:id', component: InstitutionForm, name: 'InstitutionForm', props: true },
@@ -66,10 +65,13 @@ const routes = [
     { path: '/praticien_formateur_list', component: PraticienFormateurList, name: 'PraticienFormateurList' },
     { path: '/info_externe', component: InfoExterne, name: 'InfoExterne' },
     { path: '/faq', component: Faq, name: 'Faq' },
-    { path: '/votation', component: Votation, name: 'Votation' },
     { path: '/votation_preview', component: VotationPreview, name: 'VotationPreview' },
     { path: '/validation', component: Validation, name: 'Validation' },
     { path: '/reception', component: Reception, name: 'Reception' },
+    */
+    { path: '/sign_in', component: SignIn , name: 'sign_in' },
+    { path: '/votation', component: Votation, name: 'Votation' },
+    { path: '/:pathMatch(.*)*', component: Error404, name: 'Error404' },
 
     // ... autres routes si nécessaires
 ]

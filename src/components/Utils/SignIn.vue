@@ -34,9 +34,11 @@
                   </div>
                 </form>
                 <div class="mt-4 text-center">
+                  <!--
                   <span>
                     Vous n'avez pas de compte <a href="/sign_up">enregistrez-vous ici</a>
                   </span>
+                  -->
                 </div>
               </div>
             </div>
