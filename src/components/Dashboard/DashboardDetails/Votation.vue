@@ -3,28 +3,46 @@
     <div class="text-center mb-4">
       <h1 class="mb-3">Votez pour votre place de PFP</h1>
       <p v-if="user" class="fst-italic">ID Utilisateur: {{ user.uid }}</p>
-      <p v-if="studentData" class="fst-italic">Nom de l'étudiant: {{ studentData.nom }}</p>
+      <p v-if="studentData" class="fst-italic">Nom de l'étudiant: {{ studentData.Nom + " " +studentData.Prenom}}</p>
     </div>
 
     <div v-if="studentData" class="mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Informations de l'étudiant</h5>
-          <p>Nom: {{ studentData.Nom }}</p>
-          <p>Prénom: {{ studentData.Prenom }}</p>
-          <p>AIGU: {{ studentData.AIGU }}</p>
-          <p>CABINET: {{ studentData.CABINET }}</p>
-          <p>MSQ: {{ studentData.MSQ }}</p>
-          <p>NEURO-GER: {{ studentData.NEUROGER }}</p>
-          <p>Rehab: {{ studentData.REHAB }}</p>
-          <p>Sysint: {{ studentData.SYSINT }}</p>
-          <p>FR: {{ studentData.FR }}</p>
-          <p>All: {{ studentData.ALL }}</p>
-          <div v-if="getCriteresObligatoires().length > 0">
-            <p>Critères obligatoires non atteints :</p>
-            <ul>
-              <li v-for="critere in getCriteresObligatoires()" :key="critere">{{ critere }}</li>
-            </ul>
+      <div>
+        <div>
+          <div>
+            <h3 class="mb-0">Informations de l'étudiant</h3>
+          </div>
+          <div class="">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3">
+                  <p class="mb-2 fw-bold">Nom: <span class="text-secondary">{{ studentData.Nom }}</span></p>
+                  <p class="mb-2 fw-bold">Prénom: <span class="text-secondary">{{ studentData.Prenom }}</span></p>
+                  <p class="mb-2 fw-bold">AIGU: <span class="text-secondary">{{ studentData.AIGU }}</span></p>
+                  <p class="mb-2 fw-bold">CABINET: <span class="text-secondary">{{ studentData.CABINET }}</span></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <p class="mb-2 fw-bold">MSQ: <span class="text-secondary">{{ studentData.MSQ }}</span></p>
+                  <p class="mb-2 fw-bold">NEURO-GER: <span class="text-secondary">{{ studentData.NEUROGER }}</span></p>
+                  <p class="mb-2 fw-bold">Rehab: <span class="text-secondary">{{ studentData.REHAB }}</span></p>
+                  <p class="mb-2 fw-bold">Sysint: <span class="text-secondary">{{ studentData.SYSINT }}</span></p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3">
+                  <p class="mb-2 fw-bold">FR: <span class="text-secondary">{{ studentData.FR }}</span></p>
+                  <p class="mb-2 fw-bold">All: <span class="text-secondary">{{ studentData.ALL }}</span></p>
+                  <div v-if="getCriteresObligatoires().length > 0" class="mt-3">
+                    <p class="fw-bold">Critères obligatoires non atteints :</p>
+                    <ul class="list-group">
+                      <li v-for="critere in getCriteresObligatoires()" :key="critere" class="list-group-item list-group-item-danger col-2 text-center">{{ critere }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
