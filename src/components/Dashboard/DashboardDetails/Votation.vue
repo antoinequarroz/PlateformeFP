@@ -2,7 +2,7 @@
   <div class="container py-5">
     <div class="text-center mb-4">
       <h1 class="mb-3">Votez pour votre place de PFP</h1>
-      <p v-if="user" class="fst-italic">ID Utilisateur: {{ user.uid }}</p>
+      <!-- <p v-if="user" class="fst-italic">ID Utilisateur: {{ user.uid }}</p> -->
       <p v-if="studentData" class="fst-italic">Nom de l'étudiant: {{ studentData.Nom + " " +studentData.Prenom}}</p>
     </div>
 
@@ -14,7 +14,7 @@
           </div>
           <div class="">
             <div class="row g-3">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="p-3">
                   <p class="mb-2 fw-bold">Nom: <span class="text-secondary">{{ studentData.Nom }}</span></p>
                   <p class="mb-2 fw-bold">Prénom: <span class="text-secondary">{{ studentData.Prenom }}</span></p>
@@ -22,7 +22,7 @@
                   <p class="mb-2 fw-bold">CABINET: <span class="text-secondary">{{ studentData.CABINET }}</span></p>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="p-3">
                   <p class="mb-2 fw-bold">MSQ: <span class="text-secondary">{{ studentData.MSQ }}</span></p>
                   <p class="mb-2 fw-bold">NEURO-GER: <span class="text-secondary">{{ studentData.NEUROGER }}</span></p>
@@ -30,16 +30,16 @@
                   <p class="mb-2 fw-bold">Sysint: <span class="text-secondary">{{ studentData.SYSINT }}</span></p>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-4">
                 <div class="p-3">
                   <p class="mb-2 fw-bold">FR: <span class="text-secondary">{{ studentData.FR }}</span></p>
                   <p class="mb-2 fw-bold">All: <span class="text-secondary">{{ studentData.ALL }}</span></p>
-                  <div v-if="getCriteresObligatoires().length > 0" class="mt-3">
+                 <!-- <div v-if="getCriteresObligatoires().length > 0" class="mt-3">
                     <p class="fw-bold">Critères obligatoires non atteints :</p>
                     <ul class="list-group">
                       <li v-for="critere in getCriteresObligatoires()" :key="critere" class="list-group-item list-group-item-danger col-2 text-center">{{ critere }}</li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -64,16 +64,11 @@
           <th>SYSINT</th>
           <th>NEUROGER</th>
           <th>AMBU</th>
-          <th>Choix 1</th>
-          <th>Choix 2</th>
-          <th>Choix 3</th>
-          <th>Choix 4</th>
-          <th>Choix 5</th>
-          <th>ET Choix : Total</th>
+          <th>Choix</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(stage, index) in stages" :key="index" :class="{ 'table-danger': stageHasUnmetCriteria(stage), 'table-secondary': !stageHasUnmetCriteria(stage) }">
+        <tr v-for="(stage, index) in stages" :key="index" :class="{ 'table-secondary': stageHasUnmetCriteria(stage), 'table-danger': !stageHasUnmetCriteria(stage) }">
           <td>{{ stage.NomInstitution }}</td>
           <td>{{ stage.Canton }}</td>
           <td>{{ stage.Lieu }}</td>
@@ -94,10 +89,10 @@
           <td v-else>&#10060;</td>
           <td v-if="stage.Secteur.AMBU">&#9989;</td>
           <td v-else>&#10060;</td>
-          <td v-for="n in 5" :key="`choix-${n}`">
-            <input type="checkbox" :checked="choixUtilisateur[`${index}-${n}`]" @change="gererChoix(index, n)">
+          <td v-for="n in 1" :key="`choix-${n}`">
+            <input type="checkbox" :disabled="!stageHasUnmetCriteria(stage)" :checked="choixUtilisateur[`${index}-${n}`]" @change="gererChoix(index, n)">
           </td>
-          <td>{{ totalChoixParStage[stage.id] || '0' }}</td>
+         <!-- <td>{{ totalChoixParStage[stage.id] || '0' }}</td> -->
         </tr>
         </tbody>
       </table>
@@ -114,6 +109,7 @@
 <script>
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, set } from "firebase/database";
+
 
 export default {
   name: 'Votation',
@@ -139,14 +135,47 @@ export default {
         this.user = user;
         this.fetchStudentData(user.uid); // Cherche les données de l'étudiant
         this.fetchStagesData(); // Ajoutez cet appel pour charger les données des stages
+        this.fetchUserChoices();
+
       } else {
         this.user = null;
       }
     });
+
   },
 
 
   methods: {
+    fetchUserChoices() {
+      if (!this.user) {
+        return;
+      }
+
+      const db = getDatabase();
+      const userId = this.user.uid;
+      const userChoicesRef = ref(db, `/choicePFP4/${userId}/choix`);
+
+      get(userChoicesRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userChoices = snapshot.val();
+          const choicesLog = [];
+
+          // Construct the log string for each choice
+          Object.entries(userChoices).forEach(([choiceNumber, choiceValue]) => {
+            choicesLog.push(`Choice ${choiceNumber}: ${choiceValue}`);
+          });
+
+          // Log the constructed choices string
+          console.log(`The choices are: ${choicesLog.join(', ')};`);
+
+        } else {
+          console.log("There are no choices.");
+        }
+      }).catch((error) => {
+        console.error("Error fetching user choices:", error);
+      });
+    },
+
     choice() {
       const db = getDatabase();
       const userId = this.user.uid;
@@ -186,16 +215,15 @@ export default {
     },
 
 
-
     calculerTotalChoix() {
       const db = getDatabase();
-      const choixRef = ref(db, '/choicePFP4'); // Chemin vers les choix des étudiants
+      const choixRef = ref(db, '/choicePFP4'); // Path to the students' choices
       get(choixRef).then((snapshot) => {
         if (snapshot.exists()) {
           const choixTousEtudiants = snapshot.val();
-          let totalChoixParStage = {}; // Pour compter les choix pour chaque stage
+          let totalChoixParStage = {}; // To count the choices for each stage
 
-          // Parcourir les choix de chaque étudiant
+          // Iterate through each student's choices
           Object.values(choixTousEtudiants).forEach(choixEtudiant => {
             Object.values(choixEtudiant.choix).forEach(idStage => {
               if (totalChoixParStage[idStage]) {
@@ -205,19 +233,27 @@ export default {
               }
             });
           });
-          console.log(totalChoixParStage);
-          // Mettre à jour les totaux dans les données du composant
+          // Update the totals in the component's data
           this.totalChoixParStage = totalChoixParStage;
+
+          // Logging the totals for each stage
+          Object.keys(totalChoixParStage).forEach(idStage => {
+            console.log(`Total ${idStage}: ${totalChoixParStage[idStage]}`);
+          });
+
         } else {
-          console.log("Aucun choix trouvé.");
+          console.log("No choices found.");
         }
       }).catch((error) => {
-        console.error("Erreur lors de la récupération des choix", error);
+        console.error("Error retrieving choices", error);
       });
     },
 
+
+
+
     retourAccueil() {
-      this.$router.push('sign_in'); // Redirige l'utilisateur vers la route de l'accueil
+      this.$router.push('/'); // Redirige l'utilisateur vers la route de l'accueil
     },
 
     stageHasUnmetCriteria(stage) {
@@ -232,6 +268,10 @@ export default {
       // Assuming `unmetCriteria` is an array of strings corresponding to keys in stage.Secteur
       return unmetCriteria.some(critere => stage.Secteur[critere] === true);
     },
+
+
+
+
 
 
     fetchStagesData() {
@@ -257,23 +297,33 @@ export default {
       let hasZeroValue = false; // Flag to check if any criteria have value "0"
 
       if (this.studentData) {
-        // Iterate over each property of studentData
+        // Vérifie d'abord si "FR" ou "ALL" est à zéro
+        if (this.studentData.FR === "0") {
+          criteres.push("FR");
+          return criteres; // Retourne immédiatement "FR" comme le seul critère obligatoire
+        } else if (this.studentData.ALL === "0") {
+          criteres.push("ALL");
+          return criteres; // Retourne immédiatement "ALL" comme le seul critère obligatoire
+        }
+
+        // Si ni "FR" ni "ALL" ne sont à zéro, continue avec la logique existante
         Object.entries(this.studentData).forEach(([key, value]) => {
-          if (value === "0") { // If the value is "0", it's an obligatory criteria
-            criteres.push(key); // Add the key to the list of criteria
-            hasZeroValue = true; // Set flag to true
+          if (value === "0") { // Si la valeur est "0", c'est un critère obligatoire
+            criteres.push(key); // Ajoute la clé à la liste des critères
+            hasZeroValue = true; // Met le flag à vrai
           }
         });
 
-        // If no criteria equal "0", add all criteria as obligatory
+        // Si aucun critère n'est égal à "0", ajoute tous les critères comme obligatoires
         if (!hasZeroValue) {
           Object.keys(this.studentData).forEach(key => {
-            criteres.push(key); // Add all criteria keys to the list
+            criteres.push(key); // Ajoute toutes les clés de critères à la liste
           });
         }
       }
-      return criteres; // Return the list of obligatory criteria
+      return criteres; // Retourne la liste des critères obligatoires
     },
+
 
 
     fetchStudentData(userId) {
@@ -321,6 +371,8 @@ export default {
 
       // Mettre à jour l'objet choixUtilisateur de manière réactive
       this.choixUtilisateur = { ...this.choixUtilisateur, ...nouvelEtat };
+      this.calculerTotalChoix();
+
     },
 
     // Autres méthodes ici
@@ -408,5 +460,3 @@ button:hover {
   }
 }
 </style>
-
-

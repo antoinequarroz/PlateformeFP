@@ -5,7 +5,7 @@ import router from './router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import "plyr/dist/plyr.css";
 import './assets/js/functions.js';
-import L from 'leaflet';
+
 
 const app = createApp(App);
 app.use(router);
