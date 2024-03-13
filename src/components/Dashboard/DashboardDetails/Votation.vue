@@ -34,7 +34,7 @@
                 <div class="p-3">
                   <p class="mb-2 fw-bold">FR: <span class="text-secondary">{{ studentData.FR }}</span></p>
                   <p class="mb-2 fw-bold">All: <span class="text-secondary">{{ studentData.ALL }}</span></p>
-                 <!-- <div v-if="getCriteresObligatoires().length > 0" class="mt-3">
+                 <!--<div v-if="getCriteresObligatoires().length > 0" class="mt-3">
                     <p class="fw-bold">Critères obligatoires non atteints :</p>
                     <ul class="list-group">
                       <li v-for="critere in getCriteresObligatoires()" :key="critere" class="list-group-item list-group-item-danger col-2 text-center">{{ critere }}</li>
@@ -64,7 +64,11 @@
           <th>SYSINT</th>
           <th>NEUROGER</th>
           <th>AMBU</th>
-          <th>Choix</th>
+          <th>Choix1</th>
+          <th>Choix2</th>
+          <th>Choix3</th>
+          <th>Choix4</th>
+          <th>Choix5</th>
         </tr>
         </thead>
         <tbody>
@@ -89,10 +93,11 @@
           <td v-else>&#10060;</td>
           <td v-if="stage.Secteur.AMBU">&#9989;</td>
           <td v-else>&#10060;</td>
-          <td v-for="n in 1" :key="`choix-${n}`">
+          <td v-for="n in 5" :key="`choix-${n}`">
             <input type="checkbox" :disabled="!stageHasUnmetCriteria(stage)" :checked="choixUtilisateur[`${index}-${n}`]" @change="gererChoix(index, n)">
           </td>
-         <!-- <td>{{ totalChoixParStage[stage.id] || '0' }}</td> -->
+
+         <td>{{ totalChoixParStage[stage.id] || '0' }}</td>
         </tr>
         </tbody>
       </table>
