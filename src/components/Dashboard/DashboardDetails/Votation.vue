@@ -69,6 +69,7 @@
           <th>Choix3</th>
           <th>Choix4</th>
           <th>Choix5</th>
+          <th>Nbre d'inscrits</th>
         </tr>
         </thead>
         <tbody>
@@ -97,7 +98,7 @@
             <input type="checkbox" :disabled="!stageHasUnmetCriteria(stage)" :checked="choixUtilisateur[`${index}-${n}`]" @change="gererChoix(index, n)">
           </td>
 
-         <td>{{ totalChoixParStage[stage.id] || '0' }}</td>
+         <td>{{ totalChoixParStage[stage.id] ||'0' }}</td>
         </tr>
         </tbody>
       </table>
