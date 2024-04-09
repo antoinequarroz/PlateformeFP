@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-   <!-- <Navbar/> -->
+    <Navbar/>
     <router-view/>
     <Footer/>
   </div>
@@ -14,7 +14,7 @@ import Footer from "./components/Utils/Footer.vue";
 export default {
   components: {
     Footer,
-    //Navbar,
+    Navbar,
     FooterSection
   }
 }

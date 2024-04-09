@@ -150,7 +150,6 @@ export default {
 
   },
 
-
   methods: {
     fetchUserChoices() {
       if (!this.user) {
@@ -173,6 +172,7 @@ export default {
 
           // Log the constructed choices string
           console.log(`The choices are: ${choicesLog.join(', ')};`);
+          console.log(choicesLog)
 
         } else {
           console.log("There are no choices.");
@@ -219,8 +219,6 @@ export default {
             console.error("Erreur lors de l'enregistrement des choix", error);
           });
     },
-
-
     calculerTotalChoix() {
       const db = getDatabase();
       const choixRef = ref(db, '/choicePFP4'); // Path to the students' choices
@@ -254,10 +252,6 @@ export default {
         console.error("Error retrieving choices", error);
       });
     },
-
-
-
-
     retourAccueil() {
       this.$router.push('/'); // Redirige l'utilisateur vers la route de l'accueil
     },
@@ -274,10 +268,6 @@ export default {
       // Assuming `unmetCriteria` is an array of strings corresponding to keys in stage.Secteur
       return unmetCriteria.some(critere => stage.Secteur[critere] === true);
     },
-
-
-
-
 
 
     fetchStagesData() {
@@ -380,8 +370,6 @@ export default {
       this.calculerTotalChoix();
 
     },
-
-    // Autres méthodes ici
   }
 }
 </script>

@@ -35,9 +35,9 @@ import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 import InfoExterne from "./components/Utils/InfoExterne.vue";
 
 const routes = [
-    /*
-    { path: '/sign_in', component: HomePage, name: 'HomePage' },
+    { path: '/', component: HomePage, name: 'HomePage' },
     { path: '/sign_up', component: SignUp , name: 'sign_up'},
+    { path: '/sign_in', component: SignIn , name: 'sign_in' },
     { path: '/terms_of_use', component: TermsOfUse, name: 'TermsOfUse' },
     { path: '/edit_user_profile', component: EditUserProfile },
     { path: '/map', component: Map, name: Map },
@@ -68,8 +68,6 @@ const routes = [
     { path: '/votation_preview', component: VotationPreview, name: 'VotationPreview' },
     { path: '/validation', component: Validation, name: 'Validation' },
     { path: '/reception', component: Reception, name: 'Reception' },
-    */
-    { path: '/', component: SignIn , name: 'sign_in' }, //penser à changer le nom de la route et à remettre sign_in
     { path: '/votation', component: Votation, name: 'Votation' },
     { path: '/:pathMatch(.*)*', component: Error404, name: 'Error404' },
 
