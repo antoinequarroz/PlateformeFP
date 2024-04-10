@@ -33,6 +33,10 @@ import SignUp from "./components/Utils/SignUp.vue";
 import TermsOfUse from "./components/Utils/TermsOfUse.vue";
 import EditUserProfile from "./components/UserProfile/EditUserProfile.vue";
 import InfoExterne from "./components/Utils/InfoExterne.vue";
+import VotationResult from "@/components/Dashboard/DashboardDetails/VotationResult.vue";
+import VotationLese from "@/components/Dashboard/DashboardDetails/VotationLese.vue";
+import ValidationLese from "@/components/Dashboard/DashboardDetails/ValidationLese.vue";
+import ValidationVotation from "@/components/Dashboard/DashboardDetails/ValidationVotation.vue";
 
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
@@ -70,6 +74,11 @@ const routes = [
     { path: '/reception', component: Reception, name: 'Reception' },
     { path: '/votation', component: Votation, name: 'Votation' },
     { path: '/:pathMatch(.*)*', component: Error404, name: 'Error404' },
+    { path: '/votation_result', component: VotationResult, name: 'VotationResult' },
+    { path: '/votation_lese', component: VotationLese, name: 'VotationLese' },
+    { path: '/validation_lese', component: ValidationLese, name: 'ValidationLese' },
+    { path: '/validation_votation', component: ValidationVotation, name: 'ValidationVotation' },
+
 
     // ... autres routes si nécessaires
 ]
