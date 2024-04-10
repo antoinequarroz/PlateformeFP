@@ -16,7 +16,7 @@ import EtudiantDetails from "./components/Dashboard/DashboardDetails/EtudiantDet
 import PlaceDetails from "./components/Dashboard/DashboardDetails/PlaceDetails.vue";
 import PFPDetails from "./components/Dashboard/DashboardDetails/PFPDetails.vue";
 import Votation from "./components/Dashboard/DashboardDetails/Votation.vue";
-import VotationPreview from "./components/Dashboard/DashboardDetails/Votation_preview.vue";
+import VotationPreview from "./components/Dashboard/DashboardDetails/VotationPreview.vue";
 import Validation from "./components/Dashboard/DashboardDetails/Validation.vue";
 import Reception from "./components/Dashboard/DashboardDetails/Reception.vue";
 import NewUserForm from "./components/Dashboard/DashboardForms/NewUserForm.vue";
