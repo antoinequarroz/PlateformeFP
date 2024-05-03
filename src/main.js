@@ -5,7 +5,6 @@ import router from './router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import "plyr/dist/plyr.css";
 import './assets/js/functions.js';
-import './components/Plugins/DarkMode.js';
 
 
 

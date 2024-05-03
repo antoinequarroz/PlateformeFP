@@ -2,9 +2,9 @@
   <div>
     <div class="search-elements">
       <div class="classes-checkboxes text-center">
-        <label><input type="checkbox" value="B23" v-model="classes"> BA23</label>
-        <label><input type="checkbox" value="B22" v-model="classes"> BA22</label>
-        <label><input type="checkbox" value="B21" v-model="classes"> BA21</label>
+        <label><input type="checkbox" value="ba23" v-model="classes"> BA23</label>
+        <label><input type="checkbox" value="ba22" v-model="classes"> BA22</label>
+        <label><input type="checkbox" value="ba21" v-model="classes"> BA21</label>
         <label><input type="checkbox" value="PRO" v-model="classes"> PRO</label>
       </div>
       <div class="search-bar text-center">
@@ -34,7 +34,7 @@
                       <th scope="col" class="border-0">Prénom</th>
                       <th scope="col" class="border-0">Classe</th>
                       <th scope="col" class="border-0">Responsable stage</th>
-                      
+
                       <th scope="col" class="border-0">E-Mail</th>
                       <th scope="col" class="border-0">SAE</th> <!-- Nouvelle Colonne -->
 
@@ -62,11 +62,12 @@
                         <input type="checkbox" :checked="etudiant.SAE" disabled />
                       </td>
                       <td>
-                        <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Détails</button>
+                        <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0"
+                          @click="goToEtudiantDetails(etudiant.id)">Détails</button>
                         <button class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Modifier</button>
                         <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0"
                           @click="deleteStudent(etudiant.id)">Supprimer</button>
-                        
+
                       </td>
                     </tr>
                   </tbody>
@@ -80,9 +81,11 @@
   </div>
 </template>
 
+
 <script>
 import { db } from '../../../../firebase.js';
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, child } from "firebase/database";
+import { useRouter } from 'vue-router';
 
 export default {
   name: "EtudiantList",
@@ -90,52 +93,22 @@ export default {
   data() {
     return {
       etudiants: [],
-      classes: [],
+      classes: ['ba21', 'ba22', 'ba23'], // Initialisation des classes disponibles
       search: '',
-      sae: false, // la valeur par défaut, changez cela en fonction de la valeur récupérée de la base de données.
-
     };
   },
-
-  computed: {
-    filteredEtudiants() {
-      return this.etudiants.filter(etudiant => {
-        const matchesClass = this.classes.length === 0 || this.classes.includes(etudiant.Classe);
-        const searchLower = this.search.toLowerCase();
-
-        // Vérification de l'existence de Nom et Prenom avant d'appeler toLowerCase
-        const matchesSearch =
-          (etudiant.Nom ? etudiant.Nom.toLowerCase().includes(searchLower) : false)
-          || (etudiant.Prenom ? etudiant.Prenom.toLowerCase().includes(searchLower) : false);
-
-        return matchesClass && matchesSearch;
-      });
-    }
-  },
-
-  async mounted() {
-    try {
-      const starCountRef = ref(db, 'etudiants/');
-      onValue(starCountRef, (snapshot) => {
-        const studentsData = snapshot.val();
-        if (studentsData) { // Vérification si les données existent
-          this.etudiants = Object.keys(studentsData).map(key => ({
-            id: key,
-            ...studentsData[key]
-          }));
-        }
-      });
-    } catch (error) {
-      console.error('Erreur de récupération des données', error);
-    }
-  },
-
   methods: {
-    async deleteStudent(studentId) {
+    // méthode pour naviguer vers la page des détails de l'étudiant
+    goToEtudiantDetails(etudiantId) {
+      this.$router.push({ name: 'EtudiantDetails', params: { id: etudiantId } });
+    },
+    
+    async deleteStudent(studentId, classe) {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')) {
         try {
-          const studentRef = ref(db, 'etudiants/' + studentId);
+          const studentRef = ref(db, `students/${classe}/${studentId}`);
           await set(studentRef, null);
+          this.etudiants = this.etudiants.filter(student => student.id !== studentId);
         } catch (error) {
           console.error('Erreur de suppression de l’étudiant', error);
         }
@@ -148,8 +121,44 @@ export default {
     goToAdminDashboard() {
       this.$router.push({ name: 'AdminDashboard' });
     },
-  }
+  },
+  computed: {
+    filteredEtudiants() {
+      return this.etudiants.filter(etudiant => {
+        const matchesClass = this.classes.length === 0 || this.classes.includes(etudiant.Classe);
+        const searchLower = this.search.toLowerCase();
+
+        const matchesSearch = (etudiant.Nom ? etudiant.Nom.toLowerCase().includes(searchLower) : false) || (etudiant.Prenom ? etudiant.Prenom.toLowerCase().includes(searchLower) : false);
+
+        return matchesClass && matchesSearch;
+      });
+    }
+  },
+
+  async mounted() {
+    try {
+      // Boucle sur chaque classe pour récupérer les étudiants
+      this.classes.forEach(classe => {
+        const starCountRef = ref(db, `students/${classe}`);
+        onValue(starCountRef, (snapshot) => {
+          const studentsData = snapshot.val();
+          if (studentsData) {
+            const transformedData = Object.keys(studentsData).map(key => ({
+              id: key,
+              Classe: classe,
+              ...studentsData[key]
+            }));
+            this.etudiants = [...this.etudiants, ...transformedData];
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Erreur de récupération des données', error);
+    }
+  },
 };
+
+
 </script>
 
 
@@ -177,5 +186,4 @@ export default {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
 </style>

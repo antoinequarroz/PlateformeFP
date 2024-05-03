@@ -57,7 +57,7 @@ const routes = [
     { path: '/institution/:id', component: InstitutionDetails, name: 'InstitutionDetail', props: true },
     { path: '/place_details', component: PlaceDetails, name: 'place-details'},
     { path: '/pfp_details', component: PFPDetails, name: 'pfp-details'},
-    { path: '/etudiant/:etuSlug', component: EtudiantDetails, name: 'etudiant-details', props: true },
+    { path: '/etudiant/:id', component: EtudiantDetails, name: 'EtudiantDetails', props: true },
     { path: '/new_user_form', component: NewUserForm, name: 'NewUserForm'  },
     { path: '/new_user_form_modif/:userId', component: NewUserFormModif, name: 'NewUserFormModif', props: true },
     { path: '/user_list', component: UserList, name: 'UserList' },
