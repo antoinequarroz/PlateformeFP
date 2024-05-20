@@ -28,11 +28,10 @@
           <tr>
             <th scope="col" class="border-0 rounded-start">Nom</th>
             <th scope="col" class="border-0">Prénom</th>
-            <th scope="col" class="border-0">Classe</th>
-            <th scope="col" class="border-0">Responsable stage</th>
-            <th scope="col" class="border-0">E-Mail</th>
+            <th scope="col" class="border-0">Répondant HES</th>
             <th scope="col" class="border-0">SAE</th>
             <th scope="col" class="border-0">Lesé</th>
+            <th scope="col" class="border-0">Cas particulier</th>
             <th scope="col" class="border-0">Remarque</th>
             <th scope="col" class="border-0 rounded-end">Action</th>
           </tr>
@@ -41,14 +40,15 @@
           <tr v-for="etudiant in filteredEtudiants" :key="etudiant.id">
             <td>{{ etudiant.Nom }}</td>
             <td>{{ etudiant.Prenom }}</td>
-            <td>{{ etudiant.Classe }}</td>
             <td>{{ etudiant.responsableDeStage }}</td>
-            <td>{{ etudiant.Email }}</td>
             <td>
               <input type="checkbox" v-model="etudiant.PFPinfo[selectedPFP].SAE" @change="updateStudent(etudiant)">
             </td>
             <td>
               <input type="checkbox" v-model="etudiant.PFPinfo[selectedPFP].Lese" @change="updateStudent(etudiant)">
+            </td>
+            <td>
+              <input type="checkbox" v-model="etudiant.PFPinfo[selectedPFP].CasParticulier" @change="updateStudent(etudiant)">
             </td>
             <td>
               <input type="text" v-model="etudiant.PFPinfo[selectedPFP].Remarque" @change="updateStudent(etudiant)">
@@ -73,6 +73,7 @@
       <h4>Total des étudiants: {{ filteredEtudiants.length }}</h4>
       <h4>Total SAE: {{ totalSAE }}</h4>
       <h4>Total Lesé: {{ totalLese }}</h4>
+      <h4>Total Cas Particulier: {{ totalCasParticulier }}</h4>
     </div>
   </div>
 </template>
@@ -106,6 +107,9 @@ export default {
     },
     totalLese() {
       return this.filteredEtudiants.filter(etudiant => etudiant.PFPinfo && etudiant.PFPinfo[this.selectedPFP] && etudiant.PFPinfo[this.selectedPFP].Lese).length;
+    },
+    totalCasParticulier() {
+      return this.filteredEtudiants.filter(etudiant => etudiant.PFPinfo && etudiant.PFPinfo[this.selectedPFP] && etudiant.PFPinfo[this.selectedPFP].CasParticulier).length;
     }
   },
   watch: {
@@ -174,6 +178,7 @@ export default {
             annee: new Date().getFullYear(),
             SAE: false,
             Lese: false,
+            CasParticulier: false,
             Remarque: ''
           };
           this.updateStudent(etudiant);

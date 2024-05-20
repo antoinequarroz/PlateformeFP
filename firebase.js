@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -12,12 +13,16 @@ const firebaseConfig = {
     appId: "1:695199918094:web:4504dc1940316e17f0f45f"
 };
 
-// Initialisez Firebase en utilisant initializeApp directement, sans faire référence à firebase.
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Obtenez une instance de la base de données en utilisant getDatabase.
+// Get a reference to the database service
 const db = getDatabase(app);
 
-console.log(db);
+// Get a reference to the auth service
+const auth = getAuth(app);
 
-export { db };
+console.log(db);
+console.log(auth);
+
+export { db, auth };
