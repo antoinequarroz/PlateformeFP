@@ -37,6 +37,7 @@ import VotationResult from "@/components/Dashboard/DashboardDetails/VotationResu
 import VotationLese from "@/components/Dashboard/DashboardDetails/VotationLese.vue";
 import ValidationLese from "@/components/Dashboard/DashboardDetails/ValidationLese.vue";
 import ValidationVotation from "@/components/Dashboard/DashboardDetails/ValidationVotation.vue";
+import ManagementVotation from "@/components/Votations/ManagementVotation.vue";
 
 const routes = [
     { path: '/', component: HomePage, name: 'HomePage' },
@@ -78,8 +79,9 @@ const routes = [
     { path: '/votation_lese', component: VotationLese, name: 'VotationLese' },
     { path: '/validation_lese', component: ValidationLese, name: 'ValidationLese' },
     { path: '/validation_votation', component: ValidationVotation, name: 'ValidationVotation' },
+    { path: '/management_votation', component: ManagementVotation, name: 'ManagementVotation' },
 
-
+    ManagementVotation
     // ... autres routes si nécessaires
 ]
 
